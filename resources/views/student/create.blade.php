@@ -17,12 +17,12 @@
 
         <!-- Main content -->
         <div class="col-md-12">
-            <h1>Pridanie žiaka PREROB FORM</h1>
+            <h1>Pridanie žiaka</h1>
 
             <form method="POST" action="{{ route('student.store') }}">
                 @csrf
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="first_name">Meno</label>
                         <input id="first_name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name') }}" required autofocus>
                         @if ($errors->has('first_name'))
@@ -31,7 +31,7 @@
                                 </span>
                         @endif
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="last_name">Priezvisko</label>
                         <input id="last_name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" required autofocus>
                         @if ($errors->has('last_name'))
@@ -40,10 +40,8 @@
                                 </span>
                         @endif
                     </div>
-                </div>
 
-                <div class="form-row">
-                    <div class="form-group mb-0 col-md-6">
+                    <div class="form-group mb-0 col-md-4">
                         <div class="form-group mb-0">
                             <label for="code">Kód</label>
                             <input type="text" name="code" id="code-input" class="form-control" disabled>
@@ -58,7 +56,8 @@
 
                 <div class="form-group">
                     <label for="groups[]">Skupiny ({{count($groups)}})</label>
-                    <select name="groups[]" id="group-select" class="form-control" multiple="mulptiple">
+                    PREROBIT NA SLIM SELECT
+                    <select name="groups[]" id="group-select" class="form-control" multiple="multiple">
                         @foreach($groups as $group)
                             <option value="{{ $group->id }}">{{ $group->name }}</option>
                         @endforeach

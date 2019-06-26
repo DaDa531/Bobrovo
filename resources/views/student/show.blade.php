@@ -33,7 +33,7 @@
                         <td>
                             <form method="POST" action="{{ route('student.removegroup', [$student->id, $group->id]) }}" class="d-inline float-right">
                                 @csrf
-                                <button class="btn btn-danger btn-trash px-4 py-0" type="submit">
+                                <button class="btn btn-danger btn-trash px-4 py-0" type="submit" title="Vymazať žiaka zo skupiny">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>

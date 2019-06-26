@@ -94,7 +94,7 @@ class StudentController extends Controller
         }
 
         return redirect()->route('student.create')->with([
-            'success' => 'Študent '.$student->first_name.' '.$student->last_name . ' bol vytvorený!'
+            'success' => 'Študent '.$student->first_name.' '.$student->last_name . ' bol pridaný!'
         ]);
     }
 
@@ -179,6 +179,9 @@ class StudentController extends Controller
      */
     public function import(Request $request)
     {
-        return view('student.import', []);
+        $groups = Group::getGroupsFromCurrentTeacher()->get();
+        return view('student.import', [
+            'groups' => $groups
+        ]);
     }
 }
