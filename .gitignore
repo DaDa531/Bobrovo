@@ -1,11 +1,14 @@
-/.idea
 /node_modules
 /public/hot
 /public/storage
 /storage/*.key
 /vendor
+/.idea
+.editorconfig
 .env
+.env.example
 .phpunit.result.cache
+.styleci.yml
 bobrovo.sql
 Homestead.json
 Homestead.yaml
