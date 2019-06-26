@@ -130,13 +130,13 @@ Jumbotron / Slider
     text-shadow: $header-text-shadow;
 }
 
-
-
 /**
 Header 
 **/
 .header-wrap { 
     background-color: $white;
+    padding: 1rem 0;
+    color: $secondary;
 }
 header h1 {
 	color: $secondary;
@@ -149,19 +149,17 @@ header h1 {
 header h1 span {
     color: $white;
 }
-.header-wrap { 
-    padding: 1rem 0; 
-}
 
 .header-social-icons, header h1 { 
-    margin-bottom: 0; 
+    margin-bottom: 0;
+    color: $secondary;
 }
 
 .header-social-icons { 
-    padding: 2rem 0; 
+    padding: 2rem 0;
 }
 .header-social-icons a {
-    color: lighten($primary, 80%);
+    color: $secondary;
     &:hover,
     &:focus,
     &:active {

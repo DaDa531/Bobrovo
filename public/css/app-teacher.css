@@ -10846,6 +10846,8 @@ Header
 
 .header-wrap {
   background-color: #fff;
+  padding: 1rem 0;
+  color: #f09d0f;
 }
 
 header h1 {
@@ -10861,13 +10863,10 @@ header h1 span {
   color: #fff;
 }
 
-.header-wrap {
-  padding: 1rem 0;
-}
-
 .header-social-icons,
 header h1 {
   margin-bottom: 0;
+  color: #f09d0f;
 }
 
 .header-social-icons {
@@ -10875,7 +10874,7 @@ header h1 {
 }
 
 .header-social-icons a {
-  color: white;
+  color: #f09d0f;
 }
 
 .header-social-icons a:hover,

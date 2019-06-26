@@ -1,6 +1,6 @@
 <!-- Footer -->
 <footer class="footer">
-    <div class="footer-lists">
+    <!--<div class="footer-lists">
         <div class="container">
             <div class="row">
                 <div class="col-sm">
@@ -38,9 +38,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
-    <div class="footer-bottom">
+    <div class="footer-bottom pt-3">
         <p class="text-center">© 2011-2019 ODI KDFMI UK, <a href="https://zypopwebtemplates.com/">Web Design by ZyPop</a></p>
     </div>
 </footer>
