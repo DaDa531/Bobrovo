@@ -55,25 +55,18 @@ class StudentController extends Controller
     {
         //generate code
         $code = '';
-        if ($request->input('generate-random-code') != null){
-            $faker = Faker::create();
-            while(true){
-                $code = $faker->bothify('**********');
 
-                $count = DB::table('students')->where([
-                    ['code', $code]
-                ])->count();
+        $faker = Faker::create();
+        while(true){
+            $code = $faker->bothify('**********');
 
-                if ($count == 0){
-                    break;
-                }
+            $count = DB::table('students')->where([
+                ['code', $code]
+            ])->count();
+
+            if ($count == 0){
+                break;
             }
-        }
-        else{
-            $this->validate($request, [
-                'code' => 'min:6|max:15|unique:students'
-            ]);
-            $code = $request->input('code');
         }
 
         $student = Student::create([
@@ -94,7 +87,7 @@ class StudentController extends Controller
         }
 
         return redirect()->route('student.create')->with([
-            'success' => 'Študent '.$student->first_name.' '.$student->last_name . ' bol pridaný!'
+            'success' => 'Žiak '.$student->first_name.' '.$student->last_name . ' bol pridaný!'
         ]);
     }
 
@@ -127,7 +120,7 @@ class StudentController extends Controller
         $student->delete();
 
         return redirect()->route('student')->with([
-                'success' => 'Študent '.$student->first_name.' '.$student->last_name . ' bol zrušený!'
+                'success' => 'Žiak '.$student->first_name.' '.$student->last_name . ' bol zrušený!'
             ]);
     }
 
@@ -181,6 +174,53 @@ class StudentController extends Controller
     {
         $groups = Group::getGroupsFromCurrentTeacher()->get();
         return view('student.import', [
+            'groups' => $groups
+        ]);
+    }
+
+    /**
+     * Store imported resources.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function multiStore(Request $request)
+    {
+        $this->validate($request, [
+            'studentFile' => 'required'
+        ]);
+
+        $group_id = $request->input('group');
+
+        $file = File::get($request->file('studentFile')->getRealPath());
+
+        $count = 0;
+        $tmp = 0;
+        foreach (explode("\n", $file) as $line) {
+            $data = explode(',', $line);
+
+            if (count($data) != 3) continue;
+
+            $student = Student::create([
+                'first_name' => $data[0],
+                'last_name' => $data[1],
+                'code' => $data[2],
+                'teacher_id' => auth::user()->id
+            ]);
+
+            if ($group_id != '') {
+                DB::table('student_group')->insert([
+                    'student_id' => $student->id,
+                    'group_id' => $group_id
+                ]);
+            }
+            $count++;
+        }
+
+        $groups = Group::getGroupsFromCurrentTeacher()->get();
+
+        return view('student.import', [
+            'success' => 'Úsprešne ste pridali ' . $count . ' žiakov!',
             'groups' => $groups
         ]);
     }
