@@ -17,7 +17,7 @@
 
         <!-- Main content -->
         <div class="col-md-12">
-            <h1>Pridanie žiaka</h1>
+            <h1>Pridať žiaka</h1>
 
             <form method="POST" action="{{ route('student.store') }}">
                 @csrf
@@ -47,7 +47,7 @@
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.22.0/slimselect.min.css" rel="stylesheet">-->
 
                 <div class="form-group">
-                    <label for="groups[]">Skupiny ({{count($groups)}})</label>
+                    <label for="groups[]">Skupiny</label>
                     PREROBIT NA SLIM SELECT
                     <select name="groups[]" id="group-select" class="form-control" multiple="multiple">
                         @foreach($groups as $group)

@@ -39,6 +39,18 @@ class Student extends Model
         return $this->belongsToMany(Group::class, 'student_group');
     }
 
+
+    /**
+     * Return studentswith given code
+     *
+     * @return Builder|Model
+     */
+    public static function getStudentsWithCode($code)
+    {
+        return static::query()->where('code', $code);
+    }
+
+
     /**
      * Return current teacher's students
      *
@@ -48,6 +60,7 @@ class Student extends Model
     {
         return static::query()->where('teacher_id', auth()->user()->id);
     }
+
 
     /**
      * Return if student can be deleted (no test assigned)

@@ -19,7 +19,7 @@
         <!-- Main content -->
         <div class="col-md-12">
             <h1>Zoznam žiakov</h1>
-
+            <p>TO DO: SORT PODLA PRIEZVISKA, VYHLADANIE KONKRETNEHO ZIAKA ?</p>
             @if (isset($students))
 
                 <table class="table">
@@ -46,7 +46,7 @@
                     @endforeach
 
                 </table>
-
+                {{ $students->links() }}
             @else
                 <div>
                     Nemáte pridaných žiadnych študentov

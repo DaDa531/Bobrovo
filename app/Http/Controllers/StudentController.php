@@ -6,6 +6,7 @@ use App\Student;
 use App\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Faker\Factory as Faker;
 
 class StudentController extends Controller
@@ -14,9 +15,9 @@ class StudentController extends Controller
      * StudentController constructor.
      */
     public function __construct()
-{
-    $this->middleware('auth');
-}
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
@@ -24,12 +25,12 @@ class StudentController extends Controller
      * @return Response
      */
     public function index()
-{
-    $students = Student::getStudentsFromCurrentTeacher()->get();
-    return view('student.index', [
-        'students' => $students
-    ]);
-}
+    {
+        $students = Student::getStudentsFromCurrentTeacher()->paginate(10);
+        return view('student.index', [
+            'students' => $students
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -41,53 +42,6 @@ class StudentController extends Controller
         $groups = Group::getGroupsFromCurrentTeacher()->get();
         return view('student.create', [
             'groups' => $groups
-        ]);
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //generate code
-        $code = '';
-
-        $faker = Faker::create();
-        while(true){
-            $code = $faker->bothify('**********');
-
-            $count = DB::table('students')->where([
-                ['code', $code]
-            ])->count();
-
-            if ($count == 0){
-                break;
-            }
-        }
-
-        $student = Student::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'code'=> $code,
-            'teacher_id' => auth()->user()->id
-        ]);
-
-        //toto sa neda inak?
-        if ($request->input('groups') != null) {
-            foreach ($request->input('groups') as $group) {
-                DB::table('student_group')->insert([
-                    'student_id' => $student->id,
-                    'group_id' => $group
-                ]);
-            }
-        }
-
-        return redirect()->route('student.create')->with([
-            'success' => 'Žiak '.$student->first_name.' '.$student->last_name . ' bol pridaný!'
         ]);
     }
 
@@ -106,6 +60,47 @@ class StudentController extends Controller
             'student' => $student,
             'groups' => $student_groups,
             'allgroups' => $available_groups
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        //generate code
+        $code = '';
+        $faker = Faker::create();
+        while(true){
+            $code = $faker->bothify('**********');
+            $count = Student::getStudentsWithCode($code)->get()->count();
+            if ($count == 0){
+                break;
+            }
+        }
+
+        //MA ZMYSEL ROBIT TO AKO TRANSAKCIU vytvorenie + zaradenie do skupin?
+        $student = Student::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'code'=> $code,
+            'teacher_id' => auth()->user()->id
+        ]);
+
+        if ($request->groups != null) {
+            foreach ($request->groups as $group) {
+                DB::table('student_group')->insert([
+                    'student_id' => $student->id,
+                    'group_id' => $group
+                ]);
+            }
+        }
+
+        return back()->with([
+            'success' => 'Žiak '.$student->first_name.' '.$student->last_name . ' bol pridaný!'
         ]);
     }
 
@@ -196,6 +191,10 @@ class StudentController extends Controller
 
         $count = 0;
         $tmp = 0;
+        //DOPLNIT, ABY TO NEPADALO NA DUPLICATE ENTRY
+        //KONTROLOVAT DLZKY JEDNOTLIVYCH POLOZIEK (MENO, PRIEZVISKO, KOD)
+        // TRANSAKCIA?
+
         foreach (explode("\n", $file) as $line) {
             $data = explode(',', $line);
 
@@ -205,7 +204,7 @@ class StudentController extends Controller
                 'first_name' => $data[0],
                 'last_name' => $data[1],
                 'code' => $data[2],
-                'teacher_id' => auth::user()->id
+                'teacher_id' => auth()->user()->id
             ]);
 
             if ($group_id != '') {
@@ -216,10 +215,9 @@ class StudentController extends Controller
             }
             $count++;
         }
-
         $groups = Group::getGroupsFromCurrentTeacher()->get();
 
-        return view('student.import', [
+        return redirect()->route('student.import')->with([
             'success' => 'Úsprešne ste pridali ' . $count . ' žiakov!',
             'groups' => $groups
         ]);

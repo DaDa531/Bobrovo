@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center mb-1">
+    <div class="row mb-1">
         <div class="col-sm-6 col-12">
             @includeWhen(session('errors'), 'layouts.errors')
             @includeWhen(session('success'), 'layouts.success', ['success' => session('success')])
@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <h1>TO DO Pridať žiakov zo súboru</h1>
             <div class="alert alert-warning">
-                Súbor typu <strong>.csv</strong>, v ktorom prvý stĺpec je meno žiaka, 2. stĺpec je priezvisko žiaka a 3. stĺpec je kód žiaka (min. 12 znakov).
+                Súbor typu <strong>.csv</strong>, v ktorom 1. stĺpec je meno žiaka, 2. stĺpec je priezvisko žiaka a 3. stĺpec je kód žiaka (min. 12 znakov).
             </div>
 
             <form method="POST" action="{{ route('student.multistore') }}" enctype="multipart/form-data">
@@ -50,7 +50,7 @@
                     @if ($errors->has('group'))
                         <span class="invalid-feedback">
                             <strong>{{ $errors->first('group') }}</strong>
-                            </span>
+                        </span>
                     @endif
                 </div>
 
