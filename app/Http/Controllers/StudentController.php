@@ -71,18 +71,9 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //generate code
-        $code = '';
-        $faker = Faker::create();
-        while(true){
-            $code = $faker->bothify('**********');
-            $count = Student::getStudentsWithCode($code)->get()->count();
-            if ($count == 0){
-                break;
-            }
-        }
-
         //MA ZMYSEL ROBIT TO AKO TRANSAKCIU vytvorenie + zaradenie do skupin?
+        $code = Student::generateCode();
+
         $student = Student::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,

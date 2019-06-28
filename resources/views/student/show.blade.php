@@ -8,8 +8,24 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <h1>Žiak {{ $student->first_name}} {{ $student->last_name}}</h1>
+        </div>
+        <div class="col-md-2">
+            <form method="POST" action="{{ route('student.edit', $student->id) }}" class="d-inline">
+                @csrf
+                <button class="btn btn-danger" type="submit" title="Upraviť žiaka">
+                    Upraviť žiaka
+                </button>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <form method="POST" action="{{ route('student.destroy', $student->id) }}" class="d-inline">
+                @csrf
+                <button class="btn btn-danger" type="submit" title="Zrušiť žiaka">
+                    Zrušiť žiaka
+                </button>
+            </form>
         </div>
     </div>
 

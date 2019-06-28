@@ -39,6 +39,7 @@ Route::get('/students/import', 'StudentController@import')->name('student.import
 Route::get('/students/{student}', 'StudentController@show')->name('student.show');
 Route::post('/students/store', 'StudentController@store')->name('student.store');
 Route::post('/students/multistore', 'StudentController@multiStore')->name('student.multistore');
+Route::post('/students/{student}/edit', 'StudentController@destroy')->name('student.edit');
 Route::post('/students/{student}/destroy', 'StudentController@destroy')->name('student.destroy');
 Route::post('/students/{student}/addgroup', 'StudentController@addToGroup')->name('student.addgroup');
 Route::post('/students/{student}/removegroup/{group}', 'StudentController@removeFromGroup')->name('student.removegroup');

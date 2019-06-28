@@ -4,6 +4,7 @@ namespace App;
 
 use App\Group;
 use App\User;
+use Faker\Factory as Faker;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelonsTo;
 use Illuminate\Database\Eloquent\Relations\BelonsToMany;
@@ -45,9 +46,9 @@ class Student extends Model
      *
      * @return Builder|Model
      */
-    public static function getStudentsWithCode($code)
+    public static function getStudentWithCode($code)
     {
-        return static::query()->where('code', $code);
+        return static::query()->where('code', $code)->first();
     }
 
 
@@ -75,5 +76,23 @@ class Student extends Model
             return False;
 
         return true;*/
+    }
+
+    /**
+     * Generates a unique code for a student
+     * @return string
+     */
+    public static function generateCode()
+    {
+        $code = '';
+        $faker = Faker::create();
+        while(true){
+            $code = $faker->bothify('**********');
+            $student = Student::getStudentWithCode($code);
+            if ($student == null){
+                break;
+            }
+        }
+        return $code;
     }
 }
