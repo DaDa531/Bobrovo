@@ -7,7 +7,7 @@
 @section('content')
 <div class="container">
 
-    <div class="row justify-content-center mb-1">
+    <div class="row mb-1">
         <div class="col-sm-6 col-12">
             @includeWhen(session('errors'), 'layouts.errors')
             @includeWhen(session('success'), 'layouts.success', ['success' => session('success')])

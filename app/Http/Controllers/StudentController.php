@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use App\Group;
+use App\Http\Requests\StoreStudent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -39,7 +40,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $groups = Group::getGroupsFromCurrentTeacher()->get();
+        $groups = auth()->user()->groups()->get();
         return view('student.create', [
             'groups' => $groups
         ]);
@@ -53,25 +54,23 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $student_groups = $student->groups()->get();
-        $available_groups = Group::getGroupsFromCurrentTeacher()->get()->diff($student_groups);
+        $groups = $student->groups()->get();
 
         return view('student.show', [
             'student' => $student,
-            'groups' => $student_groups,
-            'allgroups' => $available_groups
+            'groups' => $groups
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param StoreStudent $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreStudent $request)
     {
-        //MA ZMYSEL ROBIT TO AKO TRANSAKCIU vytvorenie + zaradenie do skupin?
+        //SPRAVIT AKO TRANSAKCIU vytvorenie + zaradenie do skupin?
         $code = Student::generateCode();
 
         $student = Student::create([
@@ -92,6 +91,46 @@ class StudentController extends Controller
 
         return back()->with([
             'success' => 'Žiak '.$student->first_name.' '.$student->last_name . ' bol pridaný!'
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Student $student
+     * @return Response
+     */
+    public function edit(Student $student)
+    {
+        $assigned_groups = $student->groups()->get();
+        $available_groups = auth()->user()->groups()->get()->diff($assigned_groups);
+
+        return view('student.edit', [
+            'student' => $student,
+            'assigned_groups' => $assigned_groups,
+            'available_groups' => $available_groups
+        ]);
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param StoreStudent $request
+     * @param Student $student
+     * @return Response
+     */
+    public function update(StoreStudent $request, Student $student)
+    {
+        //MA ZMYSEL ROBIT TO AKO TRANSAKCIU vytvorenie + zaradenie do skupin?
+
+        $student->update($request->only('first_name', 'last_name'));
+
+        $assigned_groups = $student->groups()->get();
+
+        return redirect()->route('student.show', $student->id)->with([
+            'groups' => $assigned_groups,
+            'success' => 'Údaje o žiakovi boli úspešne zmenené!'
         ]);
     }
 
@@ -119,14 +158,18 @@ class StudentController extends Controller
      */
     public function addToGroup(Request $request, Student $student)
     {
-        //toto sa neda inak?
-        if ($request->input('addgroup') != null){
-            DB::table('student_group')->insert([
-                'student_id' => $student->id,
-                'group_id' => $request->input('addgroup')
-            ]);
+        if ($request->group_id != null) {
+            $student->groups()->attach($request->group_id);
         }
-        return redirect()->route('student.show', $student->id);
+
+        $assigned_groups = $student->groups()->get();
+        $available_groups = auth()->user()->groups()->get()->diff($assigned_groups);
+
+        return view('student.edit', [
+            'student' => $student,
+            'assigned_groups' => $assigned_groups,
+            'available_groups' => $available_groups
+        ]);
     }
 
 
@@ -134,19 +177,22 @@ class StudentController extends Controller
      * Remove student from a group.
      *
      * @param Request $request
-     * @param StudentId
+     * @param Student $student
      * @param GroupId
      * @return Response
      */
-    public function removeFromGroup(Request $request, $studentId, $groupId)
+    public function removeFromGroup(Request $request, Student $student, $groupId)
     {
-        //toto sa neda inak?
-        DB::table('student_group')->where([
-            ['student_id', $studentId],
-            ['group_id', $groupId],
-        ])->delete();
+        $student->groups()->detach($groupId);
 
-        return redirect()->route('student.show', $studentId);
+        $assigned_groups = $student->groups()->get();
+        $available_groups = auth()->user()->groups()->get()->diff($assigned_groups);
+
+        return view('student.edit', [
+            'student' => $student,
+            'assigned_groups' => $assigned_groups,
+            'available_groups' => $available_groups
+        ]);
     }
 
 
@@ -158,7 +204,7 @@ class StudentController extends Controller
      */
     public function import(Request $request)
     {
-        $groups = Group::getGroupsFromCurrentTeacher()->get();
+        $groups = auth()->user()->groups()->get();
         return view('student.import', [
             'groups' => $groups
         ]);
@@ -199,14 +245,11 @@ class StudentController extends Controller
             ]);
 
             if ($group_id != '') {
-                DB::table('student_group')->insert([
-                    'student_id' => $student->id,
-                    'group_id' => $group_id
-                ]);
+                $student->groups()->attach($group_id);
             }
             $count++;
         }
-        $groups = Group::getGroupsFromCurrentTeacher()->get();
+        $groups = auth()->user()->groups()->get();
 
         return redirect()->route('student.import')->with([
             'success' => 'Úsprešne ste pridali ' . $count . ' žiakov!',
