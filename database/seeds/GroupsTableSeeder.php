@@ -1,6 +1,7 @@
 <?php
 
 use App\Group;
+use App\User;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
@@ -13,13 +14,13 @@ class GroupsTableSeeder extends Seeder
      */
     public function run()
     {
-        //opravit created_by - zistit vsetky id-cka ucitelov a z nich vyberat nahodne
+        $teacherIDs = User::getIDs();
         $faker = Faker::create();
         for($i = 0; $i < 10; $i++){
             $group = new Group([
                 'name' => $faker->word,
                 'description' => $faker->paragraph,
-                'created_by' => $faker->numberBetween(1,5)
+                'created_by' => $teacherIDs->random()
             ]);
 
             $group->save();
