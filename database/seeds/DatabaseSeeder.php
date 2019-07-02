@@ -17,7 +17,11 @@ class DatabaseSeeder extends Seeder
             CategoriesTableSeeder::class,
             GroupsTableSeeder::class,
             StudentsTableSeeder::class,
-			TasksTableSeeder::class
+			TasksTableSeeder::class,
+            TaskTopicSeeder::class,
+            TaskCategorySeeder::class,
+            RatingsTableSeeder::class,
+            CommentsTableSeeder::class,
         ]);
     }
 }

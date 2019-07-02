@@ -20,11 +20,11 @@ class Student extends Model
     protected $fillable = ['first_name', 'last_name', 'code', 'teacher_id'];
 
     /**
-     * Return student's user (author)
+     * Return student's teacher (author)
      *
      * @return BelongsTo
      */
-    public function user()
+    public function teacher()
     {
         return $this->belongsTo(User::class, 'teacher_id');
     }

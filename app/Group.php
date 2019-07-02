@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\User;
+use App\Student;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelonsTo;
 use Illuminate\Database\Eloquent\Relations\BelonsToMany;
@@ -23,7 +25,7 @@ class Group extends Model
      */
     public function user()
     {
-        return $this->belongsTo(App\User, 'created_by');
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     /**
@@ -33,7 +35,7 @@ class Group extends Model
      */
     public function students()
     {
-        return $this->belongsToMany('App\Student', 'student_group');
+        return $this->belongsToMany(Student::class, 'student_group');
     }
 
     public function studentsCount()

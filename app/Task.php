@@ -3,6 +3,8 @@
 namespace App;
 
 use App\Topic;
+use App\Category;
+use App\Rating;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -21,13 +23,23 @@ class Task extends Model
     }
 
     /**
-     * Return tasks's ratings
+     * Return tasks's categories
+     *
+     * @return BelongsToMany
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'task_category');
+    }
+
+    /**
+     * Return task's ratings
      *
      * @return HasMany
      */
     public function ratings()
     {
-        return $this->hasMany('App\Rating');
+        return $this->hasMany(Rating::class);
     }
 
     /**
@@ -50,14 +62,25 @@ class Task extends Model
         return $this->hasMany('App\Comment');
     }
 
+
     public static function getTasks()
     {
         return static::query()->get();
     }
 
+
     public static function getTasksFromCurrentTeacher()
     {
         return static::query()->where('created_by', auth()->user()->id);
+    }
+
+    /**
+     * Return all topics' IDs
+     *
+     * @return Collection
+     */
+    public static function getIDs(){
+        return static::query()->pluck('id');
     }
 }
 

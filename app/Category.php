@@ -6,5 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'class'];
 
+    /**
+     * Return all categories' IDs
+     *
+     * @return Collection
+     */
+    public static function getIDs(){
+        return static::query()->pluck('id');
+    }
 }
