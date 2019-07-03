@@ -49,7 +49,7 @@ class Task extends Model
      */
     public function averageRating()
     {
-        return $this->ratings()->get()->avg('rating');
+        return round($this->ratings()->get()->avg('rating'), 1);
     }
 
     /**
@@ -72,15 +72,6 @@ class Task extends Model
     public static function getTasksFromCurrentTeacher()
     {
         return static::query()->where('created_by', auth()->user()->id);
-    }
-
-    /**
-     * Return all topics' IDs
-     *
-     * @return Collection
-     */
-    public static function getIDs(){
-        return static::query()->pluck('id');
     }
 }
 

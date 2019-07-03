@@ -12,13 +12,4 @@ class Topic extends Model
      * @var array
      */
     protected $fillable = ['name', 'parent_id'];
-
-    /**
-     * Return all topics' IDs
-     *
-     * @return Collection
-     */
-    public static function getIDs(){
-        return static::query()->pluck('id');
-    }
 }

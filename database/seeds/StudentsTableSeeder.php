@@ -1,9 +1,9 @@
 <?php
 
 use App\Student;
-use App\User;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class StudentsTableSeeder extends Seeder
 {
@@ -14,22 +14,15 @@ class StudentsTableSeeder extends Seeder
      */
     public function run()
     {
-        /*$student = new Student([
-            'first_name' => 'Janko',
-            'last_name' => 'Hraško',
-            'code' => 'abcdefghij',
-            'teacher_id' => 1
-        ]);
-        $student->save();*/
-
-        $teacherIDs = User::getIDs();
+        $usersCount = DB::table('users')->count();
         $faker = Faker::Create();
-        for ($i = 0; $i < 20; $i++) {
+
+        for ($i = 0; $i < 50; $i++) {
             $student = new Student([
                 'first_name' => $faker->firstName,
                 'last_name' => $faker->lastName,
                 'code' => $faker->bothify('**********'),
-                'teacher_id' => $teacherIDs->random()
+                'teacher_id' => $faker->numberBetween(1, $usersCount)
             ]);
 
             $student->save();

@@ -1,10 +1,9 @@
 <?php
 
-use App\User;
-use App\Task;
 use App\Comment;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CommentsTableSeeder extends Seeder
 {
@@ -15,14 +14,14 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
-        $userIDs = User::getIDs();
-        $tasksIDs = Task::getIDs();
+        $usersCount = DB::table('users')->count();
+        $tasksCount = DB::table('tasks')->count();
         $faker = Faker::Create();
 
         for ($i = 0; $i < 20; $i++) {
             $comment = new Comment([
-                'user_id' => $userIDs->random(),
-                'task_id' => $tasksIDs->random(),
+                'user_id' => $faker->numberBetween(1, $usersCount),
+                'task_id' => $faker->numberBetween(1, $tasksCount),
                 'comment' => $faker->paragraph
             ]);
             $comment->save();

@@ -13,12 +13,4 @@ class Category extends Model
      */
     protected $fillable = ['name', 'class'];
 
-    /**
-     * Return all categories' IDs
-     *
-     * @return Collection
-     */
-    public static function getIDs(){
-        return static::query()->pluck('id');
-    }
 }

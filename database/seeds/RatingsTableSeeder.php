@@ -1,8 +1,7 @@
 <?php
 
-use App\User;
-use App\Task;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class RatingsTableSeeder extends Seeder
 {
@@ -13,14 +12,14 @@ class RatingsTableSeeder extends Seeder
      */
     public function run()
     {
-        $userIDs = User::getIDs();
-        $tasksIDs = Task::getIDs();
+        $usersCount = DB::table('users')->count();
+        $tasksCount = DB::table('tasks')->count();
 
         for ($i = 0; $i < 20; $i++) {
-            $task = $tasksIDs->random();
-            $user = $userIDs->random();
+            $userID = random_int(1, $usersCount);
+            $taskID = random_int(1, $tasksCount);
             try {
-                DB::table('ratings')->insert(['user_id'=> $user, 'task_id' => $task, 'rating' => random_int(1,5)]);
+                DB::table('ratings')->insert(['user_id'=> $userID, 'task_id' => $taskID, 'rating' => random_int(1,5)]);
             }
             catch (Exception $exception) {
             //

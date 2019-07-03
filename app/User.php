@@ -46,13 +46,4 @@ class User extends Authenticatable
     public function groups() {
         return $this->hasMany(Group::class,'created_by');
     }
-
-    /**
-     * Return all users' IDs
-     *
-     * @return Collection
-     */
-    public static function getIDs(){
-        return static::query()->pluck('id');
-    }
 }

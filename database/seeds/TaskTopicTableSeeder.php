@@ -1,8 +1,8 @@
 <?php
 
 use App\Task;
-use App\Topic;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class TaskTopicTableSeeder extends Seeder
 {
@@ -14,11 +14,11 @@ class TaskTopicTableSeeder extends Seeder
     public function run()
     {
         $tasks = Task::all();
-        $topicIDs = Topic::getIDs();
+        $topicsCount = DB::table('topics')->count();
 
        //najskôr každej úlohe priradím aspoň jednu tému
        foreach ($tasks as $task)
-            $task->topics()->attach($topicIDs->random());
+            $task->topics()->attach(random_int(1, $topicsCount));
 
 
         //potom náhodným úlohám priradím ďalšiu tému
@@ -27,7 +27,7 @@ class TaskTopicTableSeeder extends Seeder
        for ($i = 0; $i < $max; $i++) {
            $task = $tasks->random();
            try {
-               $task->topics()->attach($topicIDs->random());
+               $task->topics()->attach(random_int(1, $topicsCount));
            } catch (Exception $exception) {
                //
            }
