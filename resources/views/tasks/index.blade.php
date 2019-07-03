@@ -17,7 +17,7 @@
                     <tr>
                         <th>Názov</th>
                         <th>Typ</th>
-                        <th>Náročnosť</th>
+                        <th>Kategória</th>
                         <th>Téma</th>
                         <th>Hodnotenie</th>
                     </tr>
@@ -25,13 +25,18 @@
                         <tr>
                             <td><a href="{{ route('tasks.show', $task->id) }}">{{ $task->title}}</a></td>
                             <td>{{ $task->type }}</td>
-                            <td>{{ $task->difficulty }}</td>
+                            <td>
+                                @if (count($task->categories) > 0)
+                                    @foreach ($task->categories as $category)
+                                        {{$category->name}}<br>
+                                    @endforeach
+                                @endif
+                            </td>
                             <td>
                             @if (count($task->topics) > 0)
                                 @foreach ($task->topics as $topic)
                                     {{$topic->name}}<br>
                                 @endforeach
-                                </ul>
                             @endif
                             </td>
                             <td>{{$task->averageRating() }}</td>

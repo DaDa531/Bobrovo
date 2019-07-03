@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use App\Topic;
+use App\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -78,7 +79,7 @@ class TaskController extends Controller
      */
     public function mytasks()
     {
-        $tasks = Task::getTasksFromCurrentTeacher()->get();
+        $tasks = auth()->user()->tasks()->paginate(10);
         return view('tasks.my', [
             'tasks' => $tasks
         ]);

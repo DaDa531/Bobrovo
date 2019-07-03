@@ -46,4 +46,13 @@ class User extends Authenticatable
     public function groups() {
         return $this->hasMany(Group::class,'created_by');
     }
+
+    /**
+     * Return user's tasks
+     *
+     * @return HasMany
+     */
+    public function tasks() {
+        return $this->hasMany(Task::class,'created_by');
+    }
 }
