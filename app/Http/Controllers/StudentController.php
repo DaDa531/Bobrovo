@@ -80,13 +80,16 @@ class StudentController extends Controller
             'teacher_id' => auth()->user()->id
         ]);
 
+
         if ($request->groups != null) {
-            foreach ($request->groups as $group) {
+            $student->groups()->attach($request->groups);
+
+            /*foreach ($request->groups as $group) {
                 DB::table('student_group')->insert([
                     'student_id' => $student->id,
                     'group_id' => $group
                 ]);
-            }
+            }*/
         }
 
         return back()->with([
@@ -158,8 +161,8 @@ class StudentController extends Controller
      */
     public function addToGroup(Request $request, Student $student)
     {
-        if ($request->group_id != null) {
-            $student->groups()->attach($request->group_id);
+        if ($request->groups != null) {
+            $student->groups()->attach($request->groups);
         }
 
         $assigned_groups = $student->groups()->get();
@@ -252,7 +255,7 @@ class StudentController extends Controller
         $groups = auth()->user()->groups()->get();
 
         return redirect()->route('student.import')->with([
-            'success' => 'Úsprešne ste pridali ' . $count . ' žiakov!',
+            'success' => 'Počet úspešne pridaných žiakov: ' . $count,
             'groups' => $groups
         ]);
     }

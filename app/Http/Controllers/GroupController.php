@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\Student;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreGroup;
 
 class GroupController extends Controller
 {
@@ -42,10 +44,10 @@ class GroupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param StoreGroup $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreGroup $request)
     {
         $group = Group::create([
             'name' => $request->name,
@@ -69,7 +71,61 @@ class GroupController extends Controller
     {
         return view('group.show', [
             'group' => $group,
+            'students' => $group->students()->get()
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Group $group
+     * @return Response
+     */
+    public function edit(Group $group)
+    {
+        return view('group.edit', [
+            'group' => $group,
             'students' => $group->students()->get(),
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param StoreGroup $request
+     * @param Group $group
+     * @return Response
+     */
+    public function update(StoreGroup $request, Group $group)
+    {
+        if ($request->description == null)
+            $group->update($request->only('name'));
+        else
+            $group->update($request->only('name', 'description'));
+
+        $students = $group->students()->get();
+
+        return redirect()->route('group.show', $group->id)->with([
+            'students' => $students,
+            'success' => 'Údaje o skupine boli úspešne zmenené!'
+        ]);
+    }
+
+    /**
+     * Remove student from a group.
+     *
+     * @param Request $request
+     * @param Group $group
+     * @param Student $student
+     * @return Response
+     */
+    public function removeStudent(Request $request, Group $group, Student $student)
+    {
+        $student->groups()->detach($group->id);
+
+        return view('group.edit', [
+            'group' => $group,
+            'students' => $group->students()->get()
         ]);
     }
 
@@ -83,7 +139,7 @@ class GroupController extends Controller
     {
 
         //da sa zmazat, len ak v nej nie su ziadni studenti a nema priradene ziadne testy (ani stare)
-        // ale mozno mozem zmazat ajs kupinu so studentami, studentov nebudemmzat, len z prepojovacky to treba zmazat
+        // ale mozno mozem zmazat aj skupinu so studentami, studentov nebudem mazat, len z prepojovacky to treba zmazat
 
         /*try {
             DB::transaction(function () use ($group) {

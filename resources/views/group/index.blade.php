@@ -1,7 +1,7 @@
 @extends('layouts.master-teacher')
 
 @section('title')
-    Bobrovo - učiteľ - skupiny
+    Bobrovo - učiteľ - zoznam skupín
 @endsection
 
 @section('content')

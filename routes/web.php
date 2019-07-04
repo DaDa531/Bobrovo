@@ -49,8 +49,11 @@ Route::post('/students/{student}/removegroup/{group}', 'StudentController@remove
 Route::get('/groups', 'GroupController@index')->name('group');
 Route::get('/groups/create', 'GroupController@create')->name('group.create');
 Route::get('/groups/{group}', 'GroupController@show')->name('group.show');
+Route::get('/groups/{group}/edit','GroupController@edit')->name('group.edit');
 Route::post('/groups/store', 'GroupController@store')->name('group.store');
 Route::post('/groups/{group}/destroy', 'GroupController@destroy')->name('group.destroy');
+Route::post('/groups/{group}/update', 'GroupController@update')->name('group.update');
+Route::post('/groups/{group}/removestudent/{student}', 'GroupController@removeStudent')->name('group.removestudent');
 
 //Test
 Route::get('/tests', 'TestController@index')->name('test');

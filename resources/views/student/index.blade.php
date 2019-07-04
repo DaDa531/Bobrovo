@@ -1,7 +1,7 @@
 @extends('layouts.master-teacher')
 
 @section('title')
-    Bobrovo - učiteľ - žiaci
+    Bobrovo - učiteľ - zoznam žiakov
 @endsection
 
 @section('content')
@@ -19,7 +19,7 @@
         <!-- Main content -->
         <div class="col-md-12">
             <h1>Zoznam žiakov</h1>
-            <p>TO DO: SORT PODLA PRIEZVISKA, VYHLADANIE KONKRETNEHO ZIAKA ?</p>
+            <p>TO DO: SORT PODĽA PRIEZVISKA, VYHĽADANIE KONKRÉTNEHO ZIAKA, TLAČ ZOZNAMU ŽIAKOV S KÓDMI, HROMADNÉ PRIDÁVANIE ŠTUDENTOV DO SKUPÍN</p>
             @if (isset($students))
 
                 <table class="table">

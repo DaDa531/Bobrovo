@@ -9,15 +9,17 @@
 
 
     <div class="row">
-        <div class="col-6">
+        <div class="col-md-6">
             <h1>Upraviť žiaka</h1>
         </div>
 
-        <div class="col text-right">
+        <div class="col-md-6 text-right">
             <a href="{{ route('student.show', $student->id) }}" class="d-inline mr-2"><button class="btn btn-secondary px-4">Späť</button></a>
         </div>
     </div>
 
+    <!-- Main content -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.18.7/slimselect.min.css" rel="stylesheet">
     <div class="row">
         <div class="col-md-6">
 
@@ -25,7 +27,7 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="first_name">Meno</label>
+                    <label for="first_name"><strong>Meno</strong></label>
                     <input id="first_name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name')=='' ? $student->first_name : old('first_name')}}" required autofocus>
                     @if ($errors->has('first_name'))
                         <span class="invalid-feedback">
@@ -35,7 +37,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="last_name">Priezvisko</label>
+                    <label for="last_name"><strong>Priezvisko</strong></label>
                     <input id="last_name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name')=='' ? $student->last_name : old('last_name') }}" required>
                     @if ($errors->has('last_name'))
                         <span class="invalid-feedback">
@@ -59,7 +61,7 @@
                 <table class="table">
                     <tr>
                         <th>Skupina</th>
-                        <th class="text-right">Vymazať zo skupiny</th>
+                        <th class="text-right">Vymazať žiaka zo skupiny</th>
                     </tr>
                     @foreach ($assigned_groups as $group)
                         <tr>
@@ -81,9 +83,8 @@
                 <form method="POST" action="{{ route('student.addgroup', $student->id) }}">
                     @csrf
                     <div class="form-group">
-                        <label for="group_id">Pridať žiaka do skupiny</label>
-                        <select name="group_id" id="new_group" class="form-control">
-                            <option value="">-- vybrať skupinu --</option>
+                        <label for="groups">Pridať žiaka do skupiny (skupín)</label>
+                        <select name="groups[]" id="slim-select" multiple>
                             @foreach($available_groups as $group)
                                 <option value="{{ $group->id }}">{{ $group->name }}</option>
                             @endforeach

@@ -16,28 +16,21 @@
     <div class="row">
 
         <!-- Main content -->
-        <div class="col-md-12">
-            <h1>TO DO Pridať žiakov zo súboru</h1>
-            <div class="alert alert-warning">
-                Súbor typu <strong>.csv</strong>, v ktorom 1. stĺpec je meno žiaka, 2. stĺpec je priezvisko žiaka a 3. stĺpec je kód žiaka (min. 12 znakov).
-            </div>
+        <div class="col-md-8">
+            <h1>Pridať žiakov zo súboru</h1>
+            TO DO: ZOBRAZENIE NAZVU ZVOLENEHO SUBORU (MAM COPYPASTE Z BOOTSTRAPU, ALE NEFUNGUJE)
 
             <form method="POST" action="{{ route('student.multistore') }}" enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group">
+                    <strong>Zoznam žiakov</strong> (súbor <code>.csv</code>, v ktorom je pre každého žiaka záznam v tvare <code> meno_žiaka, priezvisko_žiaka, kód</code>)
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="studentFile" name="studentFile">
-                        <label class="custom-file-label" for="studentFile">Vyber súbor</label>
+                        <input type="file" class="custom-file-input" id="customFile" name="studentFile" required>
+                        <label class="custom-file-label" for="customFile">Zvoľte súbor</label>
                     </div>
                 </div>
-                <script>
-                    // Add the following code if you want the name of the file appear on select
-                    $(".custom-file-input").on("change", function() {
-                        var fileName = $(this).val().split("\\").pop();
-                        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-                    });
-                </script>
+
                 <div class="form-group">
                     <label for="group">Skupina</label>
                     <select name="group" id="group" class="form-control{{ $errors->has('group') ? ' is-invalid' : '' }}">
@@ -56,6 +49,13 @@
 
                 <button type="submit" class="btn btn-primary">Pridať</button>
             </form>
+            <script>
+                // NEFUNGUJE :(  display the name of the file on select
+                $(".custom-file-input").on("change", function() {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                });
+            </script>
 
         </div>
 

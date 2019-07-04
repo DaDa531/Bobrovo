@@ -17,7 +17,7 @@
     <div class="row">
 
         <!-- Main content -->
-        <div class="col-md-6">
+        <div class="col-md-8">
             <h1>Vytvorenie skupiny</h1>
             <form method="POST" action="{{ route('group.store') }}">
                 @csrf

@@ -1,7 +1,7 @@
 @extends('layouts.master-teacher')
 
 @section('title')
-    Bobrovo - učiteľ - žiak
+    Bobrovo - učiteľ - zobraziť žiaka
 @endsection
 
 @section('content')
@@ -15,11 +15,11 @@
     </div>
 
     <div class="row">
-        <div class="col-6">
+        <div class="col-md-6">
             <h1>Žiak {{ $student->first_name}} {{ $student->last_name}}</h1>
         </div>
 
-        <div class="col text-right">
+        <div class="col-md-6 text-right">
             <a href="{{ route('student.edit', $student->id) }}" class="d-inline mr-2"><button class="btn btn-secondary px-4">Upraviť</button></a>
 
             @if ($student->canDelete())
