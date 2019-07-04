@@ -95,4 +95,13 @@ class Student extends Model
         }
         return $code;
     }
+
+    /**
+     * Return whether the student's teacher is authenticated
+     *
+     * @return bool
+     */
+    public function authIsMyTeacher(){
+        return ($this->teacher_id == auth()->user()->id);
+    }
 }

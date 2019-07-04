@@ -24,7 +24,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::getGroupsFromCurrentTeacher()->get();
+        $groups = Group::getGroupsFromCurrentTeacher()->orderBy('name')->get();
         return view('group.index', [
             'groups' => $groups
         ]);
@@ -69,9 +69,12 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
+        if (!$group->authIsMyTeacher())
+            return back();
+
         return view('group.show', [
             'group' => $group,
-            'students' => $group->students()->get()
+            'students' => $group->students()->orderBy('last_name')->get()
         ]);
     }
 

@@ -54,11 +54,12 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $groups = $student->groups()->get();
+        if (!$student->authIsMyTeacher())
+            return back();
 
         return view('student.show', [
             'student' => $student,
-            'groups' => $groups
+            'groups' => $student->groups()->orderBy('name')->get()
         ]);
     }
 
@@ -83,13 +84,6 @@ class StudentController extends Controller
 
         if ($request->groups != null) {
             $student->groups()->attach($request->groups);
-
-            /*foreach ($request->groups as $group) {
-                DB::table('student_group')->insert([
-                    'student_id' => $student->id,
-                    'group_id' => $group
-                ]);
-            }*/
         }
 
         return back()->with([
@@ -105,6 +99,9 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
+        if (!$student->authIsMyTeacher())
+            return back();
+
         $assigned_groups = $student->groups()->get();
         $available_groups = auth()->user()->groups()->get()->diff($assigned_groups);
 
@@ -145,6 +142,9 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
+        if (!$student->authIsMyTeacher())
+            return back();
+
         $student->delete();
 
         return redirect()->route('student')->with([
@@ -174,7 +174,6 @@ class StudentController extends Controller
             'available_groups' => $available_groups
         ]);
     }
-
 
     /**
      * Remove student from a group.
@@ -259,4 +258,6 @@ class StudentController extends Controller
             'groups' => $groups
         ]);
     }
+
+    //PDF - https://github.com/niklasravnsborg/laravel-pdf
 }

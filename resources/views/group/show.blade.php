@@ -35,19 +35,25 @@
 
     <div class="row">
         <div class="col-md-6">
+            <p>TO DO: VYHĽADANIE KONKRÉTNEHO ZIAKA, TLAČ ZOZNAMU ŽIAKOV S KÓDMI</p>
             <p><strong>Vytvorená:</strong> {{ $group->created_at}}</p>
             <p><strong>Popis:</strong> {{ $group->description}}</p>
         </div>
         <div class="col-md-6">
             <h3>Žiaci v skupine ({{ count($students) }})</h3>
             @if (count($students)>0)
-                <ul>
+                <table class="table">
+                    <tr>
+                        <th>Meno a priezvisko</th>
+                        <th>Kód</th>
+                    </tr>
                 @foreach ($students as $student)
-                    <li>
-                        <a href="{{ route('student.show', $student->id) }}">{{$student->first_name}} {{$student->last_name}}</a>
-                    </li>
+                    <tr>
+                        <td><a href="{{ route('student.show', $student->id) }}">{{$student->first_name}} {{$student->last_name}}</a></td>
+                        <td>{{ $student->code }}</td>
+                    </tr>
                 @endforeach
-                </ul>
+                </table>
             @endif
         </div>
     </div>

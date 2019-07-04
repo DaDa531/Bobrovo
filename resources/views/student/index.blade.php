@@ -19,28 +19,28 @@
         <!-- Main content -->
         <div class="col-md-12">
             <h1>Zoznam žiakov</h1>
-            <p>TO DO: SORT PODĽA PRIEZVISKA, VYHĽADANIE KONKRÉTNEHO ZIAKA, TLAČ ZOZNAMU ŽIAKOV S KÓDMI, HROMADNÉ PRIDÁVANIE ŠTUDENTOV DO SKUPÍN</p>
+            <p>TO DO: UMOŽNIŤ SORT PODĽA PRIEZVISKA, VYHĽADANIE KONKRÉTNEHO ZIAKA, TLAČ ZOZNAMU ŽIAKOV S KÓDMI, HROMADNÉ PRIDÁVANIE ŠTUDENTOV DO SKUPÍN</p>
             @if (isset($students))
 
                 <table class="table">
                     <tr>
                         <th>Meno a priezvisko</th>
                         <th>Kód</th>
-                        <th>Vymazať</th>
+                        <th>Dátum pridania</th>
+                        <th class="text-center">Vymazať</th>
                     </tr>
                     @foreach ($students as $student)
                         <tr>
                             <td><a href="{{ route('student.show', $student->id) }}">{{ $student->first_name}} {{ $student->last_name}}</a></td>
                             <td>{{ $student->code }}</td>
-                            <td>
+                            <td>{{ $student->created_at }}</td>
+                            <td class="text-center">
+
                                 @if ($student->canDelete())
-                                    <form action="{{ route('student.destroy', $student->id) }}" method="post" class="d-inline">
-                                        @csrf
-                                        <button class="btn btn-danger px-4 py-0 btn-trash" type="submit">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
+                                        <a href="{{ route('student.destroy', $student->id) }}" class="text-danger" title="Vymazať {{ $student->first_name . ' ' . $student->last_name }}"><i class="fa fa-trash"></i></a>
                                     </form>
                                 @endif
+
                             </td>
                         </tr>
                     @endforeach

@@ -68,4 +68,12 @@ class Group extends Model
         return true;*/
     }
 
+    /**
+     * Return whether the groups's creator is authenticated
+     *
+     * @return bool
+     */
+    public function authIsMyTeacher(){
+        return ($this->created_by == auth()->user()->id);
+    }
 }
