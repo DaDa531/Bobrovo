@@ -20,12 +20,12 @@
                     <h4>Zadanie</h4>
                 </div>
                 <div class="card-body">
-                    <p>{{$task->question}}</p>
+                    <p>{!! $task->question !!}</p>
                     <ul>
-                        <li>{{$task->a}}</li>
-                        <li>{{$task->b}}</li>
-                        <li>{{$task->c}}</li>
-                        <li>{{$task->d}}</li>
+                        <li>{!! $task->answer == 'a' ? $task->a . '<span class="text-success"> <i class="fa fa-check"></i></span>': $task->a . '<span class="text-danger"> <i class="fa fa-times"></i></span>' !!}</li>
+                        <li>{!! $task->answer == 'b' ? $task->b . '<span class="text-success"> <i class="fa fa-check"></i></span>': $task->b . '<span class="text-danger"> <i class="fa fa-times"></i></span>' !!}</li>
+                        <li>{!! $task->answer == 'c' ? $task->c . '<span class="text-success"> <i class="fa fa-check"></i></span>': $task->c . '<span class="text-danger"> <i class="fa fa-times"></i></span>' !!}</li>
+                        <li>{!! $task->answer == 'd' ? $task->d . '<span class="text-success"> <i class="fa fa-check"></i></span>': $task->d . '<span class="text-danger"> <i class="fa fa-times"></i></span>' !!}</li>
                     </ul>
                 </div>
             </div>
@@ -58,8 +58,22 @@
         </div>
 
         <div class="col-md-3">
-            <!--<h3>Náročnosť</h3>
-            <p>{{$task->difficulty}}</p>-->
+            <div class="card mb-2">
+                <div class="card-header">
+                    <h4>Kategória</h4>
+                </div>
+                <div class="card-body p-0">
+                    @if (count($categories) == 0)
+                        <li class="list-group-item">Úloha nie zaradená do žiadnej kategórie.</li>
+                    @else
+                        <ul class="list-group list-group-flush">
+                            @foreach ($categories as $category)
+                                <li class="list-group-item">{{$category->name}}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </div>
+            </div>
 
             <div class="card mb-2">
                 <div class="card-header">

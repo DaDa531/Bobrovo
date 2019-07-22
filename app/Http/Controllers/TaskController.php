@@ -30,6 +30,7 @@ class TaskController extends Controller
         ]);
     }
 
+
     /**
      * Show given task.
      *
@@ -41,6 +42,7 @@ class TaskController extends Controller
         return view('tasks.show', [
             'task' => $task,
             'topics' => $task->topics()->get(),
+            'categories' => $task->categories()->get(),
             'rating' => $task->averageRating(),
             'comments' => $task->comments()->get()
         ]);
@@ -84,5 +86,6 @@ class TaskController extends Controller
             'tasks' => $tasks
         ]);
     }
+
 
 }

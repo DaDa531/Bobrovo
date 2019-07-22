@@ -29,6 +29,7 @@ Route::get('/ziak', function () {
 Route::get('/tasks', 'TaskController@index')->name('tasks');
 Route::get('/tasks/mytasks', 'TaskController@mytasks')->name('tasks.my');
 Route::get('/tasks/create', 'TaskController@create')->name('tasks.create');
+Route::get('/tasks/store', 'TaskController@store')->name('tasks.store');
 Route::get('/tasks/{task}', 'TaskController@show')->name('tasks.show');
 Route::get('/tasks/{task}/edit', 'TaskController@edit')->name('tasks.edit');
 
