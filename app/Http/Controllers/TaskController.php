@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use App\Topic;
+use App\Category;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -56,8 +57,10 @@ class TaskController extends Controller
     public function create()
     {
         $topics = Topic::all();
+        $categories = Category::all();
         return view('tasks.create', [
             'topics' => $topics,
+            'categories' => $categories
         ]);
     }
 
