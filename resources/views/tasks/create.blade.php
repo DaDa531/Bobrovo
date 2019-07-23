@@ -7,6 +7,13 @@
 @section('content')
 <div class="container">
 
+    <div class="row mb-1">
+        <div class="col-sm-6 col-12">
+            @includeWhen(session('errors'), 'layouts.errors')
+            @includeWhen(session('success'), 'layouts.success', ['success' => session('success')])
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <h2>Pridať úlohu</h2>
@@ -27,16 +34,16 @@
 
                 <div class="form-group">
                     <label for="question" class="mb-0 font-weight-bold">Zadanie</label>
-                    <textarea id="question" class="mb-2 form-control" name="description" rows=3" required></textarea>
+                    <textarea id="question" class="mb-2 form-control" name="question" rows=3" required>{{ $errors->has('question') ? 'is-invalid' : ''}}</textarea>
                 </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            @foreach (['answer-a','answer-b','answer-c','answer-d'] as $answer)
+            @foreach (['a','b','c','d'] as $answer)
                 <div class="form-group">
-                    <label for="{{$answer}}" class="mb-0 font-weight-bold">Odpoveď {{ substr($answer, -1)}}</label>
+                    <label for="{{$answer}}" class="mb-0 font-weight-bold">Odpoveď {{ $answer }}</label>
                     <input id="{{$answer}}" type="text" class="mb-2 form-control{{ $errors->has($answer) ? ' is-invalid' : '' }}" name="{{$answer}}" value="{{ old($answer) }}" required>
                     @if ($errors->has($answer))
                         <span class="invalid-feedback">
@@ -51,10 +58,10 @@
     <div class="row">
         <div class="col-md-3">
             <strong>Správna odpoveď</strong>
-            <div class="form-group form-check">
+            <div class="form-group">
                 @foreach (['a','b','c','d'] as $answer)
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="correc-tanswer-{{ $answer }}" name="answers[]" value="{{ $answer }}">
+                        <input type="radio" class="custom-control-input" id="correct-answer-{{ $answer }}" name="answer" value="{{ $answer }}" required>
                         <label class="custom-control-label" for="correct-answer-{{ $answer }}">{{ $answer }}</label>
                     </div>
                 @endforeach
@@ -76,9 +83,9 @@
         <div class="col-md-7">
             <strong>Téma</strong>
             <div class="form-group form-check">
-            @foreach ($topics as $topic)
+                @foreach ($topics as $topic)
                     <div class="custom-control custom-checkbox {{ $topic->parent_id != null ? 'pl-5 mt-1': '' }}">
-                        <input type="checkbox" class="custom-control-input" id="topic-{{ $topic->id }}" name="categories[]" value="{{$topic->id}}">
+                        <input type="checkbox" class="custom-control-input" id="topic-{{ $topic->id }}" name="topics[]" value="{{$topic->id}}">
                         <label class="custom-control-label" for="topic-{{ $topic->id }}">{{ $topic->name }}</label>
                     </div>
                 @endforeach
@@ -89,8 +96,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="description-pupil" class="mb-0">Vysvetlenie pre žiaka</label>
-                <textarea id="description-pupil" class="form-control" name="description-pupil" rows=3" ></textarea>
+                <label for="description_student" class="mb-0">Vysvetlenie pre žiaka</label>
+                <textarea id="description_student" class="form-control" name="description_student" rows=3" ></textarea>
             </div>
 
             <div class="form-group">

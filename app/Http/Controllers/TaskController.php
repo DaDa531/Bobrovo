@@ -7,6 +7,7 @@ use App\Topic;
 use App\Category;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTask;
 
 class TaskController extends Controller
 {
@@ -91,4 +92,39 @@ class TaskController extends Controller
     }
 
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param StoreTask $request
+     * @return Response
+     */
+    public function store(StoreTask $request)
+    {
+        $task = Task::create([
+            'title' => $request->title,
+            'question' => $request->question,
+            'a' => $request->a,
+            'b' => $request->b,
+            'c' => $request->c,
+            'd' => $request->d,
+            'answer' => $request->answer,
+            'type' => '1',
+            'description_student' => ($request->description_student == '' ? '' : $request->description_student),
+            'description_teacher' => ($request->description_teacher == '' ? '' : $request->description_teacher),
+            'public' => '1',
+            'created_by' => auth()->user()->id
+        ]);
+
+        if ($request->topics != null) {
+            $task->topics()->attach($request->topics);
+        }
+
+        if ($request->categories != null) {
+            $task->categories()->attach($request->categories);
+        }
+
+        return redirect()->route('tasks.create')->with([
+            'success' => 'Úloha '. $task->title . ' bola uložená!'
+        ]);
+    }
 }

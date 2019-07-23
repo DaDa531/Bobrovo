@@ -13,6 +13,13 @@ class Task extends Model
 {
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded  = [];
+
+    /**
      * Return tasks's topics
      *
      * @return BelongsToMany
