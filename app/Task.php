@@ -80,5 +80,19 @@ class Task extends Model
     {
         return static::query()->where('created_by', auth()->user()->id);
     }
+
+
+    /**
+     * Return if task can be deleted (belongs to authorised user, not in test)
+     *
+     * @return bool
+     */
+    public function canDelete()
+    {
+        if ($this->created_by != auth()->user()->id)
+            return False;
+
+        return true;
+    }
 }
 

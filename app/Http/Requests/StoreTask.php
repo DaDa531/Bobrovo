@@ -35,4 +35,17 @@ class StoreTask extends FormRequest
             'categories' => 'required'
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'topics.required' => 'Priraďte úlohe aspoň jednu z tém.',
+            'categories.required'  => 'Zaraďte úlohu do niektorej kategórie.',
+        ];
+    }
 }

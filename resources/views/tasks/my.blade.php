@@ -13,8 +13,6 @@
 
             @if (count($tasks) > 0)
 
-                <h3>Table</h3>
-
                 <table class="table">
                     <tr>
                         <th>Názov</th>

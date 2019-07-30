@@ -127,4 +127,20 @@ class TaskController extends Controller
             'success' => 'Úloha '. $task->title . ' bola uložená!'
         ]);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Task $task
+     * @return Response
+     */
+    public function destroy(Task $task)
+    {
+
+        //da sa zmazat, len ak nie je v ziadnom teste a patri tomu, ktore je prihlaseny
+
+        $task->delete();
+
+        return redirect()->route('tasks');
+    }
 }

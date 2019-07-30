@@ -7,9 +7,23 @@
 @section('content')
 <div class="container">
 
+
     <div class="row">
-        <div class="col-md-12">
-            <h2>Úloha {{ $task->title}}</h2>
+        <div class="col-md-6">
+            <h1>Úloha {{ $task->title}}</h1>
+        </div>
+
+        <div class="col-md-6 text-right">
+            @if ($task->canDelete())
+                <a href="{{ route('tasks.edit', $task->id) }}" class="d-inline mr-2"><button class="btn btn-secondary px-4">Upraviť</button></a>
+
+                <form action="{{ route('tasks.destroy', $task->id) }}" method="post" class="d-inline">
+                    @csrf
+                    <button class="btn btn-danger px-4" type="submit">
+                        Zrušiť
+                    </button>
+                </form>
+            @endif
         </div>
     </div>
 
