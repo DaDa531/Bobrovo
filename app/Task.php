@@ -94,5 +94,6 @@ class Task extends Model
 
         return true;
     }
+
 }
 

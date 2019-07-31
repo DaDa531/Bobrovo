@@ -73,8 +73,14 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
+        $topics = Topic::all();
+        $categories = Category::all();
         return view('tasks.edit', [
-            'task' => $task
+            'task' => $task,
+            'topics' => $topics,
+            'categories' => $categories,
+            'mytopics' => $task->topics()->get(),
+            'mycategories' => $task->categories()->get()
         ]);
     }
 
@@ -142,5 +148,17 @@ class TaskController extends Controller
         $task->delete();
 
         return redirect()->route('tasks');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param StoreTask $request
+     * @param Task $task
+     * @return Response
+     */
+    public function update(StoreTask $request, Task $task)
+    {
+        //...
     }
 }

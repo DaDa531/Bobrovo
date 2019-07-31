@@ -44,6 +44,7 @@ class StoreTask extends FormRequest
     public function messages()
     {
         return [
+            'answer.required' => 'Musíte určiť správnu odpoveď.',
             'topics.required' => 'Priraďte úlohe aspoň jednu z tém.',
             'categories.required'  => 'Zaraďte úlohu do niektorej kategórie.',
         ];

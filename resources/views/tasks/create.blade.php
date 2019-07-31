@@ -61,7 +61,7 @@
             <div class="form-group">
                 @foreach (['a','b','c','d'] as $answer)
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="correct_{{ $answer }}" name="answer" value="{{ $answer }}" required {{ old('answer') == $answer ? "checked" : ''}}>
+                        <input type="radio" class="custom-control-input" id="correct_{{ $answer }}" name="answer" value="{{ $answer }}" {{ old('answer') == $answer ? "checked" : ''}}>
                         <label class="custom-control-label" for="correct_{{ $answer }}">{{ $answer }}</label>
                     </div>
                 @endforeach

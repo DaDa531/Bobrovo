@@ -33,6 +33,7 @@ Route::get('/tasks/{task}', 'TaskController@show')->name('tasks.show');
 Route::get('/tasks/{task}/edit', 'TaskController@edit')->name('tasks.edit');
 Route::post('/tasks/store', 'TaskController@store')->name('tasks.store');
 Route::post('/tasks/{task}/destroy', 'TaskController@destroy')->name('tasks.destroy');
+Route::post('/tasks/{task}/update', 'TaskController@update')->name('tasks.update');
 
 //Students
 Route::get('/students', 'StudentController@index')->name('student');

@@ -23,7 +23,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="name"><strong>Meno</strong></label>
-                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name')=='' ? $group->name : old('name')}}" required autofocus>
+                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') ?? $group->name }}" required autofocus>
                     @if ($errors->has('name'))
                         <span class="invalid-feedback">
                                 <strong>{{ $errors->first('name') }}</strong>
@@ -33,7 +33,7 @@
 
                 <div class="form-group">
                     <label for="description">Popis</label>
-                    <textarea id="group-description" class="form-control wyswyg-editor" name="description" rows=4" >{{ old('description')=='' ? $group->description : old('description')}}</textarea>
+                    <textarea id="group-description" class="form-control wyswyg-editor" name="description" rows=4" >{{ old('description') ?? $group->description }}</textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Zmeniť údaje</button>

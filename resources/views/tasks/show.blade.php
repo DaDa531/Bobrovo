@@ -50,7 +50,7 @@
                 </div>
                 <div class="card-body p-0">
                     <ul class="list-group list-group-flush">
-                        @if (!$task->description_teacher and !$task->description)
+                        @if (!$task->description_teacher and !$task->description_student)
                             <li class="list-group-item">K úlohe nie sú priradené žiadne vysvetlenia.</li>
                         @endif
                         @if ($task->description_teacher)
@@ -59,11 +59,11 @@
                             </li>
                             <li class="list-group-item collapse" id="collapseOne">{{$task->description_teacher}}</li>
                         @endif
-                        @if ($task->description)
+                        @if ($task->description_student)
                             <li class="list-group-item list-group-item-action" data-toggle="collapse" href="#collapseTwo">
                                 <h5>pre žiaka</h5>
                             </li>
-                            <li class="list-group-item collapse" id="collapseTwo">{{$task->description}}</li>
+                            <li class="list-group-item collapse" id="collapseTwo">{{$task->description_student}}</li>
                         @endif
                     </ul>
                 </div>

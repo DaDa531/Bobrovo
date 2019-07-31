@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <label for="first_name"><strong>Meno</strong></label>
-                    <input id="first_name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name')=='' ? $student->first_name : old('first_name')}}" required autofocus>
+                    <input id="first_name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name') ?? $student->first_name }}" required autofocus>
                     @if ($errors->has('first_name'))
                         <span class="invalid-feedback">
                             <strong>{{ $errors->first('first_name') }}</strong>
@@ -38,7 +38,7 @@
 
                 <div class="form-group">
                     <label for="last_name"><strong>Priezvisko</strong></label>
-                    <input id="last_name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name')=='' ? $student->last_name : old('last_name') }}" required>
+                    <input id="last_name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') ?? $student->last_name }}" required>
                     @if ($errors->has('last_name'))
                         <span class="invalid-feedback">
                             <strong>{{ $errors->first('last_name') }}</strong>
