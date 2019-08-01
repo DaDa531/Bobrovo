@@ -73,6 +73,9 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
+        if (!$task->authIsMyAuthor())
+            return back();
+
         $topics = Topic::all();
         $categories = Category::all();
         return view('tasks.edit', [
@@ -159,6 +162,30 @@ class TaskController extends Controller
      */
     public function update(StoreTask $request, Task $task)
     {
-        //...
+        $task->update([
+            'title' => $request->title,
+            'question' => $request->question,
+            'a' => $request->a,
+            'b' => $request->b,
+            'c' => $request->c,
+            'd' => $request->d,
+            'answer' => $request->answer,
+            //'type' => '1',
+            'description_student' => ($request->description_student == null ? '' : $request->description_student),
+            'description_teacher' => ($request->description_teacher == null ? '' : $request->description_teacher)
+            //'public' => '1',
+        ]);
+
+        if ($request->topics != null) {
+            $task->topics()->sync($request->topics);
+        }
+
+        if ($request->categories != null) {
+            $task->categories()->sync($request->categories);
+        }
+
+        return redirect()->route('tasks.show', $task->id)->with([
+            'success' => 'Úloha '. $task->title . ' bola zmenená!'
+        ]);
     }
 }

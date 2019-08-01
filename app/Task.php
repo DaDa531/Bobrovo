@@ -95,5 +95,13 @@ class Task extends Model
         return true;
     }
 
+    /**
+     * Return whether the tasks's author is authenticated
+     *
+     * @return bool
+     */
+    public function authIsMyAuthor(){
+        return ($this->created_by == auth()->user()->id);
+    }
 }
 

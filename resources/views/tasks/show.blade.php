@@ -7,6 +7,12 @@
 @section('content')
 <div class="container">
 
+    <div class="row mb-1">
+        <div class="col-sm-6 col-12">
+            @includeWhen(session('errors'), 'layouts.errors')
+            @includeWhen(session('success'), 'layouts.success', ['success' => session('success')])
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-md-6">
@@ -57,13 +63,13 @@
                             <li class="list-group-item list-group-item-action">
                                 <a data-toggle="collapse" href="#collapseOne"><h5>pre učiteľa</h5></a>
                             </li>
-                            <li class="list-group-item collapse" id="collapseOne">{{$task->description_teacher}}</li>
+                            <li class="list-group-item collapse show" id="collapseOne">{{$task->description_teacher}}</li>
                         @endif
                         @if ($task->description_student)
                             <li class="list-group-item list-group-item-action" data-toggle="collapse" href="#collapseTwo">
                                 <h5>pre žiaka</h5>
                             </li>
-                            <li class="list-group-item collapse" id="collapseTwo">{{$task->description_student}}</li>
+                            <li class="list-group-item collapse show" id="collapseTwo">{{$task->description_student}}</li>
                         @endif
                     </ul>
                 </div>
