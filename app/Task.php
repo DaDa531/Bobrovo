@@ -89,6 +89,8 @@ class Task extends Model
      */
     public function canDelete()
     {
+        //doplnit testy, ci uloha nie je v nejakom teste
+
         if ($this->created_by != auth()->user()->id)
             return False;
 

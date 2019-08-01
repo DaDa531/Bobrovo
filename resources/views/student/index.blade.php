@@ -27,6 +27,7 @@
                         <th>Meno a priezvisko</th>
                         <th>Kód</th>
                         <th>Dátum pridania</th>
+                        <th class="text-center">Upraviť</th>
                         <th class="text-center">Vymazať</th>
                     </tr>
                     @foreach ($students as $student)
@@ -34,6 +35,9 @@
                             <td><a href="{{ route('student.show', $student->id) }}">{{ $student->first_name}} {{ $student->last_name}}</a></td>
                             <td>{{ $student->code }}</td>
                             <td>{{ $student->created_at }}</td>
+                            <td class="text-center">
+                                <a href="{{ route('student.edit', $student->id) }}" title="Upraviť {{ $student->first_name . ' ' . $student->last_name }}"><i class="fa fa-edit"></i></a>
+                            </td>
                             <td class="text-center">
 
                                 @if ($student->canDelete())

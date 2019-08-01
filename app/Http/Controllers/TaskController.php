@@ -148,9 +148,12 @@ class TaskController extends Controller
 
         //da sa zmazat, len ak nie je v ziadnom teste a patri tomu, ktore je prihlaseny
 
+        if (!$task->authIsMyAuthor())
+            return back();
+
         $task->delete();
 
-        return redirect()->route('tasks');
+        return redirect()->route('tasks.my');
     }
 
     /**

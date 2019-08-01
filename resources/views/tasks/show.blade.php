@@ -21,14 +21,13 @@
 
         <div class="col-md-6 text-right">
             @if ($task->canDelete())
-                <a href="{{ route('tasks.edit', $task->id) }}" class="d-inline mr-2"><button class="btn btn-secondary px-4">Upraviť</button></a>
+                <a href="{{ route('tasks.edit', $task->id) }}" class="d-inline mr-2">
+                    <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Upraviť</button>
+                </a>
 
-                <form action="{{ route('tasks.destroy', $task->id) }}" method="post" class="d-inline">
-                    @csrf
-                    <button class="btn btn-danger px-4" type="submit">
-                        Zrušiť
-                    </button>
-                </form>
+                <a href="{{ route('tasks.destroy', $task->id) }}" class="d-inline mr-2">
+                    <button class="btn btn-danger px-4"><i class="fa fa-trash pr-2"></i>Zrušiť</button>
+                </a>
             @endif
         </div>
     </div>

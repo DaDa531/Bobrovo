@@ -20,16 +20,16 @@
         </div>
 
         <div class="col-md-6 text-right">
-            <a href="{{ route('group.edit', $group->id) }}" class="d-inline mr-2"><button class="btn btn-secondary px-4">Upraviť</button></a>
+            <a href="{{ route('group.edit', $group->id) }}" class="d-inline mr-2">
+                <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Upraviť</button>
+            </a>
 
             @if ($group->canDelete())
-                <form action="{{ route('group.destroy', $group->id) }}" method="post" class="d-inline">
-                    @csrf
-                    <button class="btn btn-danger px-4" type="submit">
-                        Zrušiť
-                    </button>
-                </form>
+                <a href="{{ route('group.destroy', $group->id) }}" class="d-inline mr-2">
+                    <button class="btn btn-danger px-4"><i class="fa fa-trash pr-2"></i>Zrušiť</button>
+                </a>
             @endif
+
         </div>
     </div>
 

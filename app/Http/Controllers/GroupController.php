@@ -144,6 +144,8 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
+        if (!$group->authIsMyTeacher())
+            return back();
 
         //da sa zmazat, len ak v nej nie su ziadni studenti a nema priradene ziadne testy (ani stare)
         // ale mozno mozem zmazat aj skupinu so studentami, studentov nebudem mazat, len z prepojovacky to treba zmazat

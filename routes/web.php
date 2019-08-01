@@ -31,8 +31,8 @@ Route::get('/tasks/mytasks', 'TaskController@mytasks')->name('tasks.my');
 Route::get('/tasks/create', 'TaskController@create')->name('tasks.create');
 Route::get('/tasks/{task}', 'TaskController@show')->name('tasks.show');
 Route::get('/tasks/{task}/edit', 'TaskController@edit')->name('tasks.edit');
+Route::get('/tasks/{task}/destroy', 'TaskController@destroy')->name('tasks.destroy');
 Route::post('/tasks/store', 'TaskController@store')->name('tasks.store');
-Route::post('/tasks/{task}/destroy', 'TaskController@destroy')->name('tasks.destroy');
 Route::post('/tasks/{task}/update', 'TaskController@update')->name('tasks.update');
 
 //Students
@@ -53,8 +53,8 @@ Route::get('/groups', 'GroupController@index')->name('group');
 Route::get('/groups/create', 'GroupController@create')->name('group.create');
 Route::get('/groups/{group}', 'GroupController@show')->name('group.show');
 Route::get('/groups/{group}/edit','GroupController@edit')->name('group.edit');
+Route::get('/groups/{group}/destroy', 'GroupController@destroy')->name('group.destroy');
 Route::post('/groups/store', 'GroupController@store')->name('group.store');
-Route::post('/groups/{group}/destroy', 'GroupController@destroy')->name('group.destroy');
 Route::post('/groups/{group}/update', 'GroupController@update')->name('group.update');
 Route::post('/groups/{group}/removestudent/{student}', 'GroupController@removeStudent')->name('group.removestudent');
 

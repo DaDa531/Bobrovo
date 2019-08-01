@@ -64,7 +64,7 @@ class Student extends Model
 
 
     /**
-     * Return if student can be deleted (no test assigned)
+     * Return if student can be deleted (user is his/her teacher and no test is assigned to him/her)
      *
      * @return bool
      */

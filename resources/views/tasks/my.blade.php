@@ -20,6 +20,8 @@
                         <th>Náročnosť</th>
                         <th>Téma</th>
                         <th>Hodnotenie</th>
+                        <th>Upraviť</th>
+                        <th>Vymazať</th>
                     </tr>
                     @foreach($tasks as $task)
                         <tr>
@@ -40,6 +42,22 @@
                                 @endif
                             </td>
                             <td>{{$task->averageRating() }}</td>
+                            <td class="text-center">
+
+                                @if ($task->canDelete())
+                                    <a href="{{ route('tasks.edit', $task->id) }}" title="Upraviť úlohu {{ $task->title }}"><i class="fa fa-edit"></i></a>
+                                    </form>
+                                @endif
+
+                            </td>
+                            <td class="text-center">
+
+                                @if ($task->canDelete())
+                                    <a href="{{ route('tasks.destroy', $task->id) }}" class="text-danger" title="Vymazať úlohu {{ $task->title }}"><i class="fa fa-trash"></i></a>
+                                    </form>
+                                @endif
+
+                            </td>
                         </tr>
                     @endforeach
 

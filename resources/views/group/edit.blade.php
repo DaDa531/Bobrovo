@@ -13,7 +13,7 @@
         </div>
 
         <div class="col-md-6 text-right">
-            <a href="{{ route('group.show', $group->id) }}" class="d-inline mr-2"><button class="btn btn-secondary px-4">Späť</button></a>
+            <a href="{{ route('group.show', $group->id) }}" class="d-inline mr-2"><button class="btn btn-secondary px-4">Späť na skupinu</button></a>
         </div>
     </div>
 

@@ -14,7 +14,7 @@
         </div>
 
         <div class="col-md-6 text-right">
-            <a href="{{ route('student.show', $student->id) }}" class="d-inline mr-2"><button class="btn btn-secondary px-4">Späť</button></a>
+            <a href="{{ route('student.show', $student->id) }}" class="d-inline mr-2"><button class="btn btn-secondary px-4">Späť na žiaka</button></a>
         </div>
     </div>
 

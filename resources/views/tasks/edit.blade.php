@@ -19,7 +19,7 @@
             <h2>Upraviť úlohu</h2>
         </div>
         <div class="col-md-6 text-right">
-            <a href="{{ route('tasks.show', $task->id) }}" class="d-inline mr-2"><button class="btn btn-secondary px-4">Späť</button></a>
+            <a href="{{ route('tasks.show', $task->id) }}" class="d-inline mr-2"><button class="btn btn-secondary px-4">Späť na úlohu</button></a>
         </div>
     </div>
 

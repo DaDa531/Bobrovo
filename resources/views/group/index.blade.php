@@ -25,22 +25,20 @@
                         <th>Názov</th>
                         <th>Počet žiakov</th>
                         <th>Vytvorená</th>
-                        <th>Vymazať</th>
+                        <th class="text-center">Upraviť</th>
+                        <th class="text-center">Vymazať</th>
                     </tr>
                     @foreach ($groups as $group)
                         <tr>
                             <td><a href="{{ route('group.show', $group->id) }}">{{ $group->name}}</a></td>
                             <td>{{ $group->studentsCount()}}</td>
                             <td>{{ $group->created_at }}</td>
-                            <td>
+                            <td class="text-center">
+                                <a href="{{ route('group.edit', $group->id) }}" title="Upraviť {{ $group->name }}"><i class="fa fa-edit"></i></a>
+                            </td>
+                            <td class="text-center">
                                 @if ($group->canDelete())
-                                    <form action="{{ route('group.destroy', $group->id) }}" method="post" class="d-inline">
-                                        @csrf
-                                        <button class="btn btn-danger btn-trash px-4 py-0" type="submit">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </form>
-                                <!--<a href="{{ route('group.destroy', $group->id) }}"><i class="fa fa-trash"></i></a>-->
+                                    <a href="{{ route('group.destroy', $group->id) }}" class="text-danger" title="Vymazať {{ $group->name }}"><i class="fa fa-trash"></i></a>
                                 @endif
                             </td>
                         </tr>
