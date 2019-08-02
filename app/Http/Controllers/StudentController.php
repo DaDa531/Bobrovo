@@ -27,9 +27,12 @@ class StudentController extends Controller
      */
     public function index()
     {
+
         $students = Student::getStudentsFromCurrentTeacher()->paginate(10);
+        $groups = Group::getGroupsFromCurrentTeacher()->get();
         return view('student.index', [
-            'students' => $students
+            'students' => $students,
+            'groups' => $groups
         ]);
     }
 
@@ -260,4 +263,22 @@ class StudentController extends Controller
     }
 
     //PDF - https://github.com/niklasravnsborg/laravel-pdf
+
+
+    /**
+     * Add selected students to selected group.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function multiAddToGroup(Request $request)
+    {
+        if ($request->pupils != null and $request->group != null) {
+            $group = Group::find($request->group);
+            $students = array_diff($request->pupils, $group->students()->pluck('id')->toArray());
+            $group->students()->attach($students);
+        }
+
+        return back();
+    }
 }
