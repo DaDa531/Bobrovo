@@ -32,7 +32,7 @@
                         <tr>
                             <td><a href="{{ route('group.show', $group->id) }}">{{ $group->name}}</a></td>
                             <td>{{ $group->studentsCount()}}</td>
-                            <td>{{ $group->created_at }}</td>
+                            <td>{{ $group->createdAtToString() }}</td>
                             <td class="text-center">
                                 <a href="{{ route('group.edit', $group->id) }}" title="Upraviť {{ $group->name }}"><i class="fa fa-edit"></i></a>
                             </td>

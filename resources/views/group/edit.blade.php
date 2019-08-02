@@ -33,7 +33,7 @@
 
                 <div class="form-group">
                     <label for="description">Popis</label>
-                    <textarea id="group-description" class="form-control wyswyg-editor" name="description" rows=4" >{{ old('description') ?? $group->description }}</textarea>
+                    <textarea id="group-description" class="form-control" name="description" rows=4" >{{ old('description') ?? $group->description }}</textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Zmeniť údaje</button>

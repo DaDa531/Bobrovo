@@ -98,10 +98,17 @@ class Student extends Model
 
     /**
      * Return whether the student's teacher is authenticated
-     *
      * @return bool
      */
     public function authIsMyTeacher(){
         return ($this->teacher_id == auth()->user()->id);
+    }
+
+    /**
+     * Return created_at date in string format d. m. Y
+     * @return string
+     */
+    public function createdAtToString() {
+        return date('d. m. Y' , $this->created_at->getTimestamp());
     }
 }

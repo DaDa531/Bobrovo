@@ -76,4 +76,12 @@ class Group extends Model
     public function authIsMyTeacher(){
         return ($this->created_by == auth()->user()->id);
     }
+
+    /**
+     * Return created_at date in string format d. m. Y
+     * @return string
+     */
+    public function createdAtToString() {
+        return date('d. m. Y' , $this->created_at->getTimestamp());
+    }
 }

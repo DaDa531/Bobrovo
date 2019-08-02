@@ -35,7 +35,7 @@
     <div class="row">
         <div class="col-md-6">
             <p><strong>Kód:</strong> {{ $student->code}}</p>
-            <p><strong>Zaregistrovaný:</strong> {{ $student->created_at}}</p>
+            <p><strong>Zaregistrovaný:</strong> {{ $student->createdAtToString()}}</p>
 
             <h3>Skupiny</h3>
             @if (count($groups) == 0)

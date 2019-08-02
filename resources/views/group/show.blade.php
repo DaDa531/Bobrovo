@@ -36,7 +36,7 @@
     <div class="row">
         <div class="col-md-6">
             <p>TO DO: VYHĽADANIE KONKRÉTNEHO ZIAKA, TLAČ ZOZNAMU ŽIAKOV S KÓDMI</p>
-            <p><strong>Vytvorená:</strong> {{ $group->created_at}}</p>
+            <p><strong>Vytvorená:</strong> {{ $group->createdAtToString()}}</p>
             <p><strong>Popis:</strong> {{ $group->description}}</p>
         </div>
         <div class="col-md-6">
