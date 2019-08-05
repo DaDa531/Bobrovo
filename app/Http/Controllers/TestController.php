@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class TestController extends Controller
 {
     /**
-     * StudentController constructor.
+     * TestController constructor.
      */
     public function __construct()
     {
@@ -22,7 +22,10 @@ class TestController extends Controller
      */
     public function index()
     {
-        return view('test.index', []);
+        $tests = Test::paginate(10);
+        return view('test.index', [
+            'tests' => $tests
+        ]);
     }
 
     /**

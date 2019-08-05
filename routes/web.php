@@ -62,4 +62,6 @@ Route::post('/groups/{group}/removestudent/{student}', 'GroupController@removeSt
 //Test
 Route::get('/tests', 'TestController@index')->name('test');
 Route::get('/tests/create', 'TestController@create')->name('test.create');
+Route::get('/tests/{test}/edit','TestController@edit')->name('test.edit');
 Route::get('/tests/{test}', 'TestController@show')->name('test.show');
+Route::get('/tests/{test}/destroy', 'TestController@destroy')->name('test.destroy');

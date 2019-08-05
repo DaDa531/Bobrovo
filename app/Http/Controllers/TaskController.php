@@ -44,7 +44,7 @@ class TaskController extends Controller
         return view('tasks.show', [
             'task' => $task,
             'topics' => $task->topics()->get(),
-            'categories' => $task->categories()->get(),
+            'categories' => $task->categories()->pluck('name'),
             'rating' => $task->averageRating(),
             'comments' => $task->comments()->get()
         ]);

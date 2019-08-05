@@ -82,15 +82,13 @@
                     <h4>Kategória</h4>
                 </div>
                 <div class="card-body p-0">
-                    @if (count($categories) == 0)
-                        <li class="list-group-item">Úloha nie zaradená do žiadnej kategórie.</li>
-                    @else
-                        <ul class="list-group list-group-flush">
-                            @foreach ($categories as $category)
-                                <li class="list-group-item">{{$category->name}}</li>
-                            @endforeach
-                        </ul>
-                    @endif
+                    <ul class="list-group list-group-flush">
+                        @if (count($categories) == 0)
+                            <li class="list-group-item">Úloha nie zaradená do žiadnej kategórie.</li>
+                        @else
+                            <li class="list-group-item">{{implode($categories->toArray(),', ')}}</li>
+                        @endif
+                    </ul>
                 </div>
             </div>
 

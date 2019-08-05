@@ -13,4 +13,18 @@ class Test extends Model
      */
     protected $guarded  = [];
 
+
+    public function canDelete()
+    {
+        return true;
+        //nikto ho este neriesil
+    }
+
+    /**
+     * Return date in string format d. m. Y
+     * @return string
+     */
+    public function dateToString($date) {
+        return date('d. m. Y H : i' , $date->getTimestamp());
+    }
 }

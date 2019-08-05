@@ -16,7 +16,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h2>Pridať úlohu</h2>
+            <h1>Pridať úlohu</h1>
 
             <form method="POST" action="{{ route('tasks.store') }}">
                 @csrf

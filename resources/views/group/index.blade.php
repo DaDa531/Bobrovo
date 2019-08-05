@@ -48,7 +48,7 @@
 
             @else
                 <div>
-                    Nemáte vytvorené žiadne skupiny
+                    Nemáte vytvorené žiadne skupiny.
                 </div>
             @endif
 
