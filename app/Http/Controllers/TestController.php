@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Test;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTest;
 
 class TestController extends Controller
 {
@@ -49,5 +50,46 @@ class TestController extends Controller
         return view('test.show', [
             'test' => $test,
         ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param StoreTest $request
+     * @return Response
+     */
+    public function store(StoreTest $request)
+    {
+
+        return back();
+
+        $test = Test::create([
+            'name' => $request->title,
+            'description' => $request->question,
+            'teacher_id' => auth()->user()->id
+        ]);
+
+
+        return redirect()->route('test.create')->with([
+            'success' => 'Test '. $test->name . ' bol vytvorený!'
+        ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Test $task
+     * @return Response
+     */
+    public function destroy(Test $test)
+    {
+        //da sa zmazat, len ak ho este nikto neriešil
+
+        if (!$test->authIsMyAuthor())
+            return back();
+
+        $test->delete();
+
+        return redirect()->route('test');
     }
 }

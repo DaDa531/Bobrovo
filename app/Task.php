@@ -5,6 +5,8 @@ namespace App;
 use App\Topic;
 use App\Category;
 use App\Rating;
+use App\Comment;
+use App\Test;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -66,7 +68,18 @@ class Task extends Model
      */
     public function comments()
     {
-        return $this->hasMany('App\Comment');
+        return $this->hasMany(Comment::class);
+    }
+
+
+    /**
+     * Return tests containng task
+     *
+     * @return BelongsToMany
+     */
+    public function tests()
+    {
+        return $this->belongsToMany(Test::class, 'test_task');
     }
 
 
