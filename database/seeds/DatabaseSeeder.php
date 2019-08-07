@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
             TaskCategoryTableSeeder::class,
             RatingsTableSeeder::class,
             CommentsTableSeeder::class,
-            StudentGroupTableSeeder::class
+            StudentGroupTableSeeder::class,
+            TestTableSeeder::class
         ]);
     }
 }
