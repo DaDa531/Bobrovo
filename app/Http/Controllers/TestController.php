@@ -23,7 +23,7 @@ class TestController extends Controller
      */
     public function index()
     {
-        $tests = Test::paginate(10);
+        $tests = Test::getTestsFromCurrentTeacher()->get();
         return view('test.index', [
             'tests' => $tests
         ]);
@@ -48,7 +48,7 @@ class TestController extends Controller
     public function show(Test $test)
     {
         return view('test.show', [
-            'test' => $test,
+            'test' => $test
         ]);
     }
 

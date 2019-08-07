@@ -23,17 +23,26 @@ class Test extends Model
         return $this->belongsToMany(Task::class, 'test_task');
     }
 
+    /**
+     * Return groups assigned to test
+     *
+     * @return BelongsToMany
+     */
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'test_group')->withPivot('available_from', 'available_to', 'time_to_do');
+    }
 
     /**
-     * Return if test can be deleted (belongs to authorised user, not solved yet)
+     * Return current teacher's groups
      *
-     * @return bool
+     * @return Builder|Model
      */
-    public function canDelete()
+    public static function getTestsFromCurrentTeacher()
     {
-        return true;
-        //nikto ho este neriesil
+        return static::query()->where('teacher_id', auth()->user()->id);
     }
+
 
     /**
      * Return whether the test's author is authenticated
@@ -48,7 +57,34 @@ class Test extends Model
      * Return date in string format d. m. Y
      * @return string
      */
-    public function dateToString($date) {
-        return date('d. m. Y H : i' , $date->getTimestamp());
+    public function createdAtToString($date) {
+        return date('d. m. Y' , $date->getTimestamp());
+    }
+
+    /**
+     * Return whether the test is assigned to some group
+     * @return boolean
+     */
+    public function isAssigned() {
+        return $this->groups()->first() != null;
+    }
+
+    /**
+     * Return whether the test is already solved (some results of the test are saved)
+     * @return boolean
+     */
+    public function isSolved() {
+        return false;
+    }
+
+    /**
+     * Return if test can be deleted (belongs to authorised user, not solved yet)
+     *
+     * @return bool
+     */
+    public function canDelete()
+    {
+        return !$this->isAssigned();
+        //nikto ho este neriesil
     }
 }
