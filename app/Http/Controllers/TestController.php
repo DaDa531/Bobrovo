@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Test;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTest;
+use Illuminate\Http\Response;
 
 class TestController extends Controller
 {
@@ -23,7 +24,7 @@ class TestController extends Controller
      */
     public function index()
     {
-        $tests = Test::getTestsFromCurrentTeacher()->get();
+        $tests = Test::getTests()->get();
         return view('test.index', [
             'tests' => $tests
         ]);

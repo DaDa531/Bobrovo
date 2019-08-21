@@ -6,6 +6,7 @@ use App\Group;
 use App\Student;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreGroup;
+use Illuminate\Http\Response;
 
 class GroupController extends Controller
 {
@@ -24,7 +25,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::getGroupsFromCurrentTeacher()->orderBy('name')->get();
+        $groups = Group::getGroups()->orderBy('name')->get();
         return view('group.index', [
             'groups' => $groups
         ]);

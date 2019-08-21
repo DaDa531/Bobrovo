@@ -8,6 +8,7 @@ use App\Category;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTask;
+use Illuminate\Http\Response;
 
 class TaskController extends Controller
 {
@@ -36,8 +37,8 @@ class TaskController extends Controller
     /**
      * Show given task.
      *
-     * @param  Tasks  $task
-     * @return View
+     * @param  Task  $task
+     * @return Response
      */
     public function show(Task $task)
     {
@@ -53,7 +54,7 @@ class TaskController extends Controller
     /**
      * Create new task.
      *
-     * @return View
+     * @return Response
      */
     public function create()
     {
@@ -68,8 +69,8 @@ class TaskController extends Controller
     /**
      * Edit given task.
      *
-     * @param  Tasks  $task
-     * @return View
+     * @param  Task $task
+     * @return Response
      */
     public function edit(Task $task)
     {
@@ -90,11 +91,11 @@ class TaskController extends Controller
     /**
      * Show list of my tasks.
      *
-     * @return View
+     * @return Response
      */
     public function mytasks()
     {
-        $tasks = auth()->user()->tasks()->paginate(10);
+        $tasks = Task::getTasks()->paginate(10);
         return view('tasks.my', [
             'tasks' => $tasks
         ]);

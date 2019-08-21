@@ -5,9 +5,10 @@ namespace App;
 use App\Group;
 use App\User;
 use Faker\Factory as Faker;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelonsTo;
-use Illuminate\Database\Eloquent\Relations\BelonsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Student extends Model
 {
@@ -46,7 +47,7 @@ class Student extends Model
      *
      * @return Builder|Model
      */
-    public static function getStudentWithCode($code)
+    public static function getStudent($code)
     {
         return static::query()->where('code', $code)->first();
     }
@@ -57,9 +58,9 @@ class Student extends Model
      *
      * @return Builder|Model
      */
-    public static function getStudentsFromCurrentTeacher()
+    public static function getStudents()
     {
-        return static::query()->where('teacher_id', auth()->user()->id);
+        return static::query()->where('teacher_id', auth()->id());
     }
 
 
@@ -88,7 +89,7 @@ class Student extends Model
         $faker = Faker::create();
         while(true){
             $code = $faker->bothify('**********');
-            $student = Student::getStudentWithCode($code);
+            $student = Student::getStudent($code);
             if ($student == null){
                 break;
             }

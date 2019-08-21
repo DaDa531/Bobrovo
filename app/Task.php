@@ -7,6 +7,7 @@ use App\Category;
 use App\Rating;
 use App\Comment;
 use App\Test;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -83,15 +84,14 @@ class Task extends Model
     }
 
 
+    /**
+     * Return current teacher's tasks
+     *
+     * @return Builder|Model
+     */
     public static function getTasks()
     {
-        return static::query()->get();
-    }
-
-
-    public static function getTasksFromCurrentTeacher()
-    {
-        return static::query()->where('created_by', auth()->user()->id);
+        return static::query()->where('created_by', auth()->id());
     }
 
 

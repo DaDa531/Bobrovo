@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Faker\Factory as Faker;
+use Illuminate\Http\Response;
 
 class StudentController extends Controller
 {
@@ -28,8 +29,8 @@ class StudentController extends Controller
     public function index()
     {
 
-        $students = Student::getStudentsFromCurrentTeacher()->paginate(10);
-        $groups = Group::getGroupsFromCurrentTeacher()->get();
+        $students = Student::getStudents()->paginate(10);
+        $groups = Group::getGroups()->get();
         return view('student.index', [
             'students' => $students,
             'groups' => $groups
@@ -183,7 +184,7 @@ class StudentController extends Controller
      *
      * @param Request $request
      * @param Student $student
-     * @param GroupId
+     * @param $groupId
      * @return Response
      */
     public function removeFromGroup(Request $request, Student $student, $groupId)

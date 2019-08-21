@@ -4,9 +4,10 @@ namespace App;
 
 use App\User;
 use App\Student;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelonsTo;
-use Illuminate\Database\Eloquent\Relations\BelonsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Group extends Model
 {
@@ -48,9 +49,9 @@ class Group extends Model
      *
      * @return Builder|Model
      */
-    public static function getGroupsFromCurrentTeacher()
+    public static function getGroups()
     {
-        return static::query()->where('created_by', auth()->user()->id);
+        return static::query()->where('created_by', auth()->id());
     }
 
     /**

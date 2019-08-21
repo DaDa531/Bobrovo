@@ -55,4 +55,13 @@ class User extends Authenticatable
     public function tasks() {
         return $this->hasMany(Task::class,'created_by');
     }
+
+    /**
+     * Return user's tests
+     *
+     * @return HasMany
+     */
+    public function tests() {
+        return $this->hasMany(Test::class,'teacher_id');
+    }
 }

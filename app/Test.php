@@ -2,7 +2,9 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Test extends Model
 {
@@ -34,13 +36,13 @@ class Test extends Model
     }
 
     /**
-     * Return current teacher's groups
+     * Return current teacher's tests
      *
      * @return Builder|Model
      */
-    public static function getTestsFromCurrentTeacher()
+    public static function getTests()
     {
-        return static::query()->where('teacher_id', auth()->user()->id);
+        return static::query()->where('teacher_id', auth()->id());
     }
 
 
@@ -50,7 +52,7 @@ class Test extends Model
      * @return bool
      */
     public function authIsMyAuthor(){
-        return ($this->teacher_id == auth()->user()->id);
+        return ($this->teacher_id == auth()->id());
     }
 
     /**
