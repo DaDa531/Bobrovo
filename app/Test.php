@@ -35,6 +35,8 @@ class Test extends Model
         return $this->belongsToMany(Group::class, 'test_group')->withPivot('available_from', 'available_to', 'time_to_do');
     }
 
+
+
     /**
      * Return current teacher's tests
      *

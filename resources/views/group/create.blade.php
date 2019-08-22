@@ -22,7 +22,7 @@
             <form method="POST" action="{{ route('group.store') }}">
                 @csrf
                 <div class="form-group">
-                    <label for="name">Meno</label>
+                    <label for="name" class="font-weight-bold">Meno</label>
                     <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
                     @if ($errors->has('name'))
                         <span class="invalid-feedback">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Test;
+use App\Group;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTest;
 use Illuminate\Http\Response;
@@ -92,5 +93,20 @@ class TestController extends Controller
         $test->delete();
 
         return redirect()->route('test');
+    }
+
+    /**
+     * Show the form for assigning a test to a group.
+     *
+     * @return Response
+     */
+    public function assign()
+    {
+        $tests = Test::getTests()->get();
+        $groups = Group::getGroups()->get();
+        return view('test.assign', [
+            'tests' => $tests,
+            'groups' => $groups
+        ]);
     }
 }
