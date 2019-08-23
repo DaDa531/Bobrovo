@@ -110,6 +110,7 @@ class Student extends Model
      * @return string
      */
     public function createdAtToString() {
-        return date('d. m. Y' , $this->created_at->getTimestamp());
+        return $this->created_at->isoFormat('DD. MM. YYYY');
+
     }
 }
