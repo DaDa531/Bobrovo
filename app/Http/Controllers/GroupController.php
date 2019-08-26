@@ -167,10 +167,13 @@ class GroupController extends Controller
         } catch (Exception $exception) {
             return back()->withErrors($exception->getMessage());
         }*/
+        $groupname = $group->name;
         $group->delete();
+        $groups = Group::getGroups()->orderBy('name')->get();
 
-        return redirect()->route('group');/*->with([
-            'success' => 'Skupina '.$group->name.' bola zrušená!'
-        ]);*/
+        return redirect()->route('group')->with([
+            'groups' => $groups,
+            'success' => 'Skupina '. $groupname. ' bola zrušená!'
+        ]);
     }
 }

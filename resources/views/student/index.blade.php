@@ -50,6 +50,11 @@
                             </td>
                             <td class="text-center">
                                 @if ($student->canDelete())
+                                    <!--<form action="{{ route('student.destroy', $student->id) }}" method="post" class="d-inline">
+                                        @csrf
+                                        <button class="btn btn-danger px-4 py-0" type="submit">
+                                            <i class="fa fa-trash"></i>
+                                        </button>-->
                                     <a href="{{ route('student.destroy', $student->id) }}" class="text-danger" title="Vymazať {{ $student->first_name . ' ' . $student->last_name }}"><i class="fa fa-trash"></i></a>
                                 @endif
                             </td>

@@ -6,14 +6,14 @@
 
 @section('content')
 <div class="container">
-    <!--<div class="row justify-content-center mb-5">
+    <div class="row mb-1">
         <div class="col-sm-6 col-12">
             @includeWhen(session('errors'), 'layouts.errors')
             @includeWhen(session('success'), 'layouts.success', ['success' => session('success')])
         </div>
-    </div>-->
-    <div class="row">
+    </div>
 
+    <div class="row">
         <!-- Main content -->
         <div class="col-md-12">
             <h1>Zoznam skupín</h1>
@@ -38,7 +38,12 @@
                             </td>
                             <td class="text-center">
                                 @if ($group->canDelete())
-                                    <a href="{{ route('group.destroy', $group->id) }}" class="text-danger" title="Vymazať {{ $group->name }}"><i class="fa fa-trash"></i></a>
+                                    <form action="{{ route('group.destroy', $group->id) }}" method="post" class="d-inline">
+                                        @csrf
+                                        <button class="btn btn-danger px-4 py-0" type="submit">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>
