@@ -32,9 +32,8 @@ class Test extends Model
      */
     public function groups()
     {
-        return $this->belongsToMany(Group::class, 'test_group')->withPivot('available_from', 'available_to', 'time_to_do');
+        return $this->belongsToMany(Group::class, 'test_group')->withPivot('mix_questions', 'available_answers', 'available_from', 'available_to', 'time_to_do');
     }
-
 
 
     /**

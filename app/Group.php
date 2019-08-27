@@ -39,9 +39,35 @@ class Group extends Model
         return $this->belongsToMany(Student::class, 'student_group');
     }
 
+
+    /**
+     * Return group's students count
+     *
+     * @return integer
+     */
     public function studentsCount()
     {
         return $this->students()->count();
+    }
+
+    /**
+     * Return tests assigned to group
+     *
+     * @return BelongsToMany
+     */
+    public function tests()
+    {
+        return $this->belongsToMany(Test::class, 'test_group')->withPivot('mix_questions', 'available_answers', 'available_from', 'available_to', 'time_to_do');
+    }
+
+    /**
+     * Return tests assigned to group
+     *
+     * @return BelongsToMany
+     */
+    public function testAssignments()
+    {
+        return $this->belongsToMany(Test::class, 'test_group')->withPivot('mix_questions', 'available_answers', 'available_from', 'available_to', 'time_to_do');
     }
 
     /**
@@ -53,6 +79,7 @@ class Group extends Model
     {
         return static::query()->where('created_by', auth()->id());
     }
+
 
     /**
      * Return if group can be deleted (no students assigned)
@@ -82,7 +109,7 @@ class Group extends Model
      * Return created_at date in string format d. m. Y
      * @return string
      */
-    public function createdAtToString() {
-        return $this->created_at->isoFormat('DD. MM. YYYY');
+    public function dateToString($date) {
+        return $date->isoFormat('DD. MM. YYYY');
     }
 }

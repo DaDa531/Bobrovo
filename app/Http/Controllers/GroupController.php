@@ -75,7 +75,8 @@ class GroupController extends Controller
 
         return view('group.show', [
             'group' => $group,
-            'students' => $group->students()->orderBy('last_name')->get()
+            'students' => $group->students()->orderBy('last_name')->get(),
+            'tests' => $group->tests()->get()
         ]);
     }
 
