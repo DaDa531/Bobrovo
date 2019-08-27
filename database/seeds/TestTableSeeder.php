@@ -22,8 +22,6 @@ class TestTableSeeder extends Seeder
                 'description' => $faker->paragraph,
                 'teacher_id' => $faker->numberBetween(1, $usersCount),
                 'available_description' => $faker->numberBetween(0, 1),
-                'mix_questions' => $faker->numberBetween(0, 1),
-                'available_answers' => $faker->numberBetween(0, 1),
                 'public' => 1
             ]);
 

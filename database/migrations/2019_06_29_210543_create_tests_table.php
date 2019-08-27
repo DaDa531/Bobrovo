@@ -22,8 +22,7 @@ class CreateTestsTable extends Migration
             $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->boolean('available_description');
-            $table->boolean('mix_questions');
-            $table->boolean('available_answers');
+
             $table->boolean('public');
 
             $table->timestamps();
