@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             RatingsTableSeeder::class,
             CommentsTableSeeder::class,
             StudentGroupTableSeeder::class,
-            TestTableSeeder::class
+            TestsTableSeeder::class
         ]);
     }
 }
