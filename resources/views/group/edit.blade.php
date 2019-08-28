@@ -18,29 +18,30 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
-            <form method="POST" action="{{ route('group.update', $group->id) }}">
+        <div class="col-md-12">
+            <form method="post" action="{{ route('group.update', $group->id) }}" class="form-inline my-3">
                 @csrf
-                <div class="form-group">
-                    <label for="name"><strong>Meno</strong></label>
-                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') ?? $group->name }}" required autofocus>
-                    @if ($errors->has('name'))
-                        <span class="invalid-feedback">
-                                <strong>{{ $errors->first('name') }}</strong>
-                            </span>
-                    @endif
-                </div>
+                <label for="name"  class="mr-sm-2"><strong>Meno:</strong></label>
+                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }} mb-2 mr-sm-2" name="name" value="{{ old('name') ?? $group->name }}" required autofocus>
+                @if ($errors->has('name'))
+                    <span class="invalid-feedback">
+                        <strong>{{ $errors->first('name') }}</strong>
+                    </span>
+                @endif
 
-                <div class="form-group">
-                    <label for="group-description">Popis</label>
-                    <textarea id="group-description" class="form-control" name="description" rows=4" >{{ old('description') ?? $group->description }}</textarea>
-                </div>
+                <label for="group-description" class="mr-sm-2">Popis:</label>
+                <input id="group-description" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}  mb-2 mr-sm-2" name="description" value="{{ old('description') ?? $group->description }}" size="75">
 
-                <button type="submit" class="btn btn-primary">Zmeniť údaje</button>
+                <button type="submit" class="btn btn-primary mb-2">Zmeniť údaje</button>
             </form>
         </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-6">
-            <p class="mb-1">Žiaci v skupine ({{ count($students) }})</p>
+            <h2>Žiaci v skupine ({{ count($students) }})</h2>
+            PREROBIT CEZ 2 SELECTY/
+            ZISTIT PRECO NEFUNGUJE
             @if (count($students)>0)
                 <table class="table">
                     <tr>
@@ -62,6 +63,20 @@
                     @endforeach
                 </table>
             @endif
+        </div>
+        <div class="col-md-6">
+            <h3>Pridať žiakov do skupiny</h3>
+            <form method="post" action="{{ route('group.addstudents', $group->id) }}">
+                <div class="form-group">
+                    <label for="pupils">Vyber žiakov:</label>
+                    <select name="pupils[]" id="pupils" class="custom-select" size = {{ count($allstudents) > 10 ? 10 : count($allstudents)}} multiple>
+                        @foreach($allstudents as $student)
+                            <option value="{{ $student->id }}">{{ $student->first_name }} {{ $student->last_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Označených pridať do skupiny</button>
+            </form>
         </div>
     </div>
 

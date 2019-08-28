@@ -97,6 +97,7 @@ class GroupController extends Controller
         return view('group.edit', [
             'group' => $group,
             'students' => $group->students()->get(),
+            'allstudents' => Student::getStudents()->get()
         ]);
     }
 
@@ -136,7 +137,8 @@ class GroupController extends Controller
 
         return view('group.edit', [
             'group' => $group,
-            'students' => $group->students()->get()
+            'students' => $group->students()->get(),
+            'allstudents' => Student::getStudents()->get()
         ]);
     }
 
@@ -178,5 +180,22 @@ class GroupController extends Controller
             'groups' => $groups,
             'success' => 'Skupina '. $groupname. ' bola zrušená!'
         ]);
+    }
+
+    /**
+     * Add selected students to a group.
+     *
+     * @param Request $request
+     * @param Group $group
+     * @return Response
+     */
+    public function addStudents(Request $request, Group $group)
+    {
+        if ($request->pupils != null) {
+            $students = array_diff($request->pupils, $group->students()->pluck('id')->toArray());
+            $group->students()->attach($students);
+        }
+
+        return back();
     }
 }

@@ -20,29 +20,33 @@
         </div>
 
         <div class="col-md-6 text-right">
+            <a href="" class="d-inline mr-2">
+                <button class="btn btn-secondary px-4"><i class="fa fa-lg fa-print"></i>TO DO</button></a>
+
             <a href="{{ route('group.edit', $group->id) }}" class="d-inline mr-2">
-                <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Upraviť</button>
-            </a>
+                <button class="btn btn-secondary px-4"><i class="fa fa-lg fa-edit pr-2"></i>Upraviť</button></a>
 
             @if ($group->canDelete())
-                <a href="{{ route('group.destroy', $group->id) }}" class="d-inline mr-2">
-                    <button class="btn btn-danger px-4"><i class="fa fa-trash pr-2"></i>Zrušiť</button>
-                </a>
+                <form action="{{ route('group.destroy', $group->id) }}" method="post" class="d-inline">
+                    @csrf
+                    <button class="btn btn-danger px-4" type="submit"><i class="fa fa-lg fa-trash pr-3"></i>Zrušiť</button>
+                </form>
             @endif
-
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <p>TO DO: TLAČ ZOZNAMU ŽIAKOV S KÓDMI</p>
-            <p><strong>Vytvorená:</strong> {{ $group->dateToString($group->created_at)}}</p>
-            <p><strong>Popis:</strong> {{ $group->description}}</p>
+            <p>
+                <strong>Vytvorená:</strong> {{ $group->dateToString($group->created_at)}}<br>
+                <strong>Popis:</strong> {{ $group->description}}
+            </p>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-4">
-            <h3>Žiaci v skupine ({{ count($students) }})</h3>
+            <h2>Žiaci v skupine ({{ count($students) }})</h2>
             @if (count($students)>0)
                 <table class="table">
                     <tr>
@@ -64,21 +68,21 @@
                 <table class="table">
                     <tr>
                         <th>Názov</th>
-                        <th>Miešať<br> otázky</th>
-                        <th>Zobraziť<br> výsledky</th>
                         <th>Dostupný od</th>
                         <th>Dostupný do</th>
                         <th>Časový<br> limit </th>
+                        <th>Miešať<br> otázky</th>
+                        <th>Zobraziť<br> výsledky</th>
                         <th>Akcie</th>
                     </tr>
                     @foreach ($tests as $test)
                         <tr>
                             <td><a href="{{ route('test.show', $test->id) }}">{{$test->name}}</a></td>
-                            <td>{{ $test->pivot->mixed_questions ? 'áno' : 'nie' }}</td>
-                            <td>{{ $test->pivot->available_answers ? 'áno' : 'nie' }}</td>
                             <td>{{ $test->pivot->available_from}}</td>
                             <td>{{ $test->pivot->available_to}}</td>
                             <td>{{ $test->pivot->time_to_do}}</td>
+                            <td>{{ $test->pivot->mixed_questions ? 'áno' : 'nie' }}</td>
+                            <td>{{ $test->pivot->available_answers ? 'áno' : 'nie' }}</td>
                             <td>
                                 @if ($test->pivot->available_from > $time)
                                     EDIT / DELETE
