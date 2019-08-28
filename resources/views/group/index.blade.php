@@ -40,7 +40,7 @@
                                 @if ($group->canDelete())
                                     <form action="{{ route('group.destroy', $group->id) }}" method="post" class="d-inline">
                                         @csrf
-                                        <button class="btn btn-danger px-4 py-0" type="submit">
+                                        <button class="btn btn-danger btn-trash px-4 py-0" type="submit">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </form>

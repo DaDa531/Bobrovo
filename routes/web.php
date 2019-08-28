@@ -41,10 +41,11 @@ Route::get('/students/create', 'StudentController@create')->name('student.create
 Route::get('/students/import', 'StudentController@import')->name('student.import');
 Route::get('/students/{student}', 'StudentController@show')->name('student.show');
 Route::get('/students/{student}/edit', 'StudentController@edit')->name('student.edit');
-Route::get('/students/{student}/destroy', 'StudentController@destroy')->name('student.destroy');
 Route::post('/students/store', 'StudentController@store')->name('student.store');
 Route::post('/students/multistore', 'StudentController@multiStore')->name('student.multistore');
 Route::post('/students/multiaddgroup', 'StudentController@multiAddToGroup')->name('student.maddgroup');
+Route::post('/students/multidestroy', 'StudentController@multiDestroy')->name('student.multidestroy');
+Route::post('/students/{student}/destroy', 'StudentController@destroy')->name('student.destroy');
 Route::post('/students/{student}/update', 'StudentController@update')->name('student.update');
 Route::post('/students/{student}/addgroup', 'StudentController@addToGroup')->name('student.addgroup');
 Route::post('/students/{student}/removegroup/{group}', 'StudentController@removeFromGroup')->name('student.removegroup');

@@ -25,9 +25,12 @@
             </a>
 
             @if ($student->canDelete())
-                <a href="{{ route('student.destroy', $student->id) }}" class="d-inline mr-2">
-                    <button class="btn btn-danger px-4"><i class="fa fa-trash pr-2"></i>Zrušiť</button>
-                </a>
+                <form action="{{ route('student.destroy', $student->id) }}" method="post" class="d-inline">
+                    @csrf
+                    <button class="btn btn-danger px-4" type="submit">
+                        <i class="fa fa-trash"></i> Zrušiť
+                    </button>
+                </form>
             @endif
         </div>
     </div>

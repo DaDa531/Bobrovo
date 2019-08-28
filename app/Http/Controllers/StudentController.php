@@ -282,4 +282,19 @@ class StudentController extends Controller
 
         return back();
     }
+
+    /**
+     * Destroy selected students.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function multiDestroy(Request $request)
+    {
+        if ($request->pupils != null) {
+            Student::destroy($request->pupils);
+        }
+
+        return back();
+    }
 }
