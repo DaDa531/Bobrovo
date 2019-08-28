@@ -7,6 +7,7 @@ use App\Group;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTest;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 
 class TestController extends Controller
 {
@@ -50,7 +51,8 @@ class TestController extends Controller
     public function show(Test $test)
     {
         return view('test.show', [
-            'test' => $test
+            'test' => $test,
+            'time' => Carbon::now('Europe/Paris')
         ]);
     }
 

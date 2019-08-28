@@ -60,15 +60,6 @@ class Group extends Model
         return $this->belongsToMany(Test::class, 'test_group')->withPivot('mix_questions', 'available_answers', 'available_from', 'available_to', 'time_to_do');
     }
 
-    /**
-     * Return tests assigned to group
-     *
-     * @return BelongsToMany
-     */
-    public function testAssignments()
-    {
-        return $this->belongsToMany(Test::class, 'test_group')->withPivot('mix_questions', 'available_answers', 'available_from', 'available_to', 'time_to_do');
-    }
 
     /**
      * Return current teacher's groups

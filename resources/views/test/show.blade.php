@@ -36,38 +36,47 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-9">
             <p><strong>Popis:</strong> {{ $test->description }}</p>
         </div>
-        <div class="col-md-6">
-            MOZNO DAT DO KARTY
-            <p><strong>Dostupný popis testu:</strong> {{ $test->available_description}}</p>
-            <p><strong>Náhodné poradie otázok:</strong> {{ $test->mix_questions}}</p>
-            <p><strong>Dostupné správne riešenia:</strong> {{ $test->available_answers}}</p>
-            <p><strong>Verejný:</strong> {{ $test->public}}</p>
+        <div class="col-md-3">
+            <p><strong>Dostupný popis testu:</strong> {{ $test->available_description ? 'áno' : 'nie' }}</p>
+            <p><strong>Verejný:</strong> {{ $test->public ? 'áno' : 'nie' }}</p>
         </div>
     </div>
 
-    <div class="row"
+    <div class="row">
         <div class="col-md-12">
             @if (count($test->groups) != 0)
-                <h3>Priradenie testu skupinám</h3>
-                <p> TO DO; STAV: ČAKAJÚCI - ak dátum začatia este nebol, zobraziť KOS, PRAVE RIESENY alebo VYRIESENY - možnosť pozrieť štatiskitky<br> NAZOV SKUPINY</p>
+                <h3>Pridelenie testu skupinám</h3>
+                TO DO: AKCIE: ak je test pred vypracovaním, možno zmeniť alebo zrušiť pridelenie, ak je po, možno zobraziť výsledky
                 <table class="table">
                 <tr>
                     <th>Skupina</th>
+                    <th>Miešať otázky</th>
+                    <th>Zobraziť výsledky</th>
                     <th>Dostupný od:</th>
                     <th>Dostupný do:</th>
-                    <th>Čas na vypracovanie (min):</th>
-                    <th>Stav</th>
+                    <th>Časový limit (min):</th>
+                    <th>Akcie</th>
                 </tr>
-                @foreach ($test->groups as $assignment)
+                @foreach ($test->groups as $group)
                     <tr>
-                        <td>{{ $assignment->pivot->group_id }}</td>
-                        <td>{{ $assignment->pivot->available_from }}</td>
-                        <td>{{ $assignment->pivot->available_to }}</td>
-                        <td>{{ $assignment->pivot->time_to_do }}</td>
-                        <td> čakajúci</td>
+                        <td><a href="{{ route('group.show', $group->id) }}">{{$group->name}}</a></td>
+                        <td>{{ $group->pivot->mixed_questions ? 'áno' : 'nie' }}</td>
+                        <td>{{ $group->pivot->available_answers ? 'áno' : 'nie' }}</td>
+                        <td>{{ $group->pivot->available_from }}</td>
+                        <td>{{ $group->pivot->available_to }}</td>
+                        <td>{{ $group->pivot->time_to_do }}</td>
+                        <td>
+                            @if ($group->pivot->available_from > $time)
+                                EDIT / DELETE
+                            @elseif ($group->pivot->available_to < $time)
+                                VÝSLEDKY
+                            @else
+                                -
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
                 </table>

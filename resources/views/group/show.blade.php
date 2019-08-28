@@ -35,7 +35,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <p>TO DO: VYHĽADANIE KONKRÉTNEHO ZIAKA, TLAČ ZOZNAMU ŽIAKOV S KÓDMI</p>
+            <p>TO DO: TLAČ ZOZNAMU ŽIAKOV S KÓDMI</p>
             <p><strong>Vytvorená:</strong> {{ $group->dateToString($group->created_at)}}</p>
             <p><strong>Popis:</strong> {{ $group->description}}</p>
         </div>
@@ -69,17 +69,25 @@
                         <th>Dostupný od</th>
                         <th>Dostupný do</th>
                         <th>Časový<br> limit </th>
-                        <th>Výsledky</th>
+                        <th>Akcie</th>
                     </tr>
                     @foreach ($tests as $test)
                         <tr>
                             <td><a href="{{ route('test.show', $test->id) }}">{{$test->name}}</a></td>
                             <td>{{ $test->pivot->mixed_questions ? 'áno' : 'nie' }}</td>
                             <td>{{ $test->pivot->available_answers ? 'áno' : 'nie' }}</td>
-                            <td>{{$test->pivot->available_from}}</td>
-                            <td>{{$test->pivot->available_to}}</td>
-                            <td>{{$test->pivot->time_to_do}}</td>
-                            <td>...</td>
+                            <td>{{ $test->pivot->available_from}}</td>
+                            <td>{{ $test->pivot->available_to}}</td>
+                            <td>{{ $test->pivot->time_to_do}}</td>
+                            <td>
+                                @if ($test->pivot->available_from > $time)
+                                    EDIT / DELETE
+                                @elseif ($test->pivot->available_to < $time)
+                                    VÝSLEDKY
+                                @else
+                                    -
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </table>

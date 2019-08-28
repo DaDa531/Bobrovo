@@ -7,6 +7,7 @@ use App\Student;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreGroup;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 
 class GroupController extends Controller
 {
@@ -76,7 +77,8 @@ class GroupController extends Controller
         return view('group.show', [
             'group' => $group,
             'students' => $group->students()->orderBy('last_name')->get(),
-            'tests' => $group->tests()->get()
+            'tests' => $group->tests()->get(),
+            'time' => Carbon::now('Europe/Paris')
         ]);
     }
 
