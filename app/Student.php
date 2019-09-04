@@ -43,7 +43,7 @@ class Student extends Model
 
 
     /**
-     * Return studentswith given code
+     * Return student with given code
      *
      * @return Builder|Model
      */
@@ -54,15 +54,35 @@ class Student extends Model
 
 
     /**
+     * Scope a query to only include current teacher.
+     *
+     * @param  Builder  $query
+     * @return Builder
+     */
+    public function scopeCurrentTeacher($query)
+    {
+        return $query->where('teacher_id', auth()->id());
+    }
+
+    /**
      * Return current teacher's students
      *
      * @return Builder|Model
      */
     public static function getStudents()
     {
-        return static::query()->where('teacher_id', auth()->id());
+        return static::query()->CurrentTeacher();
     }
 
+    /**
+     * Return current teacher's students excepr $array
+     *
+     * @return Builder|Model
+     */
+    public static function getStudentsExcept($array)
+    {
+        return static::query()->CurrentTeacher()->whereNotIn('id', $array);
+    }
 
     /**
      * Return if student can be deleted (user is his/her teacher and no test is assigned to him/her)

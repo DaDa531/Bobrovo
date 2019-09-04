@@ -30,7 +30,7 @@
                 @endif
 
                 <label for="group-description" class="mr-sm-2">Popis:</label>
-                <input id="group-description" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}  mb-2 mr-sm-2" name="description" value="{{ old('description') ?? $group->description }}" size="75">
+                <input id="group-description" type="text" class="form-control mb-2 mr-sm-2" name="description" value="{{ old('description') ?? $group->description }}" size="90">
 
                 <button type="submit" class="btn btn-primary mb-2">Zmeniť údaje</button>
             </form>
@@ -39,37 +39,29 @@
 
     <div class="row">
         <div class="col-md-6">
-            <h2>Žiaci v skupine ({{ count($students) }})</h2>
-            PREROBIT CEZ 2 SELECTY/
-            ZISTIT PRECO NEFUNGUJE
+            <h2>Zrušiť žiakov zo skupiny</h2>
             @if (count($students)>0)
-                <table class="table">
-                    <tr>
-                        <th>Meno a priezvisko</th>
-                        <th class="text-right">Vymazať žiaka zo skupiny</th>
-                    </tr>
-                    @foreach ($students as $student)
-                        <tr>
-                            <td><a href="{{ route('student.show', $student->id) }}">{{$student->first_name}} {{$student->last_name}}</a></td>
-                            <td class="text-right">
-                                <form method="POST" action="{{ route('group.removestudent', [$group->id, $student->id]) }}" class="d-inline">
-                                    @csrf
-                                    <button class="btn btn-danger btn-trash px-4 py-0" type="submit" title="Vymazať žiaka zo skupiny">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </table>
+                <form method="post" action="{{ route('group.removestudents', $group->id) }}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="pupils">Vyber žiakov:</label>
+                        <select name="pupils[]" id="pupils" class="custom-select" size = {{ count($students) > 20 ? 20 : count($students)}} multiple>
+                            @foreach($students as $student)
+                                <option value="{{ $student->id }}">{{ $student->first_name }} {{ $student->last_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button class="btn btn-danger px-4" type="submit"><i class="fa fa-lg fa-trash pr-3"></i>Označených zrušiť zo skupiny</button>
+                </form>
             @endif
         </div>
         <div class="col-md-6">
-            <h3>Pridať žiakov do skupiny</h3>
+            <h2>Pridať žiakov do skupiny</h2>
             <form method="post" action="{{ route('group.addstudents', $group->id) }}">
+                @csrf
                 <div class="form-group">
                     <label for="pupils">Vyber žiakov:</label>
-                    <select name="pupils[]" id="pupils" class="custom-select" size = {{ count($allstudents) > 10 ? 10 : count($allstudents)}} multiple>
+                    <select name="pupils[]" id="pupils" class="custom-select" size = {{ count($allstudents) > 20 ? 20 : count($allstudents)}} multiple>
                         @foreach($allstudents as $student)
                             <option value="{{ $student->id }}">{{ $student->first_name }} {{ $student->last_name }}</option>
                         @endforeach

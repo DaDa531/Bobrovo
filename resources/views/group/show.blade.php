@@ -63,7 +63,7 @@
             @endif
         </div>
         <div class="col-md-8">
-            <h3>Testy pridelené skupine ({{ count($tests) }})</h3>
+            <h2>Testy pridelené skupine ({{ count($tests) }})</h2>
             @if (count($tests)>0)
                 <table class="table">
                     <tr>
@@ -95,7 +95,12 @@
                         </tr>
                     @endforeach
                 </table>
+            @else
+                <p>Skupina nemá pridelené žiadne testy.</p>
             @endif
+
+            <a href="#" class="d-inline mr-2">
+                <button class="btn btn-secondary px-4">Prideliť test TO DO</button></a>
         </div>
     </div>
 

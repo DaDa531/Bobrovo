@@ -59,6 +59,7 @@ Route::post('/groups/store', 'GroupController@store')->name('group.store');
 Route::post('/groups/{group}/destroy', 'GroupController@destroy')->name('group.destroy');
 Route::post('/groups/{group}/update', 'GroupController@update')->name('group.update');
 Route::post('/groups/{group}/addstudents', 'GroupController@addStudents')->name('group.addstudents');
+Route::post('/groups/{group}/removestudents', 'GroupController@removeStudents')->name('group.removestudents');
 Route::post('/groups/{group}/removestudent/{student}', 'GroupController@removeStudent')->name('group.removestudent');
 
 

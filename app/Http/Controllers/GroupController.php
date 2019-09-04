@@ -94,10 +94,11 @@ class GroupController extends Controller
         if (!$group->authIsMyTeacher())
             return back();
 
+        $students = $group->students();
         return view('group.edit', [
             'group' => $group,
-            'students' => $group->students()->get(),
-            'allstudents' => Student::getStudents()->get()
+            'students' => $students->get(),
+            'allstudents' => Student::getStudentsExcept( $students->pluck('id')->toArray())->get()
         ]);
     }
 
@@ -194,6 +195,24 @@ class GroupController extends Controller
         if ($request->pupils != null) {
             $students = array_diff($request->pupils, $group->students()->pluck('id')->toArray());
             $group->students()->attach($students);
+        }
+
+        return back();
+    }
+
+
+    /**
+     * Remove student from a group.
+     *
+     * @param Request $request
+     * @param Group $group
+     * @return Response
+     */
+    public function removeStudents(Request $request, Group $group)
+    {
+        if ($request->pupils != null) {
+            $students = $request->pupils;
+            $group->students()->detach($students);
         }
 
         return back();

@@ -32,8 +32,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="description">Popis</label>
-                    <textarea id="group-description" class="form-control wyswyg-editor" name="description" rows=4" ></textarea>
+                    <label for="group-description" class="mr-sm-2">Popis:</label>
+                    <input id="group-description" type="text" class="form-control mb-2 mr-sm-2" name="description" value="{{ old('description')}}">
                 </div>
 
                 <button type="submit" class="btn btn-primary">Vytvoriť skupinu</button>
