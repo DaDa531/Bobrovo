@@ -71,7 +71,7 @@ class Student extends Model
      */
     public static function getStudents()
     {
-        return static::query()->CurrentTeacher();
+        return static::query()->CurrentTeacher()->orderBy('last_name', 'ASC');
     }
 
     /**

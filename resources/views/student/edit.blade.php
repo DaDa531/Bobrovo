@@ -51,7 +51,7 @@
                 </button>
 
             </form>
-
+            TO DO: VYGENEROVAŤ NOVÝ KÓD
         </div>
         <div class="col-md-6">
             <p class="mb-1">Skupiny</p>

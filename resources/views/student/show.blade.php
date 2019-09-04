@@ -20,16 +20,14 @@
         </div>
 
         <div class="col-md-6 text-right">
+
             <a href="{{ route('student.edit', $student->id) }}" class="d-inline mr-2">
-                <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Upraviť</button>
-            </a>
+                <button class="btn btn-secondary px-4"><i class="fa fa-lg fa-edit pr-2"></i>Upraviť</button></a>
 
             @if ($student->canDelete())
                 <form action="{{ route('student.destroy', $student->id) }}" method="post" class="d-inline">
                     @csrf
-                    <button class="btn btn-danger px-4" type="submit">
-                        <i class="fa fa-trash"></i> Zrušiť
-                    </button>
+                    <button class="btn btn-danger px-4" type="submit"><i class="fa fa-trash"></i> Zrušiť</button>
                 </form>
             @endif
         </div>
