@@ -63,22 +63,16 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="available_from">Dostupný od</label>
-                        <div class="input-group form-datetime date">
-                            <input type="text" value="" name="available_from" id="available_from" class="form-control">
-                            <div class="input-group-append ">
-                                <span class="input-group-text "><i class="fa fa-calendar"></i></span>
-                            </div>
+                        <div>
+                            <input type="date" value="" name="available_from" id="available_from" class="form-control">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="available_to">Dostupný do</label>
-                        <div class="input-group form-datetime date">
-                            <input type="text" value="" name="available_to" id="available_to" class="form-control">
-                            <div class="input-group-append ">
-                                <span class="input-group-text "><i class="fa fa-calendar"></i></span>
-                            </div>
+                        <div>
+                            <input type="date" value="" name="available_to" id="available_to" class="form-control">
                         </div>
                     </div>
                 </div>

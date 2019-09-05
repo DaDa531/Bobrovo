@@ -23,7 +23,7 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="title" class="font-weight-bold">Názov</label>
+                    <label for="name" class="font-weight-bold">Názov</label>
                     <input id=name" type="text" class="mb-2 form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
                     @if ($errors->has('name'))
                         <span class="invalid-feedback">
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="custom-control custom-checkbox mb-2">
-                    <input type="checkbox" class="custom-control-input" id="available_description" name="available_description" value="{{ old('available_description') != null  ? "checked" : '' }}">
+                    <input type="checkbox" class="custom-control-input" id="available_description" name="available_description" value="1" {{ old('available_description') != null  ? "checked" : '' }}">
                     <label class="custom-control-label" for="available_description">Zobraziť popis testu žiakom</label>
                 </div>
 

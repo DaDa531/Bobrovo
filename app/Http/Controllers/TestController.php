@@ -64,15 +64,13 @@ class TestController extends Controller
      */
     public function store(StoreTest $request)
     {
-
-        return back();
-
         $test = Test::create([
-            'name' => $request->title,
-            'description' => $request->question,
-            'teacher_id' => auth()->user()->id
+            'name' => $request->name,
+            'description' => $request->description,
+            'teacher_id' => auth()->user()->id,
+            'available_description' => $request->available_description != null ? 1 : 0,
+            'public' => 0
         ]);
-
 
         return redirect()->route('test.create')->with([
             'success' => 'Test '. $test->name . ' bol vytvorený!'
