@@ -28,10 +28,15 @@
                             <td><a href="{{ route('test.show', $test->id) }}">{{ $test->name}}</a></td>
                             <td>{{ $test->isAssigned() ? 'áno' : 'nie'}}</td>
                             <td>{{ $test->isSolved() ? 'áno' : 'nie' }}</td>
-                            <td>{{ $test->createdAtToString($test->created_at) }}</td>
+                            <td>{{ $test->dateToString($test->created_at) }}</td>
                             <td class="text-center">
                                 @if ($test->canDelete())
-                                    <a href="{{ route('test.destroy', $test->id) }}" class="text-danger" title="Vymazať {{ $test->name }}"><i class="fa fa-trash"></i></a>
+                                    <form action="{{ route('test.destroy', $test->id) }}" method="post" class="d-inline">
+                                        @csrf
+                                        <button class="btn btn-danger btn-trash px-4 py-0" type="submit">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>

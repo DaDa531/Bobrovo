@@ -57,12 +57,11 @@ class Test extends Model
     }
 
     /**
-     * Return date in string format d. m. Y
+     * Return given date in string format d. m. Y
      * @return string
      */
-    public function createdAtToString($date) {
+    public function dateToString($date) {
         return $date->isoFormat('DD. MM. YYYY');
-        //return date('d. m. Y' , $date->getTimestamp());
     }
 
     /**

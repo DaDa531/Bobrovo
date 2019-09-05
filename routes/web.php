@@ -39,6 +39,7 @@ Route::post('/tasks/{task}/update', 'TaskController@update')->name('tasks.update
 Route::get('/students', 'StudentController@index')->name('student');
 Route::get('/students/create', 'StudentController@create')->name('student.create');
 Route::get('/students/import', 'StudentController@import')->name('student.import');
+Route::get('/students/pdf', 'StudentController@generatePDF')->name('student.pdf');
 Route::get('/students/{student}', 'StudentController@show')->name('student.show');
 Route::get('/students/{student}/edit', 'StudentController@edit')->name('student.edit');
 Route::post('/students/store', 'StudentController@store')->name('student.store');
@@ -62,13 +63,11 @@ Route::post('/groups/{group}/addstudents', 'GroupController@addStudents')->name(
 Route::post('/groups/{group}/removestudents', 'GroupController@removeStudents')->name('group.removestudents');
 Route::post('/groups/{group}/removestudent/{student}', 'GroupController@removeStudent')->name('group.removestudent');
 
-
-
 //Test
 Route::get('/tests', 'TestController@index')->name('test');
 Route::get('/tests/create', 'TestController@create')->name('test.create');
 Route::get('/tests/assign', 'TestController@assign')->name('test.assign');
 Route::get('/tests/{test}/edit','TestController@edit')->name('test.edit');
 Route::get('/tests/{test}', 'TestController@show')->name('test.show');
-Route::get('/tests/{test}/destroy', 'TestController@destroy')->name('test.destroy');
 Route::post('/tests/store', 'TestController@store')->name('test.store');
+Route::post('/tests/{test}/destroy', 'TestController@destroy')->name('test.destroy');

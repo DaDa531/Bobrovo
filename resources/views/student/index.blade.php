@@ -24,6 +24,7 @@
         <div class="col-md-12">
             <p>TO DO: SORTY a FILTRE, VYHĽADANIE KONKRÉTNEHO ZIAKA, TLAČ ZOZNAMU ŽIAKOV S KÓDMI</p>
             @if (isset($students))
+                <!--<a href="{{ route('student.pdf' ) }}">PDF</a>-->
                 <table class="table">
                     <tr>
                         <th>Meno a priezvisko</th>
@@ -37,7 +38,7 @@
                         <tr>
                             <td><a href="{{ route('student.show', $student->id) }}">{{ $student->first_name}} {{ $student->last_name}}</a></td>
                             <td>{{ $student->code }}</td>
-                            <td>{{ $group->dateToString($student->created_at) }}</td>
+                            <td>{{ $student->dateToString($student->created_at) }}</td>
                             <td>{{implode(', ', $student->groups->pluck('name')->toArray())}}</td>
                             <td class="text-center">
                                 <a href="{{ route('student.edit', $student->id) }}" title="Upraviť {{ $student->first_name . ' ' . $student->last_name }}"><i class="fa fa-edit"></i></a>
@@ -51,7 +52,7 @@
                                         </button>
                                     </form>
                                 @endif
-                            </>
+                            </td>
                         </tr>
                     @endforeach
 

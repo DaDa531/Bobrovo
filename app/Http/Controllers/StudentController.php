@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Faker\Factory as Faker;
 use Illuminate\Http\Response;
+use PDF;
 
 class StudentController extends Controller
 {
@@ -283,5 +284,17 @@ class StudentController extends Controller
         }
 
         return back();
+    }
+
+
+    /**
+     * Generates a list of students in pdf
+     * @return mixed
+     */
+    // NEFUNGUJE :/
+    function generatePDF() {
+        $students = Student::getStudents()->get();
+        $pdf = PDF::loadView('student.pdf', $students);
+        return $pdf->stream('document.pdf');
     }
 }
