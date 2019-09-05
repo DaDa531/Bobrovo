@@ -38,7 +38,7 @@
             <p><strong>Kód:</strong> {{ $student->code}}</p>
             <p><strong>Zaregistrovaný:</strong> {{ $student->createdAtToString()}}</p>
 
-            <h3>Skupiny</h3>
+            <p><strong>Patrí do skupiny (skupín):</strong></p>
             @if (count($groups) == 0)
                 Žiak nie je zatiaľ zaradený do žiadnej skupiny.
             @else
@@ -51,10 +51,10 @@
         </div>
 
         <div class="col-md-6">
-            <h3>Nevyriešené testy</h3>
+            <h2>Čakajúce testy</h2>
             Zoznam
 
-            <h3>Úspešnosť vo vyriešených testoch</h3>
+            <h2>Vyriešené testy</h2>
             Tabuľka
         </div>
     </div>

@@ -157,7 +157,7 @@ class StudentController extends Controller
     }
 
     /**
-     * Add student to a group.
+     * Add student to group/groups.
      *
      * @param Request $request
      * @param Student $student
@@ -169,36 +169,23 @@ class StudentController extends Controller
             $student->groups()->attach($request->groups);
         }
 
-        $assigned_groups = $student->groups()->get();
-        $available_groups = auth()->user()->groups()->get()->diff($assigned_groups);
-
-        return view('student.edit', [
-            'student' => $student,
-            'assigned_groups' => $assigned_groups,
-            'available_groups' => $available_groups
-        ]);
+        return back();
     }
 
     /**
-     * Remove student from a group.
+     * Remove student from group/groups.
      *
      * @param Request $request
      * @param Student $student
-     * @param $groupId
      * @return Response
      */
-    public function removeFromGroup(Request $request, Student $student, $groupId)
+    public function removeFromGroup(Request $request, Student $student)
     {
-        $student->groups()->detach($groupId);
+        if ($request->groups != null) {
+            $student->groups()->detach($request->groups);
+        }
 
-        $assigned_groups = $student->groups()->get();
-        $available_groups = auth()->user()->groups()->get()->diff($assigned_groups);
-
-        return view('student.edit', [
-            'student' => $student,
-            'assigned_groups' => $assigned_groups,
-            'available_groups' => $available_groups
-        ]);
+        return back();
     }
 
 

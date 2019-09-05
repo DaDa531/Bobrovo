@@ -19,7 +19,6 @@
     </div>
 
     <!-- Main content -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.18.7/slimselect.min.css" rel="stylesheet">
     <div class="row">
         <div class="col-md-6">
 
@@ -49,48 +48,56 @@
                 <button class="btn btn-primary px-4" type="submit">
                     Zmeniť údaje
                 </button>
-
             </form>
-            TO DO: VYGENEROVAŤ NOVÝ KÓD
+
+            <!--
+            <form method="POST" action="{{ route('student.update', $student->id) }}">
+                @csrf
+                <div class="form-group mt-4">
+                    <label for="code"><strong>Kód</strong></label>
+                    <input id="code" type="text" class="form-control" name="code" value="{{ old('code') ?? $student->code }}" disabled>
+                </div>
+
+                <button class="btn btn-primary px-4" type="submit">
+                    Vygenerovať nový kód
+                </button>
+            </form>
+            -->
         </div>
+
         <div class="col-md-6">
-            <p class="mb-1">Skupiny</p>
+            <h2>Účasť v skupinách</h2>
             @if (count($assigned_groups) == 0)
-                Žiak nie je zatiaľ zaradený do žiadnej skupiny.
+                Žiak nie je zaradený do žiadnej skupiny.
             @else
-                <table class="table">
-                    <tr>
-                        <th>Skupina</th>
-                        <th class="text-right">Vymazať žiaka zo skupiny</th>
-                    </tr>
-                    @foreach ($assigned_groups as $group)
-                        <tr>
-                            <td>{{$group->name}}</td>
-                            <td class="text-right">
-                                <form method="POST" action="{{ route('student.removegroup', [$student->id, $group->id]) }}" class="d-inline">
-                                    @csrf
-                                    <button class="btn btn-danger btn-trash px-4 py-0" type="submit" title="Vymazať žiaka zo skupiny">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </table>
+                @if (count($assigned_groups)>0)
+                    <form method="post" action="{{ route('student.removegroup', $student->id) }}">
+                        @csrf
+                        <div class="form-group">
+                            <label for="groups">Žiak je zaradený do skupín:</label>
+                            <select name="groups[]" id="groups" class="custom-select" size = {{ count($assigned_groups) > 10 ? 20 : count($assigned_groups)}} multiple>
+                                @foreach($assigned_groups as $group)
+                                    <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <button class="btn btn-danger px-4" type="submit"><i class="fa fa-lg fa-trash pr-3"></i>Odobrať žiaka z označených skupín</button>
+                    </form>
+                @endif
             @endif
 
             @if (count($available_groups) > 0)
                 <form method="POST" action="{{ route('student.addgroup', $student->id) }}">
                     @csrf
-                    <div class="form-group">
-                        <label for="groups">Pridať žiaka do skupiny (skupín)</label>
-                        <select name="groups[]" id="slim-select" multiple>
+                    <div class="form-group mt-4">
+                        <label for="groups">Ostatné skupiny:</label>
+                        <select name="groups[]" id="groups" class="custom-select" size = {{ count($available_groups) > 10 ? 20 : count($available_groups)}} multiple>
                             @foreach($available_groups as $group)
                                 <option value="{{ $group->id }}">{{ $group->name }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Pridať do skupiny</button>
+                    <button type="submit" class="btn btn-primary">Pridať žiaka do zvolených skupín</button>
                 </form>
             @endif
 

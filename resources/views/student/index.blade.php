@@ -37,7 +37,7 @@
                         <tr>
                             <td><a href="{{ route('student.show', $student->id) }}">{{ $student->first_name}} {{ $student->last_name}}</a></td>
                             <td>{{ $student->code }}</td>
-                            <td>{{ $student->createdAtToString() }}</td>
+                            <td>{{ $group->dateToString($student->created_at) }}</td>
                             <td>{{implode(', ', $student->groups->pluck('name')->toArray())}}</td>
                             <td class="text-center">
                                 <a href="{{ route('student.edit', $student->id) }}" title="Upraviť {{ $student->first_name . ' ' . $student->last_name }}"><i class="fa fa-edit"></i></a>

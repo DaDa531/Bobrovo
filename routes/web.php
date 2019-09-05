@@ -48,7 +48,7 @@ Route::post('/students/multidestroy', 'StudentController@multiDestroy')->name('s
 Route::post('/students/{student}/destroy', 'StudentController@destroy')->name('student.destroy');
 Route::post('/students/{student}/update', 'StudentController@update')->name('student.update');
 Route::post('/students/{student}/addgroup', 'StudentController@addToGroup')->name('student.addgroup');
-Route::post('/students/{student}/removegroup/{group}', 'StudentController@removeFromGroup')->name('student.removegroup');
+Route::post('/students/{student}/removegroup', 'StudentController@removeFromGroup')->name('student.removegroup');
 
 //Groups
 Route::get('/groups', 'GroupController@index')->name('group');
