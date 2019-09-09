@@ -2,9 +2,11 @@
 
 namespace App;
 
+use App\Assignment;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Test extends Model
 {
@@ -26,15 +28,15 @@ class Test extends Model
     }
 
     /**
-     * Return groups assigned to test
+     * Return all group_assignments of the test
      *
      * @return BelongsToMany
      */
-    public function groups()
-    {
-        return $this->belongsToMany(Group::class, 'test_group')->withPivot('mix_questions', 'available_answers', 'available_from', 'available_to', 'time_to_do');
-    }
 
+    public function assignments()
+    {
+        return $this->hasMany(Assignment::class);
+    }
 
     /**
      * Return current teacher's tests
@@ -69,7 +71,7 @@ class Test extends Model
      * @return boolean
      */
     public function isAssigned() {
-        return $this->groups()->first() != null;
+        return $this->assignments()->first() != null;
     }
 
     /**

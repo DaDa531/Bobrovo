@@ -21,7 +21,7 @@
         </div>
     </div>
     @if (isset($groups) and isset($tests))
-        <form method="POST" action="{{ route('test.assign') }}">
+        <form method="POST" action="{{ route('assignment.store') }}">
             @csrf
 
             <div class="row">

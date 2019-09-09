@@ -46,7 +46,7 @@
                     <div class="dropdown-menu navbar-dark bg-primary">
                         <a class="dropdown-item" href="{{ route('test') }}">Zoznam testov</a>
                         <a class="dropdown-item" href="{{ route('test.create') }}">Vytvoriť test</a>
-                        <a class="dropdown-item" href="{{ route('test.assign') }}">Zadať test skupine</a>
+                        <a class="dropdown-item" href="{{ route('assignment.create') }}">Zadať test skupine</a>
                     </div>
                 </li>
 

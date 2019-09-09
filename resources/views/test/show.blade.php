@@ -47,7 +47,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            @if (count($test->groups) != 0)
+            @if (count($group_assignments) != 0)
                 <h3>Pridelenie testu skupinám</h3>
                 TO DO: AKCIE: ak je test pred vypracovaním, možno zmeniť alebo zrušiť pridelenie, ak je po, možno zobraziť výsledky
                 <table class="table">
@@ -60,18 +60,18 @@
                     <th>Časový limit (min):</th>
                     <th>Akcie</th>
                 </tr>
-                @foreach ($test->groups as $group)
+                @foreach ($group_assignments as $group)
                     <tr>
-                        <td><a href="{{ route('group.show', $group->id) }}">{{$group->name}}</a></td>
-                        <td>{{ $group->pivot->mixed_questions ? 'áno' : 'nie' }}</td>
-                        <td>{{ $group->pivot->available_answers ? 'áno' : 'nie' }}</td>
-                        <td>{{ $group->pivot->available_from }}</td>
-                        <td>{{ $group->pivot->available_to }}</td>
-                        <td>{{ $group->pivot->time_to_do }}</td>
+                        <td><a href="{{ route('group.show', $group->group->id) }}">{{$group->group->name}}</a></td>
+                        <td>{{ $group->mixed_questions ? 'áno' : 'nie' }}</td>
+                        <td>{{ $group->available_answers ? 'áno' : 'nie' }}</td>
+                        <td>{{ $group->available_from }}</td>
+                        <td>{{ $group->available_to }}</td>
+                        <td>{{ $group->time_to_do }}</td>
                         <td>
-                            @if ($group->pivot->available_from > $time)
+                            @if ($group->available_from > $time)
                                 EDIT / DELETE
-                            @elseif ($group->pivot->available_to < $time)
+                            @elseif ($group->available_to < $time)
                                 VÝSLEDKY
                             @else
                                 -

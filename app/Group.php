@@ -4,10 +4,12 @@ namespace App;
 
 use App\User;
 use App\Student;
+use App\Assignment;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Group extends Model
 {
@@ -50,14 +52,15 @@ class Group extends Model
         return $this->students()->count();
     }
 
+
     /**
-     * Return tests assigned to group
+     * Return all test assignments to this groups
      *
      * @return BelongsToMany
      */
-    public function tests()
+    public function assignments()
     {
-        return $this->belongsToMany(Test::class, 'test_group')->withPivot('mix_questions', 'available_answers', 'available_from', 'available_to', 'time_to_do');
+        return $this->hasMany(Assignment::class);
     }
 
 

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Student extends Model
 {
-    /**
+
     /**
      * The attributes that are mass assignable.
      *

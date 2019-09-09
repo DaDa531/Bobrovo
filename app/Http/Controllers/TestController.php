@@ -52,6 +52,7 @@ class TestController extends Controller
     {
         return view('test.show', [
             'test' => $test,
+            'group_assignments' => collect($test->assignments()->get()->load(['group'])),
             'time' => Carbon::now('Europe/Paris')
         ]);
     }
@@ -95,18 +96,4 @@ class TestController extends Controller
         return redirect()->route('test');
     }
 
-    /**
-     * Show the form for assigning a test to a group.
-     *
-     * @return Response
-     */
-    public function assign()
-    {
-        $tests = Test::getTests()->get();
-        $groups = Group::getGroups()->get();
-        return view('test.assign', [
-            'tests' => $tests,
-            'groups' => $groups
-        ]);
-    }
 }

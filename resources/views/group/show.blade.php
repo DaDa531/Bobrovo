@@ -63,8 +63,8 @@
             @endif
         </div>
         <div class="col-md-8">
-            <h2>Testy pridelené skupine ({{ count($tests) }})</h2>
-            @if (count($tests)>0)
+            <h2>Testy pridelené skupine ({{ count($test_assignments) }})</h2>
+            @if (count($test_assignments)>0)
                 <table class="table">
                     <tr>
                         <th>Názov</th>
@@ -75,18 +75,18 @@
                         <th>Zobraziť<br> výsledky</th>
                         <th>Akcie</th>
                     </tr>
-                    @foreach ($tests as $test)
+                    @foreach ($test_assignments as $test)
                         <tr>
-                            <td><a href="{{ route('test.show', $test->id) }}">{{$test->name}}</a></td>
-                            <td>{{ $test->pivot->available_from}}</td>
-                            <td>{{ $test->pivot->available_to}}</td>
-                            <td>{{ $test->pivot->time_to_do}}</td>
-                            <td>{{ $test->pivot->mixed_questions ? 'áno' : 'nie' }}</td>
-                            <td>{{ $test->pivot->available_answers ? 'áno' : 'nie' }}</td>
+                            <td><a href="{{ route('test.show', $test->test->id) }}">{{$test->test->name}}</a></td>
+                            <td>{{ $test->available_from}}</td>
+                            <td>{{ $test->available_to}}</td>
+                            <td>{{ $test->time_to_do}}</td>
+                            <td>{{ $test->mixed_questions ? 'áno' : 'nie' }}</td>
+                            <td>{{ $test->available_answers ? 'áno' : 'nie' }}</td>
                             <td>
-                                @if ($test->pivot->available_from > $time)
+                                @if ($test->available_from > $time)
                                     EDIT / DELETE
-                                @elseif ($test->pivot->available_to < $time)
+                                @elseif ($test->available_to < $time)
                                     VÝSLEDKY
                                 @else
                                     -
