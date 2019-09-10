@@ -72,5 +72,5 @@ Route::post('/tests/store', 'TestController@store')->name('test.store');
 Route::post('/tests/{test}/destroy', 'TestController@destroy')->name('test.destroy');
 
 //Assignments
-Route::get('/assignment/create', 'AssignmentController@create')->name('assignment.create');
+Route::get('/assignment/create/{group?}', 'AssignmentController@create')->name('assignment.create');
 Route::post('/assignment/store', 'AssignmentController@store')->name('assignment.store');

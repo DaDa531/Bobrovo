@@ -40,11 +40,11 @@ class StoreAssignment extends FormRequest
     public function messages()
     {
         return [
-            'test_id.required' => 'Musíte zvoliť test.',
-            'group_id.required' => 'Musíte zvoliť skupinu.',
+            'test.required' => 'Musíte zvoliť test.',
+            'group.required' => 'Musíte zvoliť skupinu.',
             'available_from.required' => 'Zvoľte dátum a čas začatia testu.',
             'available_to.required' => 'Zvoľte dátum a čas ukončenia testu.',
-            'time_to_do' => 'Zvoľte čas dostupný na test (v minútahc).'
+            'time_to_do.required' => 'Zvoľte čas dostupný na test (v minútach).'
         ];
     }
 }

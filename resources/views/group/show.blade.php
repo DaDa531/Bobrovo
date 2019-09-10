@@ -99,7 +99,7 @@
                 <p>Skupina nemá pridelené žiadne testy.</p>
             @endif
 
-            <a href="#" class="d-inline mr-2">
+            <a href="{{ route('assignment.create', $group->id) }}" class="d-inline mr-2">
                 <button class="btn btn-secondary px-4">Prideliť test TO DO</button></a>
         </div>
     </div>
