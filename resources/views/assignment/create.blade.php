@@ -72,6 +72,7 @@
                         <div>
                             <input type="date" value="" name="available_from" id="available_from" class="form-control">
                         </div>
+                        <datetime name="available_from"></datetime>
                     </div>
                 </div>
                 <div class="col-md-4">
