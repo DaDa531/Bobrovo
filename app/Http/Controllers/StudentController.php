@@ -251,9 +251,6 @@ class StudentController extends Controller
         ]);
     }
 
-    //PDF - https://github.com/niklasravnsborg/laravel-pdf
-
-
     /**
      * Add selected students to selected group.
      *
@@ -291,10 +288,11 @@ class StudentController extends Controller
      * Generates a list of students in pdf
      * @return mixed
      */
+    //PDF - https://github.com/niklasravnsborg/laravel-pdf
     // NEFUNGUJE :/
     function generatePDF() {
         $students = Student::getStudents()->get();
-        $pdf = PDF::loadView('student.pdf', $students);
+        $pdf = PDF::loadView('student.pdf', ['students' => $students]);
         return $pdf->stream('document.pdf');
     }
 }

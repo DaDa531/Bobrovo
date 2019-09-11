@@ -64,23 +64,17 @@
                     </div>
                 </div>
              </div>
-
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="available_from" class="font-weight-bold">Dostupný od</label>
-                        <div>
-                            <input type="date" value="" name="available_from" id="available_from" class="form-control">
-                        </div>
-                        <datetime name="available_from"></datetime>
+                        <datetime-component name="available_from" id="available_from"></datetime-component>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="available_to" class="font-weight-bold">Dostupný do</label>
-                        <div>
-                            <input type="date" value="" name="available_to" id="available_to" class="form-control">
-                        </div>
+                        <datetime-component name="available_to" id="available_to"></datetime-component>
                     </div>
                 </div>
                 <div class="col-md-4">

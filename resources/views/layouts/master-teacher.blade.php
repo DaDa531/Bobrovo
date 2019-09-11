@@ -13,9 +13,12 @@
 
     <!-- Font Awesome -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
 <body>
+<div id="app">
     <!-- Header -->
     @include ('layouts.header')
     <!-- Navigation -->
@@ -26,6 +29,6 @@
     </main>
     @include('layouts.footer')
 
-    <script src="{{ asset('js/app.js') }}"></script>
+</div>
 </body>
 </html>

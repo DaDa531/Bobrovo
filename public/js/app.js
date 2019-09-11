@@ -40352,7 +40352,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("datetime", {
-    attrs: { format: "MM/DD/YY", width: "300px", name: "date" }
+    attrs: {
+      format: "DD/MM/YYYY H:i:s",
+      name: "available_from",
+      firstDayOfWeek: "1"
+    }
   })
 }
 var staticRenderFns = []

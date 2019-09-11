@@ -1,5 +1,5 @@
 <template>
-    <datetime format="MM/DD/YY" width="300px" name="date"></datetime>
+    <datetime format="DD/MM/YYYY H:i:s" name="available_from" firstDayOfWeek="1"></datetime>
 </template>
 
 <script>
