@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('datetime-component', require('./components/DatetimeComponent.vue').default);
+Vue.component('datetime-component2', require('./components/DatetimeComponent2.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

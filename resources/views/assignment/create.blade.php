@@ -74,7 +74,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="available_to" class="font-weight-bold">Dostupný do</label>
-                        <datetime-component name="available_to" id="available_to"></datetime-component>
+                        <datetime-component2 name="available_to" id="available_to"></datetime-component2>
                     </div>
                 </div>
                 <div class="col-md-4">
