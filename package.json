@@ -24,7 +24,8 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "slim-select": "^1.22.0",
-        "vuejs-datetimepicker": "^1.1.12"
+        "slim-select": "^1.23.0",
+        "vuejs-datetimepicker": "^1.1.12",
+        "websocket-driver": "^0.7.3"
     }
 }
