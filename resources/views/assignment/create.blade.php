@@ -67,19 +67,25 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="available_from" class="font-weight-bold">Dostupný od</label>
-                        <datetime-component name="available_from" id="available_from"></datetime-component>
+                        <label for="available_from_date" class="font-weight-bold">Dostupný od</label>
+                        <div class="input-group mb-3">
+                            <input type="date" name="available_from_date" id="available_from_date" class="form-control" value="{{ old('available_from_date')}}">
+                            <input type="time" name="available_from_time" id="available_from_time" class="form-control" value="{{ old('available_from_time')}}">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="available_to" class="font-weight-bold">Dostupný do</label>
-                        <datetime-component2 name="available_to" id="available_to"></datetime-component2>
+                        <label for="available_to_date" class="font-weight-bold">Dostupný do</label>
+                        <div class="input-group mb-3">
+                            <input type="date" name="available_to_date" id="available_to_date" class="form-control" value="{{ old('available_to_date')}}">
+                            <input type="time" name="available_to_time" id="available_to_time" class="form-control" value="{{ old('available_to_time')}}">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="time_to_do" class="font-weight-bold">Čas</label>
+                        <label for="time_to_do" class="font-weight-bold">Čas na vypracovanie testu</label>
                         <select name="time_to_do" id="time_to_do" class="form-control">
                             <option value="" selected>- Zvoľ čas -</option>
                             @for ($i=1; $i<=20; $i++)
