@@ -67,20 +67,26 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="available_from_date" class="font-weight-bold">Dostupný od</label>
+                        <label for="available_from" class="font-weight-bold">Dostupný od</label>
+                        <datetime-component name="available_from" value="{{ old('available_from')}}"></datetime-component>
+                        <!--
                         <div class="input-group mb-3">
                             <input type="date" name="available_from_date" id="available_from_date" class="form-control" value="{{ old('available_from_date')}}">
                             <input type="time" name="available_from_time" id="available_from_time" class="form-control" value="{{ old('available_from_time')}}">
                         </div>
+                        -->
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="available_to_date" class="font-weight-bold">Dostupný do</label>
+                        <label for="available_to" class="font-weight-bold">Dostupný do</label>
+                        <datetime-component name="available_to" value="{{ old('available_to')}}"></datetime-component>
+                        <!--
                         <div class="input-group mb-3">
                             <input type="date" name="available_to_date" id="available_to_date" class="form-control" value="{{ old('available_to_date')}}">
                             <input type="time" name="available_to_time" id="available_to_time" class="form-control" value="{{ old('available_to_time')}}">
                         </div>
+                        -->
                     </div>
                 </div>
                 <div class="col-md-4">

@@ -26,10 +26,12 @@ class StoreAssignment extends FormRequest
         return [
             'test' => 'required',
             'group' => 'required',
-            'available_from_date' => 'required|date',
-            'available_from_time' => 'required',
-            'available_to_date' => 'required|date',
-            'available_to_time' => 'required',
+            'available_from' => 'required|date',
+            //'available_from_date' => 'required|date',
+            //'available_from_time' => 'required',
+            'available_to' => 'required|date',
+            //'available_to_date' => 'required|date',
+            //'available_to_time' => 'required',
             'time_to_do' => 'required'
         ];
     }
@@ -44,10 +46,12 @@ class StoreAssignment extends FormRequest
         return [
             'test.required' => 'Musíte zvoliť test.',
             'group.required' => 'Musíte zvoliť skupinu.',
-            'available_from_date.required' => 'Zvoľte dátum začatia testu.',
-            'available_from_time.required' => 'Zvoľte čas začatia testu.',
-            'available_to_date.required' => 'Zvoľte dátum ukončenia testu.',
-            'available_to_time.required' => 'Zvoľte čas ukončenia testu.',
+            'available_from.required' => 'Zvoľte dátum a čas začatia testu.',
+            //'available_from_date.required' => 'Zvoľte dátum začatia testu.',
+            //'available_from_time.required' => 'Zvoľte čas začatia testu.',
+            'available_to.required' => 'Zvoľte dátum a čas ukončenia testu.',
+            //'available_to_date.required' => 'Zvoľte dátum ukončenia testu.',
+            //'available_to_time.required' => 'Zvoľte čas ukončenia testu.',
             'time_to_do.required' => 'Zvoľte čas dostupný na test (v minútach).'
         ];
     }
