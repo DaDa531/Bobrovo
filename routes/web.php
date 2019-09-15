@@ -39,7 +39,7 @@ Route::post('/tasks/{task}/update', 'TaskController@update')->name('tasks.update
 Route::get('/students', 'StudentController@index')->name('student');
 Route::get('/students/create', 'StudentController@create')->name('student.create');
 Route::get('/students/import', 'StudentController@import')->name('student.import');
-Route::get('/students/pdf', 'StudentController@generatePDF')->name('student.pdf');
+Route::get('/students/pdf/{group?}', 'StudentController@generatePDF')->name('student.pdf');
 Route::get('/students/{student}', 'StudentController@show')->name('student.show');
 Route::get('/students/{student}/edit', 'StudentController@edit')->name('student.edit');
 Route::post('/students/store', 'StudentController@store')->name('student.store');

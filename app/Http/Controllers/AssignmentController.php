@@ -21,7 +21,7 @@ class AssignmentController extends Controller
 
     /**
      * Show the form for creating a new resource (assigning a test to a group).
-     *
+     * @param Group $group
      * @return Response
      */
     public function create(Group $group = null)
