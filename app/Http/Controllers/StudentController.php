@@ -286,13 +286,18 @@ class StudentController extends Controller
 
     /**
      * Generates a list of students in pdf
-     * @return mixed
+     * @param Group $group
+     * @return pdf
      */
     //PDF - https://github.com/niklasravnsborg/laravel-pdf
-    // NEFUNGUJE :/
-    function generatePDF() {
+    function generatePDF(Group $group = null) {
         $students = Student::getStudents()->get();
-        $pdf = PDF::loadView('student.pdf', ['students' => $students]);
-        return $pdf->stream('document.pdf');
+        $pdf = PDF::loadView('student.pdf', ['students' => $students, 'group' => $group], [], [
+            'format'           => 'A4',
+            'author'           => 'ODI KDFMI UK',
+            'creator'          => 'Laravel Pdf',
+        ]);
+        $g = ($group != null) ? $group->name . '-' : '';
+        return $pdf->stream('bobrovo-' . $g . 'kody.pdf');
     }
 }

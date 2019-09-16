@@ -20,8 +20,8 @@
         </div>
 
         <div class="col-md-6 text-right">
-            <a href="" class="d-inline mr-2">
-                <button class="btn btn-secondary px-4"><i class="fa fa-lg fa-print"></i>TO DO</button></a>
+            <a href="{{ route('student.pdf', $group->id) }}" class="d-inline mr-2">
+                <button class="btn btn-secondary px-4"><i class="fa fa-lg fa-print pr-2"></i>PDF</button></a>
 
             <a href="{{ route('group.edit', $group->id) }}" class="d-inline mr-2">
                 <button class="btn btn-secondary px-4"><i class="fa fa-lg fa-edit pr-2"></i>Upraviť</button></a>
