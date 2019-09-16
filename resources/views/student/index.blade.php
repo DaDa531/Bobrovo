@@ -26,7 +26,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <p>TO DO: SORTY a FILTRE, VYHĽADANIE KONKRÉTNEHO ZIAKA, TLAČ ZOZNAMU ŽIAKOV S KÓDMI</p>
+            <p>TO DO: SORTY a FILTRE, VYHĽADANIE KONKRÉTNEHO ZIAKA</p>
             @if (isset($students))
                 <table class="table">
                     <tr>

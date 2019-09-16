@@ -28,12 +28,15 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="test" class="font-weight-bold">Zvoľ test</label>
-                        <select name="test" id="test" class="custom-select">
+                        <select name="test" id="test" class="custom-select" required>
                             <option value="" selected>- Zvoľ test - </option>
                             @foreach($tests as $test)
                                 <option value="{{ $test->id }}">{{ $test->name }}</option>
                             @endforeach
                         </select>
+
+
+
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -44,7 +47,7 @@
                             <select name="g" id="group" class="custom-select" disabled>
                                 <option value="{{$group->id}}" selected>{{$group->name}}</option>
                         @else
-                            <select name="group" id="group" class="custom-select">
+                            <select name="group" id="group" class="custom-select" required>
                                 <option value="" selected>- Zvoľ skupinu -</option>
                                 @foreach($groups as $group)
                                     <option value="{{ $group->id }}">{{ $group->name }}</option>
@@ -92,7 +95,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="time_to_do" class="font-weight-bold">Čas na vypracovanie testu</label>
-                        <select name="time_to_do" id="time_to_do" class="form-control">
+                        <select name="time_to_do" id="time_to_do" class="custom-select" required>
                             <option value="" selected>- Zvoľ čas -</option>
                             @for ($i=1; $i<=20; $i++)
                                 <option value="{{5*$i}}">{{5*$i}}</option>

@@ -100,7 +100,7 @@
             @endif
 
             <a href="{{ route('assignment.create', $group->id) }}" class="d-inline mr-2">
-                <button class="btn btn-secondary px-4">Prideliť test TO DO</button></a>
+                <button class="btn btn-secondary px-4">Prideliť test</button></a>
         </div>
     </div>
 

@@ -52,8 +52,8 @@ class AssignmentController extends Controller
             'group_id' => $request->group,
             'mix_questions' => $request->mix_questions != null ? 1 : 0,
             'available_answers' => $request->available_answers != null ? 1 : 0,
-            'available_from' => $request->available_from_date  . ' ' . $request->available_from_time . ':00',
-            'available_to' => $request->available_to_date . ' ' . $request->available_to_time . ':00',
+            'available_from' => $request->available_from,
+            'available_to' => $request->available_to,
             'time_to_do' => $request->time_to_do
         ]);
 
