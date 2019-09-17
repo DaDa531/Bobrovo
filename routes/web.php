@@ -66,10 +66,12 @@ Route::post('/groups/{group}/removestudent/{student}', 'GroupController@removeSt
 //Test
 Route::get('/tests', 'TestController@index')->name('test');
 Route::get('/tests/create', 'TestController@create')->name('test.create');
+Route::get('/tests/{test}/selecttasks', 'TestController@selectTasks')->name('test.selecttasks');
 Route::get('/tests/{test}/edit','TestController@edit')->name('test.edit');
 Route::get('/tests/{test}', 'TestController@show')->name('test.show');
 Route::post('/tests/store', 'TestController@store')->name('test.store');
 Route::post('/tests/{test}/destroy', 'TestController@destroy')->name('test.destroy');
+Route::post('/tests/{test}/storetasks', 'TestController@storeTasks')->name('test.storetasks');
 
 //Assignments
 Route::get('/assignment/create/{group?}', 'AssignmentController@create')->name('assignment.create');

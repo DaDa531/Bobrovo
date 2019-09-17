@@ -34,9 +34,6 @@
                                 <option value="{{ $test->id }}">{{ $test->name }}</option>
                             @endforeach
                         </select>
-
-
-
                     </div>
                 </div>
                 <div class="col-md-4">

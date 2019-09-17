@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Test;
 use App\Group;
+use App\Category;
+use App\Topic;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTest;
 use Illuminate\Http\Response;
@@ -65,16 +67,34 @@ class TestController extends Controller
      */
     public function store(StoreTest $request)
     {
+        // Doplnit cast, keby to vytvorenie zlyhalo !!!
         $test = Test::create([
             'name' => $request->name,
-            'description' => $request->description,
+            'description' => $request->description != null ? $request->description : '',
             'teacher_id' => auth()->user()->id,
             'available_description' => $request->available_description != null ? 1 : 0,
             'public' => 0
         ]);
 
-        return redirect()->route('test.create')->with([
-            'success' => 'Test '. $test->name . ' bol vytvorený!'
+        return redirect()->route('test.selecttasks', $test->id)->with([
+            'success' => 'Test bol úspešne vytvorený!'
+        ]);
+    }
+
+    /**
+     * Display tasks to select.
+     *
+     * @param Test $test
+     * @return Response
+     */
+    public function selectTasks(Test $test)
+    {
+        $categories = Category::all();
+        $topics = Topic::all();
+        return view('test.selecttasks', [
+            'test' => $test,
+            'categories' => $categories,
+            'topics' => $topics,
         ]);
     }
 
