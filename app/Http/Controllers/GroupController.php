@@ -200,7 +200,6 @@ class GroupController extends Controller
         return back();
     }
 
-
     /**
      * Remove student from a group.
      *

@@ -15,6 +15,7 @@
         </div>
     </div>
 
+    <!-- Skusit pouzit Vue Select https://vue-select.org/ -->
     <form method="POST" action="">
         @csrf
 
@@ -24,7 +25,6 @@
             <div class="form-group">
                 <label for="category">Kategória</label>
                 <select name="category" id="category" class="custom-select" size="3" multiple>
-
                     @foreach ($categories as $category)
                         <option value="">{{ $category->name }} ({{ $category->class }} )</option>
                     @endforeach
@@ -64,13 +64,38 @@
     <div class="row">
         <div class="col-md-6">
             <h2>Dostupné úlohy</h2>
-            <p>...</p>
-            <button class="btn btn-primary">Pridať označené úlohy do testu</button>
+            @if (count($alltasks)>0)
+                <form method="post" action="{{ route('test.addtasks', $test->id) }}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="alltasks">Vyber úlohy:</label>
+                        <select name="alltasks[]" id="alltasks" class="custom-select" size = {{ count($alltasks) > 20 ? 20 : count($alltasks)}} multiple>
+                            @foreach($alltasks as $task)
+                                <option value="{{ $task->id }}">{{ $task->title }} ({{$task->averageRating()}})</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button class="btn btn-primary">Pridať označené úlohy do testu</button>
+                </form>
+            @endif
+
         </div>
         <div class="col-md-6">
             <h2>Úlohy v teste</h2>
-            <p>...</p>
-            <button class="btn btn-primary">Zrušiť označené úlohy z testu</button>
+            @if (count($selectedtasks)>0)
+                <form method="post" action="{{ route('test.removetasks', $test->id) }}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="selectedtasks">Vyber úlohy:</label>
+                        <select name="selectedtasks[]" id="selectedtasks" class="custom-select" size = {{ count($selectedtasks) > 20 ? 20 : count($selectedtasks)}} multiple>
+                            @foreach($selectedtasks as $task)
+                                <option value="{{ $task->id }}">{{ $task->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button class="btn btn-danger px-4" type="submit"><i class="fa fa-lg fa-trash pr-3"></i>Zrušiť označené úlohy z testu</button>
+                </form>
+            @endif
         </div>
     </div>
 </div>

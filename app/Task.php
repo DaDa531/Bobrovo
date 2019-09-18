@@ -96,6 +96,16 @@ class Task extends Model
 
 
     /**
+     * Return test's tasks except $array
+     *
+     * @return Builder|Model
+     */
+    public static function getTasksExcept($array)
+    {
+        return static::query()->whereNotIn('id', $array);
+    }
+
+    /**
      * Return if task can be deleted (belongs to authorised user, not in test)
      *
      * @return bool

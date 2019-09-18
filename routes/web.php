@@ -72,6 +72,8 @@ Route::get('/tests/{test}', 'TestController@show')->name('test.show');
 Route::post('/tests/store', 'TestController@store')->name('test.store');
 Route::post('/tests/{test}/destroy', 'TestController@destroy')->name('test.destroy');
 Route::post('/tests/{test}/storetasks', 'TestController@storeTasks')->name('test.storetasks');
+Route::post('/tests/{test}/addtasks', 'TestController@addTasks')->name('test.addtasks');
+Route::post('/tests/{test}/removetasks', 'TestController@removeTasks')->name('test.removetasks');
 
 //Assignments
 Route::get('/assignment/create/{group?}', 'AssignmentController@create')->name('assignment.create');

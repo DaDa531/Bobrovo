@@ -92,4 +92,12 @@ class Test extends Model
         return !$this->isAssigned();
         //nikto ho este neriesil
     }
+
+    /**
+     * Return whether the test's author is authenticated
+     * @return bool
+     */
+    public function authIsMyTeacher(){
+        return ($this->teacher_id == auth()->user()->id);
+    }
 }

@@ -6,6 +6,7 @@ use App\Test;
 use App\Group;
 use App\Category;
 use App\Topic;
+use App\Task;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTest;
 use Illuminate\Http\Response;
@@ -52,6 +53,9 @@ class TestController extends Controller
      */
     public function show(Test $test)
     {
+        if (!$test->authIsMyTeacher())
+            return back();
+
         return view('test.show', [
             'test' => $test,
             'group_assignments' => collect($test->assignments()->get()->load(['group'])),
@@ -89,12 +93,18 @@ class TestController extends Controller
      */
     public function selectTasks(Test $test)
     {
+        if (!$test->authIsMyTeacher())
+            return back();
+
         $categories = Category::all();
         $topics = Topic::all();
+        $selectedtasks = $test->tasks();
         return view('test.selecttasks', [
             'test' => $test,
             'categories' => $categories,
             'topics' => $topics,
+            'selectedtasks' => $selectedtasks->get(),
+            'alltasks' => Task::getTasksExcept( $selectedtasks->pluck('id')->toArray())->get()
         ]);
     }
 
@@ -114,6 +124,41 @@ class TestController extends Controller
         $test->delete();
 
         return redirect()->route('test');
+    }
+
+    /**
+     * Add selected tasks to a test.
+     *
+     * @param Request $request
+     * @param Test $test
+     * @return Response
+     */
+    public function addTasks(Request $request, Test $test)
+    {
+        if ($request->alltasks != null) {
+            $tasks = array_diff($request->alltasks, $test->tasks()->pluck('id')->toArray());
+            // spravit cez zachytenie vynimky (ked do DB davam rovnaky zaznam, ako tam uz je), aby som nemusela robit ten mnozinovy rozdiel
+            $test->tasks()->attach($tasks);
+        }
+
+        return back();
+    }
+
+    /**
+     * Remove elected tasks from a test.
+     *
+     * @param Request $request
+     * @param Test $test
+     * @return Response
+     */
+    public function removeTasks(Request $request, Test $test)
+    {
+        if ($request->selectedtasks != null) {
+            $tasks = $request->selectedtasks;
+            $test->tasks()->detach($tasks);
+        }
+
+        return back();
     }
 
 }
