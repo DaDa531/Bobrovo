@@ -15,11 +15,11 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-9">
             <h1>Test {{ $test->name }}</h1>
         </div>
 
-        <div class="col-md-6 text-right">
+        <div class="col-md-3">
             @if (!$test->isSolved())
                 <a href="{{ route('test.edit', $test->id) }}" class="d-inline mr-2">
                     <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Upraviť</button>
@@ -46,9 +46,72 @@
     </div>
 
     <div class="row">
+        <div class="col-md-8">
+            <h3>Úlohy v teste</h3>
+        </div>
+        <div class="col-md-č">
+            <a href="{{ route('test.selecttasks', $test->id) }}" class="d-inline mr-2">
+                <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Pridať/zrušiť úlohy</button>
+            </a>
+            <a href="" class="d-inline mr-2">
+                <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Náhľad testu</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            @if (count($tasks) != 0)
+                <table class="table">
+                    <tr>
+                        <th>Názov</th>
+                        <th>Typ</th>
+                        <th>Kategória</th>
+                        <th>Téma</th>
+                        <th>Hodnotenie</th>
+                    </tr>
+                    @foreach($tasks as $task)
+                        <tr>
+                            <td><a href="{{ route('tasks.show', $task->id) }}">{{ $task->title}}</a></td>
+                            <td>{{ $task->type }}</td>
+                            <td>
+                                @if (count($task->categories) > 0)
+                                    @foreach ($task->categories as $category)
+                                        {{$category->name}}<br>
+                                    @endforeach
+                                @endif
+                            </td>
+                            <td>
+                                @if (count($task->topics) > 0)
+                                    @foreach ($task->topics as $topic)
+                                        {{$topic->name}}<br>
+                                    @endforeach
+                                @endif
+                            </td>
+                            <td>{{$task->averageRating() }}</td>
+                        </tr>
+                    @endforeach
+                </table>
+            @else
+                Test je prázdny.
+            @endif
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+            <h3><h3>Pridelenie testu skupinám</h3></h3>
+        </div>
+        <div class="col-md-3">
+            <a href="" class="d-inline mr-2">
+                <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Prideliť test TODO</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-12">
             @if (count($group_assignments) != 0)
-                <h3>Pridelenie testu skupinám</h3>
                 TO DO: AKCIE: ak je test pred vypracovaním, možno zmeniť alebo zrušiť pridelenie, ak je po, možno zobraziť výsledky
                 <table class="table">
                 <tr>
@@ -80,6 +143,8 @@
                     </tr>
                 @endforeach
                 </table>
+            @else
+                Test zatiaľ nebol pridelený žiadnej skupine.
             @endif
         </div>
     </div>

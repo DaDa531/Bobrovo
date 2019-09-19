@@ -58,6 +58,7 @@ class TestController extends Controller
 
         return view('test.show', [
             'test' => $test,
+            'tasks' => $test->tasks()->get(),
             'group_assignments' => collect($test->assignments()->get()->load(['group'])),
             'time' => Carbon::now('Europe/Paris')
         ]);

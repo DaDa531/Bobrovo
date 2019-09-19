@@ -17,10 +17,10 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h1>Zadať test skupine {{isset($group) ? $group->name : ''}}</h1>
+            <h1>Zadať test {{isset($test) ? $test->name : ''}} skupine {{isset($group) ? $group->name : ''}}</h1>
         </div>
     </div>
-    @if ((isset($groups) or isset($group)) and isset($tests))
+    @if ((isset($groups) or isset($group)) and (isset($tests) or isset($test)))
         <form method="POST" action="{{ route('assignment.store') }}">
             @csrf
 
@@ -28,12 +28,18 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="test" class="font-weight-bold">Zvoľ test</label>
-                        <select name="test" id="test" class="custom-select" required>
-                            <option value="" selected>- Zvoľ test - </option>
-                            @foreach($tests as $test)
-                                <option value="{{ $test->id }}">{{ $test->name }}</option>
-                            @endforeach
-                        </select>
+                        @if (isset($test))
+                            <input type="hidden" name="group" value="{{$test->id}}">
+                            <select name="t" id="test" class="custom-select" disabled>
+                                <option value="{{$test->id}}" selected>{{$test->name}}</option>
+                        @else
+                            <select name="test" id="test" class="custom-select" required>
+                                <option value="" selected>- Zvoľ test - </option>
+                                @foreach($tests as $test)
+                                    <option value="{{ $test->id }}">{{ $test->name }}</option>
+                                @endforeach
+                        @endif
+                            </select>
                     </div>
                 </div>
                 <div class="col-md-4">

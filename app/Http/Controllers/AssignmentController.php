@@ -24,18 +24,26 @@ class AssignmentController extends Controller
      * @param Group $group
      * @return Response
      */
-    public function create(Group $group = null)
+    public function create(Group $group = null, Test $test = null)
     {
-        $tests = Test::getTests()->get();
         if ($group == null) {
             $groups = Group::getGroups()->get();
         } else {
             $groups = null;
         }
+
+        if ($test == null){
+            $tests = Test::getTests()->get();
+        } else {
+            $tests = null;
+        }
         return view('assignment.create', [
             'tests' => $tests,
             'groups' => $groups,
-            'group' => $group
+            'group' => $group,
+            'tests' => $tests,
+            'test' => $test
+
         ]);
     }
 
