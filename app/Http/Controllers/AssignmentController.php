@@ -21,10 +21,11 @@ class AssignmentController extends Controller
 
     /**
      * Show the form for creating a new resource (assigning a test to a group).
+     * @param TestId
      * @param Group $group
      * @return Response
      */
-    public function create(Group $group = null, Test $test = null)
+    public function create($testId = 0, Group $group = null)
     {
         if ($group == null) {
             $groups = Group::getGroups()->get();
@@ -32,10 +33,12 @@ class AssignmentController extends Controller
             $groups = null;
         }
 
-        if ($test == null){
+        if ($testId == 0){
             $tests = Test::getTests()->get();
+            $test = null;
         } else {
             $tests = null;
+            $test = Test::find($testId);
         }
         return view('assignment.create', [
             'tests' => $tests,

@@ -103,7 +103,7 @@
             <h3><h3>Pridelenie testu skupinám</h3></h3>
         </div>
         <div class="col-md-3">
-            <a href="" class="d-inline mr-2">
+            <a href="{{ route('assignment.create', $test->id) }}" class="d-inline mr-2">
                 <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Prideliť test TODO</button>
             </a>
         </div>
