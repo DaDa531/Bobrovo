@@ -133,7 +133,7 @@
                         <td>{{ $group->time_to_do }}</td>
                         <td>
                             @if ($group->available_from > $time)
-                                EDIT / DELETE
+                                <a href="{{ route('assignment.edit', $group->id) }}">EDIT</a> / DELETE
                             @elseif ($group->available_to < $time)
                                 VÝSLEDKY
                             @else

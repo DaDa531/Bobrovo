@@ -29,7 +29,7 @@
                     <div class="form-group">
                         <label for="test" class="font-weight-bold">Zvoľ test</label>
                         @if (isset($test))
-                            <input type="hidden" name="group" value="{{$test->id}}">
+                            <input type="hidden" name="test" value="{{$test->id}}">
                             <select name="t" id="test" class="custom-select" disabled>
                                 <option value="{{$test->id}}" selected>{{$test->name}}</option>
                         @else

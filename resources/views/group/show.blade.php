@@ -85,7 +85,7 @@
                             <td>{{ $test->available_answers ? 'áno' : 'nie' }}</td>
                             <td>
                                 @if ($test->available_from > $time)
-                                    EDIT / DELETE
+                                    <a href="{{ route('assignment.edit', $test->id) }}">EDIT</a> / DELETE
                                 @elseif ($test->available_to < $time)
                                     VÝSLEDKY
                                 @else

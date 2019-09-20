@@ -72,4 +72,44 @@ class AssignmentController extends Controller
             'success' => 'Test bol priradený skupine.'
         ]);
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Assignment $assignment
+     * @return Response
+     */
+    public function edit(Assignment $assignment)
+    {
+        // DOROB KONTROLY
+
+        return view('assignment.edit', [
+            'assignment' => $assignment
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param StoreAssignment $request
+     * @param Assignment $assignment
+     * @return Response
+     */
+    public function update(StoreAssignment $request, Assignment $assignment)
+    {
+        //DOROBIT redirect
+        $assignment->update( [
+            'test_id' => $request->test,
+            'group_id' => $request->group,
+            'available_from' => $request->available_from,
+            'available_to' => $request->available_to,
+            'time_to_do' => $request->time_to_do,
+            'mix_questions' => $request->mix_questions != null ? '1' : '0',
+            'available_answers' => $request->available_answers != null ? '1' : '0'
+        ]);
+
+        return back()->with([
+            'success' => 'Údaje boli úspešne zmenené!'
+        ]);
+    }
 }
