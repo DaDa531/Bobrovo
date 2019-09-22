@@ -14,7 +14,7 @@ class Assignment extends Model
     protected $guarded = [];
 
     /**
-     * Return test od the assighment
+     * Return test of the assighment
      *
      * @return BelongsTo
      */
@@ -24,7 +24,7 @@ class Assignment extends Model
     }
 
     /**
-     * Return group od the assighment
+     * Return group of the assighment
      *
      * @return BelongsTo
      */

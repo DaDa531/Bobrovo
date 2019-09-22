@@ -17,12 +17,13 @@
     <div class="row">
         <div class="col-md-9">
             <h1>Test {{ $test->name }}</h1>
+            TO DO: SPRAVIŤ NIEČO S ROZLOŽENIM
         </div>
 
         <div class="col-md-3">
             @if (!$test->isSolved())
                 <a href="{{ route('test.edit', $test->id) }}" class="d-inline mr-2">
-                    <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Upraviť</button>
+                    <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Upraviť TODO</button>
                 </a>
             @endif
 
@@ -46,15 +47,15 @@
     </div>
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <h3>Úlohy v teste</h3>
         </div>
-        <div class="col-md-č">
+        <div class="col-md-3">
             <a href="{{ route('test.selecttasks', $test->id) }}" class="d-inline mr-2">
                 <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Pridať/zrušiť úlohy</button>
             </a>
             <a href="" class="d-inline mr-2">
-                <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Náhľad testu</button>
+                <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Náhľad testu TODO</button>
             </a>
         </div>
     </div>
@@ -126,7 +127,7 @@
                 @foreach ($group_assignments as $group)
                     <tr>
                         <td><a href="{{ route('group.show', $group->group->id) }}">{{$group->group->name}}</a></td>
-                        <td>{{ $group->mixed_questions ? 'áno' : 'nie' }}</td>
+                        <td>{{ $group->mix_questions ? 'áno' : 'nie' }}</td>
                         <td>{{ $group->available_answers ? 'áno' : 'nie' }}</td>
                         <td>{{ $group->available_from }}</td>
                         <td>{{ $group->available_to }}</td>

@@ -61,8 +61,8 @@ class AssignmentController extends Controller
         $assg = Assignment::create([
             'test_id' => $request->test,
             'group_id' => $request->group,
-            'mix_questions' => $request->mix_questions != null ? 1 : 0,
-            'available_answers' => $request->available_answers != null ? 1 : 0,
+            'mix_questions' => ($request->mix_questions) ? 1 : 0,
+            'available_answers' => ($request->available_answers) ? 1 : 0,
             'available_from' => $request->available_from,
             'available_to' => $request->available_to,
             'time_to_do' => $request->time_to_do
@@ -81,7 +81,12 @@ class AssignmentController extends Controller
      */
     public function edit(Assignment $assignment)
     {
-        // DOROB KONTROLY
+        $test = $assignment->test()->first();
+        $group = $assignment->group()->first();
+
+        if (!$group->authIsMyTeacher() || !$test->authIsMyAuthor())
+            return back();
+
 
         return view('assignment.edit', [
             'assignment' => $assignment
@@ -97,15 +102,14 @@ class AssignmentController extends Controller
      */
     public function update(StoreAssignment $request, Assignment $assignment)
     {
-        //DOROBIT redirect
         $assignment->update( [
             'test_id' => $request->test,
             'group_id' => $request->group,
             'available_from' => $request->available_from,
             'available_to' => $request->available_to,
             'time_to_do' => $request->time_to_do,
-            'mix_questions' => $request->mix_questions != null ? '1' : '0',
-            'available_answers' => $request->available_answers != null ? '1' : '0'
+            'mix_questions' => $request->mix_questions != null ? 1 : 0,
+            'available_answers' => $request->available_answers != null ? 1 : 0
         ]);
 
         return back()->with([

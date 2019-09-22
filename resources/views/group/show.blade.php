@@ -81,7 +81,7 @@
                             <td>{{ $test->available_from}}</td>
                             <td>{{ $test->available_to}}</td>
                             <td>{{ $test->time_to_do}}</td>
-                            <td>{{ $test->mixed_questions ? 'áno' : 'nie' }}</td>
+                            <td>{{ $test->mix_questions ? 'áno' : 'nie' }}</td>
                             <td>{{ $test->available_answers ? 'áno' : 'nie' }}</td>
                             <td>
                                 @if ($test->available_from > $time)

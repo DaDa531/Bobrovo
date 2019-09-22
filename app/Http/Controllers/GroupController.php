@@ -90,7 +90,6 @@ class GroupController extends Controller
      */
     public function edit(Group $group)
     {
-
         if (!$group->authIsMyTeacher())
             return back();
 

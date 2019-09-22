@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1>Zmeniť nastavenia pre pridelenie testu</h1>
-            TODO: DOPLNANIE UDAJOV Z DB, KONTROLU PRISTUPU
+            TODO: KONTROLU PRISTUPU
         </div>
     </div>
 
@@ -47,11 +47,11 @@
 
             <div class="col-md-4">
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="mix_questions" name="mix_questions" value="{{ old('mix_questions') != null  ? "checked" : '' }}">
+                    <input type="checkbox" class="custom-control-input" id="mix_questions" name="mix_questions" value="1" {{ (old('mix_questions') != null || $assignment->mix_questions == 1) ? "checked" : '' }}>
                     <label class="custom-control-label" for="mix_questions">Náhodné poradie otázok</label>
                 </div>
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="available_answers" name="available_answers" value="{{ old('available_answers') != null  ? "checked" : '' }}">
+                    <input type="checkbox" class="custom-control-input" id="available_answers" name="available_answers" value="1" {{(old('available_answers') != null  || $assignment->available_answers == 1) ? "checked" : '' }}>
                     <label class="custom-control-label" for="available_answers">Dostupné odpovede</label>
                 </div>
             </div>
@@ -84,11 +84,10 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="time_to_do" class="font-weight-bold">Čas na vypracovanie testu</label>
+                    <label for="time_to_do" class="font-weight-bold">Čas na vypracovanie testu (min.)</label>
                     <select name="time_to_do" id="time_to_do" class="custom-select" required>
-                        <option value="" selected>- Zvoľ čas -</option>
                         @for ($i=1; $i<=20; $i++)
-                            <option value="{{5*$i}}">{{5*$i}}</option>
+                            <option value="{{5*$i}}" {{($assignment->time_to_do == 5*$i) ? "selected" : ""}}>{{5*$i}}</option>
                         @endfor
                     </select>
                 </div>
