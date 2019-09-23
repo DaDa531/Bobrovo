@@ -116,4 +116,25 @@ class AssignmentController extends Controller
             'success' => 'Údaje boli úspešne zmenené!'
         ]);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Assignment $assignment
+     * @return Response
+     */
+    public function destroy(Assignment $assignment)
+    {
+        $test = $assignment->test()->first();
+        $group = $assignment->group()->first();
+
+        if (!$group->authIsMyTeacher() || !$test->authIsMyAuthor())
+            return back();
+
+        $assignment->delete();
+
+        return back()->with([
+            'success' => 'Pridelenie testu skupine bolo zrušené!'
+        ]);
+    }
 }

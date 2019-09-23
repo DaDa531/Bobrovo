@@ -42,18 +42,14 @@
         </div>
         <div class="col-md-3">
             <p><strong>Dostupný popis testu:</strong> {{ $test->available_description ? 'áno' : 'nie' }}</p>
-            <p><strong>Verejný:</strong> {{ $test->public ? 'áno' : 'nie' }}</p>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-9">
-            <h3>Úlohy v teste</h3>
+            <h3>Úlohy v teste <a href="{{ route('test.selecttasks', $test->id) }}" title="Pridať/zrušiť úlohy"><i class="fa fa-edit"></i></a></h3>
         </div>
         <div class="col-md-3">
-            <a href="{{ route('test.selecttasks', $test->id) }}" class="d-inline mr-2">
-                <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Pridať/zrušiť úlohy</button>
-            </a>
             <a href="" class="d-inline mr-2">
                 <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Náhľad testu TODO</button>
             </a>
@@ -113,7 +109,7 @@
     <div class="row">
         <div class="col-md-12">
             @if (count($group_assignments) != 0)
-                TO DO: AKCIE: ak je test pred vypracovaním, možno zmeniť alebo zrušiť pridelenie, ak je po, možno zobraziť výsledky
+                TO DO: zobrazenie výsledkov
                 <table class="table">
                 <tr>
                     <th>Skupina</th>
@@ -124,18 +120,26 @@
                     <th>Časový limit (min):</th>
                     <th>Akcie</th>
                 </tr>
-                @foreach ($group_assignments as $group)
+                @foreach ($group_assignments as $assignment)
                     <tr>
-                        <td><a href="{{ route('group.show', $group->group->id) }}">{{$group->group->name}}</a></td>
-                        <td>{{ $group->mix_questions ? 'áno' : 'nie' }}</td>
-                        <td>{{ $group->available_answers ? 'áno' : 'nie' }}</td>
-                        <td>{{ $group->available_from }}</td>
-                        <td>{{ $group->available_to }}</td>
-                        <td>{{ $group->time_to_do }}</td>
+                        <td><a href="{{ route('group.show', $assignment->group->id) }}">{{$assignment->group->name}}</a></td>
+                        <td>{{ $assignment->mix_questions ? 'áno' : 'nie' }}</td>
+                        <td>{{ $assignment->available_answers ? 'áno' : 'nie' }}</td>
+                        <td>{{ $assignment->available_from }}</td>
+                        <td>{{ $assignment->available_to }}</td>
+                        <td>{{ $assignment->time_to_do }}</td>
                         <td>
-                            @if ($group->available_from > $time)
-                                <a href="{{ route('assignment.edit', $group->id) }}">EDIT</a> / DELETE
-                            @elseif ($group->available_to < $time)
+                            @if ($assignment->available_from > $time)
+                                <a href="{{ route('assignment.edit', $assignment->id) }}" title="Upraviť pridelenie"><i class="fa fa-edit"></i></a>
+
+                                <form action="{{ route('assignment.destroy', $assignment->id) }}" method="post" class="d-inline" title="Zrušiť pridelenie">
+                                    @csrf
+                                    <button class="btn btn-danger btn-trash px-4 py-0" type="submit">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+
+                            @elseif ($assignment->available_to < $time)
                                 VÝSLEDKY
                             @else
                                 -

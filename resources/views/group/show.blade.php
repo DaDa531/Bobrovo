@@ -75,18 +75,26 @@
                         <th>Zobraziť<br> výsledky</th>
                         <th>Akcie</th>
                     </tr>
-                    @foreach ($test_assignments as $test)
+                    @foreach ($test_assignments as $assignment)
                         <tr>
-                            <td><a href="{{ route('test.show', $test->test->id) }}">{{$test->test->name}}</a></td>
-                            <td>{{ $test->available_from}}</td>
-                            <td>{{ $test->available_to}}</td>
-                            <td>{{ $test->time_to_do}}</td>
-                            <td>{{ $test->mix_questions ? 'áno' : 'nie' }}</td>
-                            <td>{{ $test->available_answers ? 'áno' : 'nie' }}</td>
+                            <td><a href="{{ route('test.show', $assignment->test->id) }}">{{$assignment->test->name}}</a></td>
+                            <td>{{ $assignment->available_from}}</td>
+                            <td>{{ $assignment->available_to}}</td>
+                            <td>{{ $assignment->time_to_do}}</td>
+                            <td>{{ $assignment->mix_questions ? 'áno' : 'nie' }}</td>
+                            <td>{{ $assignment->available_answers ? 'áno' : 'nie' }}</td>
                             <td>
-                                @if ($test->available_from > $time)
-                                    <a href="{{ route('assignment.edit', $test->id) }}">EDIT</a> / DELETE
-                                @elseif ($test->available_to < $time)
+                                @if ($assignment->available_from > $time)
+                                    <a href="{{ route('assignment.edit', $assignment->id) }}" title="Upraviť pridelenie"><i class="fa fa-edit"></i></a>
+
+                                    <form action="{{ route('assignment.destroy', $assignment->id) }}" method="post" class="d-inline">
+                                        @csrf
+                                        <button class="btn btn-danger btn-trash px-4 py-0" type="submit">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+
+                                @elseif ($assignment->available_to < $time)
                                     VÝSLEDKY
                                 @else
                                     -

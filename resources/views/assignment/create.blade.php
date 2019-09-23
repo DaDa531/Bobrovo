@@ -27,12 +27,13 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="test" class="font-weight-bold">Zvoľ test</label>
                         @if (isset($test))
+                            <label for="test" class="font-weight-bold">Test</label>
                             <input type="hidden" name="test" value="{{$test->id}}">
                             <select name="t" id="test" class="custom-select" disabled>
                                 <option value="{{$test->id}}" selected>{{$test->name}}</option>
                         @else
+                            <label for="test" class="font-weight-bold">Zvoľ test</label>
                             <select name="test" id="test" class="custom-select" required>
                                 <option value="" selected>- Zvoľ test - </option>
                                 @foreach($tests as $test)
@@ -44,12 +45,14 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="group" class="font-weight-bold">Zvoľ skupinu</label>
+
                         @if (isset($group))
+                            <label for="group" class="font-weight-bold">Skupina</label>
                             <input type="hidden" name="group" value="{{$group->id}}">
                             <select name="g" id="group" class="custom-select" disabled>
                                 <option value="{{$group->id}}" selected>{{$group->name}}</option>
                         @else
+                            <label for="group" class="font-weight-bold">Zvoľ skupinu</label>
                             <select name="group" id="group" class="custom-select" required>
                                 <option value="" selected>- Zvoľ skupinu -</option>
                                 @foreach($groups as $group)

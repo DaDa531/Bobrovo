@@ -87,6 +87,22 @@ class TestController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Test $test
+     * @return Response
+     */
+    public function edit(Test $test)
+    {
+        if (!$test->authIsMyTeacher())
+            return back();
+
+        return view('test.edit', [
+            'test' => $test
+        ]);
+    }
+
+    /**
      * Display tasks to select.
      *
      * @param Test $test

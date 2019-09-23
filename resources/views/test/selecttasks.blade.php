@@ -10,7 +10,8 @@
     <div class="row">
         <!-- Main content -->
         <div class="col-md-12">
-            <h1>Vytvoriť test {{$test->name}} (výber otázok) </h1>
+            <h1>Test {{$test->name}} - výber úloh</h1>
+            TO DO: SPRAVIŤ CEZ VUE
             <h2>Filter úloh</h2>
         </div>
     </div>

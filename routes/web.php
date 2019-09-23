@@ -80,3 +80,4 @@ Route::get('/assignment/create/{test?}/{group?}', 'AssignmentController@create')
 Route::get('/assignment/edit/{assignment}', 'AssignmentController@edit')->name('assignment.edit');
 Route::post('/assignment/store', 'AssignmentController@store')->name('assignment.store');
 Route::post('/assignment/update/{assignment}', 'AssignmentController@update')->name('assignment.update');
+Route::post('/assignment/destroy/{assignment}', 'AssignmentController@destroy')->name('assignment.destroy');

@@ -17,14 +17,14 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h1>Vytvoriť test (základné informácie)</h1>
+            <h1>Upraviť test (základné informácie)</h1>
 
             <form method="POST" action="{{ route('test.store') }}">
                 @csrf
 
                 <div class="form-group">
                     <label for="name" class="font-weight-bold">Názov</label>
-                    <input id="name" type="text" class="mb-2 form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                    <input id="name" type="text" class="mb-2 form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') ?? $test->name}}" required autofocus>
                     @if ($errors->has('name'))
                         <span class="invalid-feedback">
                             <strong>{{ $errors->first('name') }}</strong>
@@ -35,15 +35,15 @@
 
                 <div class="form-group">
                     <label for="description">Popis</label>
-                    <textarea id="description" class="mb-2 form-control" name="description" rows=3">{{ old('description') }}</textarea>
+                    <textarea id="description" class="mb-2 form-control" name="description" rows=3">{{ old('description') ?? $test->description}}</textarea>
                 </div>
 
                 <div class="custom-control custom-checkbox mb-2">
-                    <input type="checkbox" class="custom-control-input" id="available_description" name="available_description" value="1" {{ old('available_description') != null  ? "checked" : '' }}>
+                    <input type="checkbox" class="custom-control-input" id="available_description" name="available_description" value="1" {{ (old('available_description') != null || $test->available_description == 1)  ? "checked" : '' }}>
                     <label class="custom-control-label" for="available_description">Zobraziť popis testu žiakom</label>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Uložiť a zvoliť úlohy do testu</button>
+                <button type="submit" class="btn btn-primary">Uložiť</button>
             </form>
         </div>
     </div>
