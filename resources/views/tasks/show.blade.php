@@ -26,7 +26,7 @@
                 </a>
 
                 <a href="{{ route('tasks.destroy', $task->id) }}" class="d-inline mr-2">
-                    <button class="btn btn-danger px-4"><i class="fa fa-trash pr-2"></i>Zrušiť</button>
+                    <button class="btn btn-danger px-4"><i class="fa fa-trash pr-3"></i>Zrušiť</button>
                 </a>
             @endif
         </div>

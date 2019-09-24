@@ -23,11 +23,10 @@
         </div>
     </div>
 
+    <form method="POST" action="{{ route('tasks.update', $task->id) }}">
+        @csrf
     <div class="row">
         <div class="col-md-12">
-
-            <form method="POST" action="{{ route('tasks.update', $task->id) }}">
-                @csrf
 
                 <div class="form-group">
                     <label for="title" class="mb-0 font-weight-bold">Názov</label>
@@ -114,10 +113,9 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Uložiť zmeny</button>
-            </form>
 
         </div>
     </div>
-    
+    </form>
 </div>
 @endsection

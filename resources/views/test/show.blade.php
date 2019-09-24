@@ -15,80 +15,58 @@
     </div>
 
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-6">
             <h1>Test {{ $test->name }}</h1>
-            TO DO: SPRAVIŤ NIEČO S ROZLOŽENIM
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-6 text-right">
             @if (!$test->isSolved())
                 <a href="{{ route('test.edit', $test->id) }}" class="d-inline mr-2">
-                    <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Upraviť TODO</button>
+                    <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Upraviť</button>
                 </a>
             @endif
 
             @if ($test->canDelete())
-                <a href="{{ route('test.destroy', $test->id) }}" class="d-inline mr-2">
-                    <button class="btn btn-danger px-4"><i class="fa fa-trash pr-2"></i>Zrušiť</button>
-                </a>
+                <form action="{{ route('test.destroy', $test->id) }}" method="post" class="d-inline">
+                    @csrf
+                    <button class="btn btn-danger px-4" type="submit"><i class="fa fa-lg fa-trash pr-3"></i>Zrušiť</button>
+                </form>
             @endif
 
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
             <p><strong>Popis:</strong> {{ $test->description }}</p>
-        </div>
-        <div class="col-md-3">
             <p><strong>Dostupný popis testu:</strong> {{ $test->available_description ? 'áno' : 'nie' }}</p>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-9">
-            <h3>Úlohy v teste <a href="{{ route('test.selecttasks', $test->id) }}" title="Pridať/zrušiť úlohy"><i class="fa fa-edit"></i></a></h3>
+            <h3>Úlohy v teste</h3>
         </div>
-        <div class="col-md-3">
-            <a href="" class="d-inline mr-2">
-                <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Náhľad testu TODO</button>
-            </a>
+        <div class="col-md-3 text-right">
+            @if (!$test->isSolved())
+                <a href="{{ route('test.selecttasks', $test->id) }}" class="mr-2" title="Pridať/zrušiť úlohy">
+                    <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Pridať / zrušiť úlohy</button>
+                </a>
+            @endif
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
             @if (count($tasks) != 0)
-                <table class="table">
-                    <tr>
-                        <th>Názov</th>
-                        <th>Typ</th>
-                        <th>Kategória</th>
-                        <th>Téma</th>
-                        <th>Hodnotenie</th>
-                    </tr>
+                <ul>
                     @foreach($tasks as $task)
-                        <tr>
-                            <td><a href="{{ route('tasks.show', $task->id) }}">{{ $task->title}}</a></td>
-                            <td>{{ $task->type }}</td>
-                            <td>
-                                @if (count($task->categories) > 0)
-                                    @foreach ($task->categories as $category)
-                                        {{$category->name}}<br>
-                                    @endforeach
-                                @endif
-                            </td>
-                            <td>
-                                @if (count($task->topics) > 0)
-                                    @foreach ($task->topics as $topic)
-                                        {{$topic->name}}<br>
-                                    @endforeach
-                                @endif
-                            </td>
-                            <td>{{$task->averageRating() }}</td>
-                        </tr>
+                        <li><a href="{{ route('tasks.show', $task->id) }}">{{ $task->title}}</a></li>
                     @endforeach
-                </table>
+                </ul>
+                <a href="">
+                    <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Náhľad testu TODO</button>
+                </a>
             @else
                 Test je prázdny.
             @endif
@@ -96,12 +74,12 @@
     </div>
 
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-6">
             <h3><h3>Pridelenie testu skupinám</h3></h3>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6 text-right">
             <a href="{{ route('assignment.create', $test->id) }}" class="d-inline mr-2">
-                <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Prideliť test TODO</button>
+                <button class="btn btn-secondary px-4">Prideliť test skupine</button>
             </a>
         </div>
     </div>

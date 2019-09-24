@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <h1>Upraviť test (základné informácie)</h1>
 
-            <form method="POST" action="{{ route('test.store') }}">
+            <form method="POST" action="{{ route('test.update', $test->id) }}">
                 @csrf
 
                 <div class="form-group">

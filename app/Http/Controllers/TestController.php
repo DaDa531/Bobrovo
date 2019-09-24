@@ -103,6 +103,26 @@ class TestController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param StoreTest $request
+     * @param Test $test
+     * @return Response
+     */
+    public function update(StoreTest $request, Test $test)
+    {
+        $test->update([
+            'name' => $request->name,
+            'description' => ($request->description === null) ? '' : ($request->description),
+            'available_description' => ($request->available_description == null ? 0 : 1)
+        ]);
+
+        return redirect()->route('test.show', $test->id)->with([
+            'success' => 'Údaje o teste boli úspešne zmenené!'
+        ]);
+    }
+
+    /**
      * Display tasks to select.
      *
      * @param Test $test
