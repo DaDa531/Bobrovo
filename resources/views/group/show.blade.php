@@ -27,10 +27,11 @@
                 <button class="btn btn-secondary px-4"><i class="fa fa-lg fa-edit pr-2"></i>Upraviť</button></a>
 
             @if ($group->canDelete())
-                <form action="{{ route('group.destroy', $group->id) }}" method="post" class="d-inline">
-                    @csrf
-                    <button class="btn btn-danger px-4" type="submit"><i class="fa fa-lg fa-trash pr-3"></i>Zrušiť</button>
-                </form>
+                <button type="button" class="btn btn-danger px-4" data-toggle="modal" data-target="#myModal">
+                    <i class="fa fa-lg fa-trash pr-3"></i>Zrušiť
+                </button>
+
+                @include('group.modal')
             @endif
         </div>
     </div>
