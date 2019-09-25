@@ -17,7 +17,7 @@
     <div class="row">
 
         <!-- Main content -->
-        <div class="col-md-8">
+        <div class="col-md-12">
             <h1>Vytvorenie skupiny</h1>
             <form method="POST" action="{{ route('group.store') }}">
                 @csrf
@@ -26,14 +26,14 @@
                     <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
                     @if ($errors->has('name'))
                         <span class="invalid-feedback">
-                                <strong>{{ $errors->first('name') }}</strong>
-                            </span>
+                            <strong>{{ $errors->first('name') }}</strong>
+                        </span>
                     @endif
                 </div>
 
                 <div class="form-group">
                     <label for="group-description" class="mr-sm-2">Popis:</label>
-                    <input id="group-description" type="text" class="form-control mb-2 mr-sm-2" name="description" value="{{ old('description')}}">
+                    <input id="group-description" type="text" class="form-control" name="description" value="{{ old('description')}}">
                 </div>
 
                 <button type="submit" class="btn btn-primary">Vytvoriť skupinu</button>

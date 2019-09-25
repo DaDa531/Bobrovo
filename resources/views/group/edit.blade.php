@@ -13,25 +13,27 @@
         </div>
 
         <div class="col-md-6 text-right">
-            <a href="{{ route('group.show', $group->id) }}" class="d-inline mr-2"><button class="btn btn-secondary px-4">Späť na skupinu</button></a>
+            <a href="{{ route('group.show', $group->id) }}"><button class="btn btn-secondary px-4">Späť na skupinu</button></a>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <form method="post" action="{{ route('group.update', $group->id) }}" class="form-inline my-3">
+            <form method="post" action="{{ route('group.update', $group->id) }}">
                 @csrf
-                <label for="name"  class="mr-sm-2"><strong>Meno:</strong></label>
-                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }} mb-2 mr-sm-2" name="name" value="{{ old('name') ?? $group->name }}" required autofocus>
-                @if ($errors->has('name'))
-                    <span class="invalid-feedback">
-                        <strong>{{ $errors->first('name') }}</strong>
-                    </span>
-                @endif
-
-                <label for="group-description" class="mr-sm-2">Popis:</label>
-                <input id="group-description" type="text" class="form-control mb-2 mr-sm-2" name="description" value="{{ old('description') ?? $group->description }}" size="90">
-
+                <div class="form-group">
+                    <label for="name" class="font-weight-bold">Meno</label>
+                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') ?? $group->name }}" required autofocus>
+                    @if ($errors->has('name'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('name') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="group-description">Popis</label>
+                    <input id="group-description" type="text" class="form-control" name="description" value="{{ old('description') ?? $group->description }}" size="90">
+                </div>
                 <button type="submit" class="btn btn-primary mb-2">Zmeniť údaje</button>
             </form>
         </div>
@@ -71,6 +73,5 @@
             </form>
         </div>
     </div>
-
 </div>
 @endsection

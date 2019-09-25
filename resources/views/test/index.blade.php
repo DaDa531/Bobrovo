@@ -18,9 +18,10 @@
                 <table class="table">
                     <tr>
                         <th>Názov</th>
-                        <th>Priradený</th>
+                        <th>Pridelený</th>
                         <th>Riešený</th>
                         <th>Vytvorený</th>
+                        <th class="text-center">Upraviť</th>
                         <th class="text-center">Vymazať</th>
                     </tr>
                     @foreach($tests as $test)
@@ -29,6 +30,11 @@
                             <td>{{ $test->isAssigned() ? 'áno' : 'nie'}}</td>
                             <td>{{ $test->isSolved() ? 'áno' : 'nie' }}</td>
                             <td>{{ $test->dateToString($test->created_at) }}</td>
+                            <td class="text-center">
+                                @if ($test->canDelete())
+                                    <a href="{{ route('test.edit', $test->id) }}" title="Upraviť {{ $test->name }}"><i class="fa fa-edit"></i></a>
+                                @endif
+                            </td>
                             <td class="text-center">
                                 @if ($test->canDelete())
                                     <form action="{{ route('test.destroy', $test->id) }}" method="post" class="d-inline">

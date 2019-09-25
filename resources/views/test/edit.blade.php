@@ -14,11 +14,18 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Upraviť test (základné informácie)</h1>
+        </div>
+
+        <div class="col-md-6 text-right">
+            <a href="{{ route('test.show', $test->id) }}"><button class="btn btn-secondary px-4">Späť na test</button></a>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-md-12">
-            <h1>Upraviť test (základné informácie)</h1>
-
             <form method="POST" action="{{ route('test.update', $test->id) }}">
                 @csrf
 

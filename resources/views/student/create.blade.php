@@ -17,7 +17,7 @@
 
         <!-- Main content -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.18.7/slimselect.min.css" rel="stylesheet">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <h1>Pridať žiaka</h1>
 
             <form method="POST" action="{{ route('student.store') }}">
