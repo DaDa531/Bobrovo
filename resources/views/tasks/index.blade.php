@@ -11,6 +11,7 @@
         <!-- Main content -->
         <div class="col-md-12">
             <h1>Zoznam úloh</h1>
+            TO DO: filter, pridávanie úloh do testu (ešte chýba form tag)
             @if (isset($tasks))
 
                 <table class="table">
@@ -23,7 +24,12 @@
                     </tr>
                     @foreach($tasks as $task)
                         <tr>
-                            <td><a href="{{ route('tasks.show', $task->id) }}">{{ $task->title}}</a></td>
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="{{ $task->id }}" name="tasks[]" value="{{$task->id}}">
+                                    <label class="custom-control-label" for="{{ $task->id }}"> <a href="{{ route('tasks.show', $task->id) }}">{{ $task->title}}</a></label>
+                                </div>
+                            </td>
                             <td>{{ $task->type }}</td>
                             <td>
                                 @if (count($task->categories) > 0)
@@ -50,30 +56,30 @@
                     Žiadne otázky
                 </div>
             @endif
-
-
-            <!-- Example pagination Bootstrap component -->
-            <!--<nav>
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>-->
         </div>
-
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @if (isset($test))
+                    <label for="test" class="font-weight-bold">Test</label>
+                    <input type="hidden" name="test" value="{{$test->id}}">
+                    <select name="t" id="test" class="custom-select" disabled>
+                        <option value="{{$test->id}}" selected>{{$test->name}}</option>
+                @else
+                    <!--<label for="test" class="font-weight-bold">Zvoľ test</label>-->
+                    <select name="test" id="test" class="custom-select" required>
+                        <option value="" disabled selected>- Zvoľ test - </option>
+                        @foreach($tests as $test)
+                            <option value="{{ $test->id }}">{{ $test->name }}</option>
+                        @endforeach
+                @endif
+                    </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-primary">Pridať úlohy do testu</button>
+        </div>
     </div>
 </div>
 @endsection

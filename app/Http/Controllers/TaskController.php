@@ -6,6 +6,7 @@ use App\Task;
 use App\Topic;
 use App\Category;
 use App\User;
+use App\Test;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTask;
 use Illuminate\Http\Response;
@@ -28,8 +29,10 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::paginate(10);
+        $tests = Test::getTests()->get();
         return view('tasks.index', [
-            'tasks' => $tasks
+            'tasks' => $tasks,
+            'tests' => $tests
         ]);
     }
 
