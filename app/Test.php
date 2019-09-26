@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Test extends Model
 {
@@ -79,7 +80,8 @@ class Test extends Model
      * @return boolean
      */
     public function isSolved() {
-        return false;
+        // !!! PREROBIT; docasne spravene cez builder, kym nemam class Answer
+        return DB::table('answers')->where('test_id', $this->id)->first() != null;
     }
 
     /**

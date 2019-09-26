@@ -31,7 +31,7 @@
                             <td>{{ $test->isSolved() ? 'áno' : 'nie' }}</td>
                             <td>{{ $test->dateToString($test->created_at) }}</td>
                             <td class="text-center">
-                                @if ($test->canDelete())
+                                @if (!$test->isSolved())
                                     <a href="{{ route('test.edit', $test->id) }}" title="Upraviť {{ $test->name }}"><i class="fa fa-edit"></i></a>
                                 @endif
                             </td>

@@ -24,7 +24,7 @@
                     <button class="btn btn-danger px-4" type="submit"><i class="fa fa-lg fa-trash pr-3"></i>Zrušiť skupinu</button>
                 </form>
 
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Zatvoriť</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Zatvoriť</button>
             </div>
         </div>
     </div>
