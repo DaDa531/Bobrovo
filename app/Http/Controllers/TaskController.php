@@ -26,12 +26,15 @@ class TaskController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Test $test = null)
     {
         $tasks = Task::paginate(10);
-        $tests = Test::getTests()->get();
+        $tests = null;
+        if (!isset($test))
+            $tests = Test::getTests()->get();
         return view('tasks.index', [
             'tasks' => $tasks,
+            'test' => $test,
             'tests' => $tests
         ]);
     }
@@ -91,6 +94,7 @@ class TaskController extends Controller
         ]);
     }
 
+    /**
     /**
      * Show list of my tasks.
      *

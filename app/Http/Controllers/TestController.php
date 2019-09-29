@@ -81,7 +81,7 @@ class TestController extends Controller
             'public' => 0
         ]);
 
-        return redirect()->route('test.selecttasks', $test->id)->with([
+        return redirect()->route('tasks', $test->id)->with([
             'success' => 'Test bol úspešne vytvorený!'
         ]);
     }
@@ -167,13 +167,13 @@ class TestController extends Controller
      * Add selected tasks to a test.
      *
      * @param Request $request
-     * @param Test $test
      * @return Response
      */
-    public function addTasks(Request $request, Test $test)
+    public function addTasks(Request $request)
     {
-        if ($request->alltasks != null) {
-            $tasks = array_diff($request->alltasks, $test->tasks()->pluck('id')->toArray());
+        $test = Test::find($request->test);
+        if ($request->tasks != null) {
+            $tasks = array_diff($request->tasks, $test->tasks()->pluck('id')->toArray());
             // spravit cez zachytenie vynimky (ked do DB davam rovnaky zaznam, ako tam uz je), aby som nemusela robit ten mnozinovy rozdiel
             $test->tasks()->attach($tasks);
         }

@@ -26,9 +26,9 @@ Route::get('/ziak', function () {
 });
 
 //Tasks
-Route::get('/tasks', 'TaskController@index')->name('tasks');
 Route::get('/tasks/mytasks', 'TaskController@mytasks')->name('tasks.my');
 Route::get('/tasks/create', 'TaskController@create')->name('tasks.create');
+Route::get('/tasks/{test?}', 'TaskController@index')->name('tasks');
 Route::get('/tasks/{task}', 'TaskController@show')->name('tasks.show');
 Route::get('/tasks/{task}/edit', 'TaskController@edit')->name('tasks.edit');
 Route::get('/tasks/{task}/destroy', 'TaskController@destroy')->name('tasks.destroy');
@@ -70,9 +70,9 @@ Route::get('/tests/{test}/selecttasks', 'TestController@selectTasks')->name('tes
 Route::get('/tests/{test}/edit','TestController@edit')->name('test.edit');
 Route::get('/tests/{test}', 'TestController@show')->name('test.show');
 Route::post('/tests/store', 'TestController@store')->name('test.store');
+Route::post('/tests/addtasks', 'TestController@addTasks')->name('test.addtasks');
 Route::post('/tests/{test}/destroy', 'TestController@destroy')->name('test.destroy');
 Route::post('/tests/{test}/storetasks', 'TestController@storeTasks')->name('test.storetasks');
-Route::post('/tests/{test}/addtasks', 'TestController@addTasks')->name('test.addtasks');
 Route::post('/tests/{test}/removetasks', 'TestController@removeTasks')->name('test.removetasks');
 Route::post('/tests/{test}/update', 'TestController@update')->name('test.update');
 

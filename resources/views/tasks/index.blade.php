@@ -6,12 +6,19 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
 
+    <div class="row">
         <!-- Main content -->
         <div class="col-md-12">
             <h1>Zoznam úloh</h1>
-            TO DO: filter, pridávanie úloh do testu (ešte chýba form tag)
+            TO DO: filter, vylepšiť formulár
+        </div>
+    </div>
+
+    <form method="post" action="{{ route('test.addtasks') }}">
+        @csrf
+    <div class="row">
+        <div class="col-md-12">
             @if (isset($tasks))
 
                 <table class="table">
@@ -62,7 +69,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 @if (isset($test))
-                    <label for="test" class="font-weight-bold">Test</label>
+                    <!--<label for="test" class="font-weight-bold">Test</label>-->
                     <input type="hidden" name="test" value="{{$test->id}}">
                     <select name="t" id="test" class="custom-select" disabled>
                         <option value="{{$test->id}}" selected>{{$test->name}}</option>
@@ -81,5 +88,6 @@
             <button type="submit" class="btn btn-primary">Pridať úlohy do testu</button>
         </div>
     </div>
+    </form>
 </div>
 @endsection

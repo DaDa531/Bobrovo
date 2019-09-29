@@ -49,8 +49,8 @@
         </div>
         <div class="col-md-3 text-right">
             @if (!$test->isSolved())
-                <a href="{{ route('test.selecttasks', $test->id) }}" class="mr-2" title="Pridať/zrušiť úlohy">
-                    <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Pridať / zrušiť úlohy</button>
+                <a href="{{ route('tasks', $test->id) }}" class="mr-2" title="Pridať/zrušiť úlohy">
+                    <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Pridať úlohy</button>
                 </a>
             @endif
         </div>
