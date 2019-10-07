@@ -10,6 +10,7 @@ use App\Test;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTask;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Session;
 
 class TaskController extends Controller
 {
@@ -28,17 +29,44 @@ class TaskController extends Controller
      */
     public function index(Test $test = null)
     {
-        $tasks = Task::paginate(10);
+        $filter = Session::get('tasksFilter');
+        if ($filter) {
+            $category = !empty($filter['category']) ? $filter['category'] : null;
+            $topic = !empty($filter['topic']) ? $filter['topic'] : null;
+            // ??? ako to rozumne vyfiltrovat?
+            $tasks = Task::all();
+        }
+        else {
+            $tasks = Task::all();
+        }
+
         $tests = null;
         if (!isset($test))
             $tests = Test::getTests()->get();
         return view('tasks.index', [
             'tasks' => $tasks,
             'test' => $test,
-            'tests' => $tests
+            'tests' => $tests,
+            'topics' => Topic::all(),
+            'categories' => Category::all()
         ]);
     }
 
+    /**
+     * Filter tasks.
+     *
+     * @return Response
+     */
+    public function filter(Request $request){
+        $filter = array(
+            'category' => $request->input('category'),
+            'topic' => $request->input('topic')
+        );
+
+        Session::put('tasksFilter', $filter);
+
+        return redirect()->route('tasks');
+    }
 
     /**
      * Show given task.
@@ -107,7 +135,6 @@ class TaskController extends Controller
             'tasks' => $tasks
         ]);
     }
-
 
     /**
      * Store a newly created resource in storage.

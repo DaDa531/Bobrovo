@@ -74,7 +74,7 @@ class Task extends Model
 
 
     /**
-     * Return tests containng task
+     * Return tests containing task
      *
      * @return BelongsToMany
      */

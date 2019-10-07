@@ -15,6 +15,54 @@
         </div>
     </div>
 
+
+    <!-- Skusit pouzit Vue Select https://vue-select.org/ -->
+    <form method="POST" action="{{ route('tasks.filter') }}">
+        @csrf
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="category">Kategória</label>
+                <select name="category" id="category" class="custom-select" size="3" multiple>
+                    @foreach ($categories as $category)
+                        <option value="">{{ $category->name }} ({{ $category->class }} )</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="topic">Téma</label>
+                <select name="topic" id="topic" class="custom-select" size="3" multiple>
+                    @foreach ($topics as $topic)
+                        <option value="">{{ $topic->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <p>Typ úloh</p>
+
+            @foreach (['všetky','interaktívne','neinteraktívne'] as $type)
+                <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="{{ $type }}" name="type" value="{{ $type }}" {{ old('type') == $type ? "checked" : ''}}>
+                    <label class="custom-control-label" for="{{ $type}}">{{ $type }}</label>
+                </div>
+            @endforeach
+        </div>
+
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">Aplikuj filter TO DO</button>
+        </div>
+
+    </div>
+    </form>
+
+
     <form method="post" action="{{ route('test.addtasks') }}">
         @csrf
     <div class="row">
@@ -57,7 +105,7 @@
                     @endforeach
 
                 </table>
-                {{ $tasks->links() }}
+
             @else
                 <div>
                     Žiadne otázky
