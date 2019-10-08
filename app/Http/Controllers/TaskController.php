@@ -33,8 +33,7 @@ class TaskController extends Controller
         if ($filter) {
             $category = !empty($filter['category']) ? $filter['category'] : null;
             $topic = !empty($filter['topic']) ? $filter['topic'] : null;
-            // ??? ako to rozumne vyfiltrovat?
-            $tasks = Task::all();
+            $tasks = Task::ofCategories($category)->ofTopics($topic)->get();
         }
         else {
             $tasks = Task::all();
@@ -43,12 +42,14 @@ class TaskController extends Controller
         $tests = null;
         if (!isset($test))
             $tests = Test::getTests()->get();
+
         return view('tasks.index', [
             'tasks' => $tasks,
             'test' => $test,
             'tests' => $tests,
             'topics' => Topic::all(),
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'filter' => $filter
         ]);
     }
 
@@ -58,6 +59,8 @@ class TaskController extends Controller
      * @return Response
      */
     public function filter(Request $request){
+
+
         $filter = array(
             'category' => $request->input('category'),
             'topic' => $request->input('topic')
@@ -68,6 +71,17 @@ class TaskController extends Controller
         return redirect()->route('tasks');
     }
 
+    /**
+     * Delete task filter.
+     *
+     * @return Response
+     */
+    public function resetFilter(Request $request){
+
+        Session::put('tasksFilter', null);
+
+        return redirect()->route('tasks');
+    }
     /**
      * Show given task.
      *

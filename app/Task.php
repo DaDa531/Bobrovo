@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Task extends Model
 {
@@ -103,6 +104,34 @@ class Task extends Model
     public static function getTasksExcept($array)
     {
         return static::query()->whereNotIn('id', $array);
+    }
+
+    /**
+     * Scope a query to only include tasks of given categories.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  mixed  $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOfCategories($query, $categories){
+        if (!$categories)
+            return $query;
+        $ids = DB::table('task_category')->whereIn('category_id', $categories)->pluck('task_id');
+        return $query->whereIn('id', $ids);
+    }
+
+    /**
+     * Scope a query to only include tasks of given topics.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  mixed  $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOfTopics($query, $topics){
+        if (!$topics)
+            return $query;
+        $ids = DB::table('task_topic')->whereIn('topic_id', $topics)->pluck('task_id');
+        return $query->whereIn('id', $ids);
     }
 
     /**
