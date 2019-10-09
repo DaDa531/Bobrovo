@@ -11,7 +11,7 @@
         <!-- Main content -->
         <div class="col-md-12">
             <h1>Zoznam úloh</h1>
-            TO DO: pridať filter podľa typu úlohy, vylepšiť vzhľad formulárov, zobraziť zapamätaný filter, skúsiť vue-select; neskôr celé filtrovanie cez Vue
+            TO DO: pridať filter podľa typu úlohy, vylepšiť vzhľad formulárov, skúsiť vue-select; neskôr celé filtrovanie cez Vue
             <h2>Filter</h2>
         </div>
     </div>
@@ -27,9 +27,15 @@
             <div class="form-group">
                 <label for="category">Kategória</label>
                 <select name="category[]" id="category" class="custom-select" size="3" multiple>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }} ({{ $category->class }} )</option>
-                    @endforeach
+                    @if (!isset($filter) or empty($filter['category']))
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }} ({{ $category->class }} )</option>
+                        @endforeach
+                    @else
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}"{{ (in_array($category->id, $filter['category'])) ? "selected" : "" }}>{{ $category->name }} ({{ $category->class }} )</option>
+                        @endforeach
+                    @endif
                 </select>
             </div>
         </div>
@@ -38,9 +44,15 @@
             <div class="form-group">
                 <label for="topic">Téma</label>
                 <select name="topic[]" id="topic" class="custom-select" size="3" multiple>
-                    @foreach ($topics as $topic)
-                        <option value="{{ $topic->id }}">{{ $topic->name }}</option>
-                    @endforeach
+                    @if (!isset($filter) or empty($filter['topic']))
+                        @foreach ($topics as $topic)
+                            <option value="{{ $topic->id }}">{{ $topic->name }}</option>
+                        @endforeach
+                    @else
+                        @foreach ($topics as $topic)
+                            <option value="{{ $topic->id }}" {{ (in_array($topic->id, $filter['topic'])) ? "selected" : "" }}>{{ $topic->name }}</option>
+                        @endforeach
+                    @endif
                 </select>
             </div>
         </div>
