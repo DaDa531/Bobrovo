@@ -15,7 +15,8 @@ class CreateTopicsTable extends Migration
     {
         Schema::create('topics', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 255);
+            $table->string('name', 100);
+            $table->string('description', 255);
             $table->integer('parent_id')->unsigned()->nullable();
             $table->foreign('parent_id')->references('id')->on('topics')->onDelete('cascade');
             $table->timestamps();
