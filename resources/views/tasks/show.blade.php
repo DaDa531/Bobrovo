@@ -102,7 +102,7 @@
                     @else
                         <ul class="list-group list-group-flush">
                             @foreach ($topics as $topic)
-                                <li class="list-group-item">{{$topic->name}}</li>
+                                <li class="list-group-item">{{$topic->description}}</li>
                             @endforeach
                         </ul>
                     @endif

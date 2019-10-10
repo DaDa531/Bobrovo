@@ -27,7 +27,7 @@ class TaskController extends Controller
      *
      * @return Response
      */
-    public function index(Test $test = null)
+    public function index()
     {
         $filter = Session::get('tasksFilter');
         if ($filter) {
@@ -39,9 +39,13 @@ class TaskController extends Controller
             $tasks = Task::all();
         }
 
+        $test = Session::get('test');
+
         $tests = null;
         if (!isset($test))
             $tests = Test::getTests()->get();
+        else
+            $test = Test::find($test);
 
         return view('tasks.index', [
             'tasks' => $tasks,
@@ -173,6 +177,7 @@ class TaskController extends Controller
             'created_by' => auth()->user()->id
         ]);
 
+        //TO DO - ak zadám nejaku podtému (t.j. má parent_id), automaticky sa pridá aj parent
         if ($request->topics != null) {
             $task->topics()->attach($request->topics);
         }

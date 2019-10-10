@@ -49,9 +49,10 @@
         </div>
         <div class="col-md-3 text-right">
             @if (!$test->isSolved())
-                <a href="{{ route('tasks', $test->id) }}" class="mr-2" title="Pridať/zrušiť úlohy">
-                    <button class="btn btn-secondary px-4"><i class="fa fa-edit pr-2"></i>Pridať úlohy</button>
-                </a>
+                <form action="{{ route('test.selecttasks', $test->id) }}" method="post">
+                    @csrf
+                    <button class="btn btn-secondary px-4" type="submit" title="Pridať úlohy"><i class="fa fa-edit pr-2"></i>Pridať úlohy</button>
+                </form>
             @endif
         </div>
     </div>
@@ -75,7 +76,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <h3><h3>Pridelenie testu skupinám</h3></h3>
+            <h3>Pridelenie testu skupinám</h3>
         </div>
         <div class="col-md-6 text-right">
             <a href="{{ route('assignment.create', $test->id) }}" class="d-inline mr-2">

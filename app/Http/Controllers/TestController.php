@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreTest;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class TestController extends Controller
 {
@@ -133,16 +134,8 @@ class TestController extends Controller
         if (!$test->authIsMyTeacher())
             return back();
 
-        $categories = Category::all();
-        $topics = Topic::all();
-        $selectedtasks = $test->tasks();
-        return view('test.selecttasks', [
-            'test' => $test,
-            'categories' => $categories,
-            'topics' => $topics,
-            'selectedtasks' => $selectedtasks->get(),
-            'alltasks' => Task::getTasksExcept( $selectedtasks->pluck('id')->toArray())->get()
-        ]);
+        Session::put('test', $test->id);
+        return redirect()->route('tasks');
     }
 
     /**
@@ -171,6 +164,8 @@ class TestController extends Controller
      */
     public function addTasks(Request $request)
     {
+        Session::forget('test');
+
         $test = Test::find($request->test);
         if ($request->tasks != null) {
             $tasks = array_diff($request->tasks, $test->tasks()->pluck('id')->toArray());
@@ -178,7 +173,7 @@ class TestController extends Controller
             $test->tasks()->attach($tasks);
         }
 
-        return back();
+        return redirect()->route('test.show', $test->id);
     }
 
     /**
