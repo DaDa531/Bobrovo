@@ -35,6 +35,11 @@ const app = new Vue({
 
 import SlimSelect from 'slim-select'
 
-new SlimSelect({
+var s1 = new SlimSelect({
     select: '#slim-select'
 })
+
+var s2 = new SlimSelect({
+    select: '#slim-select2'
+})
+

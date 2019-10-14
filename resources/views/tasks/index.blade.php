@@ -86,6 +86,60 @@
         </div>
     </div>
 
+    <!--
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.18.7/slimselect.min.css" rel="stylesheet">
+    <form method="POST" action="{{ route('tasks.filter') }}">
+        @csrf
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="category">Kategória</label>
+                    <select name="category[]" id="slim-select" multiple="multiple">
+                        @if (!isset($filter) or empty($filter['category']))
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }} ({{ $category->class }} )</option>
+                            @endforeach
+                        @else
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"{{ (in_array($category->id, $filter['category'])) ? "selected" : "" }}>{{ $category->name }} ({{ $category->class }} )</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="topic">Téma</label>
+                    <select name="topic[]" id="slim-select2" multiple="multiple">
+                        @if (!isset($filter) or empty($filter['topic']))
+                            @foreach ($topics as $topic)
+                                <option value="{{ $topic->id }}">{{ $topic->name }}</option>
+                            @endforeach
+                        @else
+                            @foreach ($topics as $topic)
+                                <option value="{{ $topic->id }}" {{ (in_array($topic->id, $filter['topic'])) ? "selected" : "" }}>{{ $topic->name }}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary">Aplikuj filter</button>
+            </div>
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary">Zruš filter</button>
+            </div>
+        </div>
+    </form>
+    -->
+
     @if (isset($tasks) and count($tasks) > 0)
         <form method="post" action="{{ route('test.addtasks') }}">
             @csrf
@@ -160,4 +214,5 @@
         </div>
     @endif
 </div>
+
 @endsection
