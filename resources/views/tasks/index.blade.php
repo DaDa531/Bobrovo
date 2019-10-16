@@ -11,22 +11,31 @@
         <!-- Main content -->
         <div class="col-md-12">
             <h1>Zoznam úloh</h1>
-            TO DO: pridať filter podľa typu úlohy, vylepšiť vzhľad formulárov, skúsiť vue-select; neskôr celé filtrovanie cez Vue
-            <h2>Filter</h2>
+            TO DO: slim-select - preštýlovať? ; filter - defaultne nech je zbalený a klinutím sa rozbalí; neskôr celé filtrovanie cez Vue
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-6">
+            <h2>Filter</h2>
+        </div>
+        <div class="col-6 text-right">
+            <form method="post" action="{{ route('tasks.resetfilter') }}">
+                @csrf
+                <button type="submit" class="btn btn-primary mb-2 mt-2">Zruš filter</button>
+            </form>
+        </div>
+    </div>
 
-    <!-- Skusit pouzit Vue Select https://vue-select.org/ -->
-    <form method="POST" action="{{ route('tasks.filter') }}">
-        @csrf
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.18.7/slimselect.min.css" rel="stylesheet">
 
     <div class="row">
-
-        <div class="col-md-5">
+        <div class="col-md-12">
+            <form method="POST" action="{{ route('tasks.filter') }}">
+                @csrf
             <div class="form-group">
                 <label for="category">Kategória</label>
-                <select name="category[]" id="category" class="custom-select" size="3" multiple>
+                <select name="category[]" id="slim-select" multiple>
                     @if (!isset($filter) or empty($filter['category']))
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }} ({{ $category->class }} )</option>
@@ -38,12 +47,10 @@
                     @endif
                 </select>
             </div>
-        </div>
 
-        <div class="col-md-5">
             <div class="form-group">
                 <label for="topic">Téma</label>
-                <select name="topic[]" id="topic" class="custom-select" size="3" multiple>
+                <select name="topic[]" id="slim-select2" multiple>
                     @if (!isset($filter) or empty($filter['topic']))
                         @foreach ($topics as $topic)
                             <option value="{{ $topic->id }}">{{ $topic->name }}</option>
@@ -55,90 +62,24 @@
                     @endif
                 </select>
             </div>
-        </div>
 
-        <!--
-        <div class="col-md-2">
-            <p>Typ úloh</p>
+            <div class="form-group">
+                Typ úloh
+                @foreach ([1,2,3,4] as $type)
+                    <div class="custom-control custom-checkbox d-inline">
+                        <input type="checkbox" class="custom-control-input" id="{{ $type }}" name="type[]" value="{{ $type }}" {{ ($filter['type'] == null || in_array($type, $filter['type'])) ? "checked" : "" }} >
+                        <label class="custom-control-label" for="{{ $type }}">{{ $type }}</label>
+                    </div>
+                @endforeach
+            </div>
 
-            @foreach (['všetky','interaktívne','neinteraktívne'] as $type)
-                <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="{{ $type }}" name="type" value="{{ $type }}" {{ old('type') == $type ? "checked" : ''}}>
-                    <label class="custom-control-label" for="{{ $type}}">{{ $type }}</label>
-                </div>
-            @endforeach
-        </div>
-    -->
-
-        <div class="col-md-2">
-            <button type="submit" class="btn btn-primary">Aplikuj filter</button>
-        </div>
-
-    </div>
-    </form>
-
-    <div class="row">
-        <div class="col-12">
-            <form method="post" action="{{ route('tasks.resetfilter') }}">
-                @csrf
-                <button type="submit" class="btn btn-primary mb-2">Zruš filter</button>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Aplikuj filter</button>
+            </div>
             </form>
         </div>
     </div>
 
-    <!--
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.18.7/slimselect.min.css" rel="stylesheet">
-    <form method="POST" action="{{ route('tasks.filter') }}">
-        @csrf
-
-        <div class="row">
-
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="category">Kategória</label>
-                    <select name="category[]" id="slim-select" multiple="multiple">
-                        @if (!isset($filter) or empty($filter['category']))
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }} ({{ $category->class }} )</option>
-                            @endforeach
-                        @else
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}"{{ (in_array($category->id, $filter['category'])) ? "selected" : "" }}>{{ $category->name }} ({{ $category->class }} )</option>
-                            @endforeach
-                        @endif
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="topic">Téma</label>
-                    <select name="topic[]" id="slim-select2" multiple="multiple">
-                        @if (!isset($filter) or empty($filter['topic']))
-                            @foreach ($topics as $topic)
-                                <option value="{{ $topic->id }}">{{ $topic->name }}</option>
-                            @endforeach
-                        @else
-                            @foreach ($topics as $topic)
-                                <option value="{{ $topic->id }}" {{ (in_array($topic->id, $filter['topic'])) ? "selected" : "" }}>{{ $topic->name }}</option>
-                            @endforeach
-                        @endif
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <button type="submit" class="btn btn-primary">Aplikuj filter</button>
-            </div>
-            <div class="col-md-6">
-                <button type="submit" class="btn btn-primary">Zruš filter</button>
-            </div>
-        </div>
-    </form>
-    -->
 
     @if (isset($tasks) and count($tasks) > 0)
         <form method="post" action="{{ route('test.addtasks') }}">
@@ -183,7 +124,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-6">
                 <div class="form-group">
                     @if (isset($test))
                         <!--<label for="test" class="font-weight-bold">Test</label>-->
@@ -201,8 +142,10 @@
                         </select>
                 </div>
             </div>
-            <div class="col-md-6">
-                <button type="submit" class="btn btn-primary">Pridať úlohy do testu</button>
+            <div class="col-6">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Pridať úlohy do testu</button>
+                </div>
             </div>
         </div>
         </form>

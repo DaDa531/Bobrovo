@@ -135,6 +135,19 @@ class Task extends Model
     }
 
     /**
+     * Scope a query to only include tasks of given types.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  mixed  $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOfTypes($query, $types){
+        if (!$types)
+            return $query;
+        return $query->whereIn('type', $types);
+    }
+
+    /**
      * Return if task can be deleted (belongs to authorised user, not in test)
      *
      * @return bool

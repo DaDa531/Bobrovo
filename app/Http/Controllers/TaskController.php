@@ -33,7 +33,8 @@ class TaskController extends Controller
         if ($filter) {
             $category = !empty($filter['category']) ? $filter['category'] : null;
             $topic = !empty($filter['topic']) ? $filter['topic'] : null;
-            $tasks = Task::ofCategories($category)->ofTopics($topic)->get();
+            $type = !empty($filter['type']) ? $filter['type'] : null;
+            $tasks = Task::ofCategories($category)->ofTopics($topic)->ofTypes($type)->get();
         }
         else {
             $tasks = Task::all();
@@ -58,16 +59,16 @@ class TaskController extends Controller
     }
 
     /**
-     * Filter tasks.
+     * Set the tasks filter
      *
      * @return Response
      */
     public function filter(Request $request){
 
-
         $filter = array(
             'category' => $request->input('category'),
-            'topic' => $request->input('topic')
+            'topic' => $request->input('topic'),
+            'type' => $request->input('type')
         );
 
         Session::put('tasksFilter', $filter);
@@ -86,6 +87,7 @@ class TaskController extends Controller
 
         return redirect()->route('tasks');
     }
+
     /**
      * Show given task.
      *

@@ -52680,10 +52680,10 @@ var app = new Vue({
   el: '#app'
 });
 
-var s1 = new slim_select__WEBPACK_IMPORTED_MODULE_0___default.a({
+new slim_select__WEBPACK_IMPORTED_MODULE_0___default.a({
   select: '#slim-select'
 });
-var s2 = new slim_select__WEBPACK_IMPORTED_MODULE_0___default.a({
+new slim_select__WEBPACK_IMPORTED_MODULE_0___default.a({
   select: '#slim-select2'
 });
 
