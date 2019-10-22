@@ -11,13 +11,13 @@
         <!-- Main content -->
         <div class="col-md-12">
             <h1>Zoznam úloh</h1>
-            TO DO: slim-select - preštýlovať? ; filter - defaultne nech je zbalený a klinutím sa rozbalí; neskôr celé filtrovanie cez Vue
+            TO DO: slim-select - preštýlovať? ; filter - defaultne nech je zbalený a kliknutím sa rozbalí; neskôr celé filtrovanie cez Vue
         </div>
     </div>
 
     <div class="row">
         <div class="col-6">
-            <h2>Filter</h2>
+            <a data-toggle="collapse" href="#collapseOne"><h3>Zobraziť/skryť filter</h3></a>
         </div>
         <div class="col-6 text-right">
             <form method="post" action="{{ route('tasks.resetfilter') }}">
@@ -29,7 +29,7 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.18.7/slimselect.min.css" rel="stylesheet">
 
-    <div class="row">
+    <div class="row collapse" id="collapseOne">
         <div class="col-md-12">
             <form method="POST" action="{{ route('tasks.filter') }}">
                 @csrf
