@@ -11,13 +11,13 @@
         <!-- Main content -->
         <div class="col-md-12">
             <h1>Zoznam úloh</h1>
-            TO DO: slim-select - preštýlovať? ; filter - defaultne nech je zbalený a kliknutím sa rozbalí; neskôr celé filtrovanie cez Vue
+            TO DO: slim-select - preštýlovať? ; neskôr celé filtrovanie cez Vue
         </div>
     </div>
 
     <div class="row">
-        <div class="col-6">
-            <a data-toggle="collapse" href="#collapseOne"><h3>Zobraziť/skryť filter</h3></a>
+        <div class="col-6 mt-3">
+            <a data-toggle="collapse" href="#collapseOne">Zobraziť/skryť filter</a>
         </div>
         <div class="col-6 text-right">
             <form method="post" action="{{ route('tasks.resetfilter') }}">
@@ -29,7 +29,7 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.18.7/slimselect.min.css" rel="stylesheet">
 
-    <div class="row collapse" id="collapseOne">
+    <div class="row collapse {{($filter) ? "show" : ""}}" id="collapseOne">
         <div class="col-md-12">
             <form method="POST" action="{{ route('tasks.filter') }}">
                 @csrf
@@ -67,8 +67,8 @@
                 Typ úloh
                 @foreach ([1,2,3,4] as $type)
                     <div class="custom-control custom-checkbox d-inline">
-                        <input type="checkbox" class="custom-control-input" id="{{ $type }}" name="type[]" value="{{ $type }}" {{ ($filter['type'] == null || in_array($type, $filter['type'])) ? "checked" : "" }} >
-                        <label class="custom-control-label" for="{{ $type }}">{{ $type }}</label>
+                        <input type="checkbox" class="custom-control-input" id="typ_{{ $type }}" name="type[]" value="{{ $type }}" {{ ($filter['type'] == null || in_array($type, $filter['type'])) ? "checked" : "" }} >
+                        <label class="custom-control-label" for="typ_{{ $type }}">{{ $type }}</label>
                     </div>
                 @endforeach
             </div>
